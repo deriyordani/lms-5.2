@@ -10,7 +10,19 @@ Class Student_m extends MY_Model{
 		$sql = " SELECT * FROM `lms_student` WHERE no_peserta = TRIM('".$id_number."') ";
 
 		return $this->exec_query($sql);
-	}	
+	}
+
+	function get_available($id_number = NULL) {
+		$sql = "SELECT s.*, dp.`is_claim`, u.`uc` AS `uc_user` 
+					FROM `lms_student` s
+					LEFT JOIN `lms_diklat_participant` dp
+					ON dp.`no_peserta` = s.`no_peserta`
+					LEFT JOIN `lms_user` u
+					ON u.`uc_person` = dp.`uc`
+					WHERE s.`no_peserta` = TRIM('".$id_number."')";
+
+		return $this->exec_query($sql);			
+	}
 
 	function get_info_student($uc = NULL){
 		$sql = " SELECT s.*, dp.is_claim, dc.class_label, dpe.tahun, dpe.periode_mulai, dpe.periode_selesai,

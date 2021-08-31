@@ -13,8 +13,8 @@
 		berikut adalah informasi akun anda : 
 	</p>
 	<p>
-		<b>Username</b> : <?=$username?><br>
 		<b>Email</b> : <?=$email?><br>
+		<b>Username</b> : <?=$username?><br>
 		<b>Password</b> : <?=$password?><br>
 
 		untuk dapat mengakses laman Learning Management System Politeknik Pelayaran Sorong, </br>

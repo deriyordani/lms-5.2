@@ -251,138 +251,7 @@ Class Auth extends CI_Controller{
 		$this->load->view('auth/register');
 	}
 
-	function store_register() {
-		if ($this->input->post('f_save')) {
-			$type_person = $this->input->post('f_type_user');
-
-			$email 		= trim($this->input->post('f_email'));
-			$username 	= trim($this->input->post('f_username'));
-			$password 	= trim($this->input->post('f_password'));
-
-			$uc_person = NULL;
-			$uc_user = uniqid();
-			$row_user = NULL;
-
-
-			//	CHECK PERSON AVAILABILITY
-			if ($type_person == 2) {
-				//	IF INSCTRUCTOR
-				$id_number = $this->input->post('f_id_number');
-
-				$query = $this->instructor_m->get_available($id_number);
-				
-				if ($query->num_rows() > 0) {
-					$row = $query->row();
-					$uc_person 	= $row->uc;
-					$full_name 	= $row->full_name;
-					$is_claim	= $row->is_claim;
-					$row_user	= $row->uc_user;
-
-					if ($row_user != NULL) {
-						//echo "CLAIMED";
-						$this->session->set_flashdata('info', $this->config->item('flash_register_claimed'));
-					}
- 				}
- 				else {
- 					//echo "NA";
- 					$this->session->set_flashdata('info', $this->config->item('flash_register_no_avail'));
- 				}
-			}
-			
-			if ($type_person == 3) {
-				//	IF STUDENT
-				$no_peserta = $this->input->post('f_id_number');
-
-				$query = $this->student_m->get_available($no_peserta);
-
-				if ($query->num_rows() > 0) {
-					$row = $query->row();
-					$uc_person 	= $row->uc;
-					$full_name 	= $row->full_name;
-					$is_claim 	= $row->is_claim;
-					$row_user	= $row->uc_user;
-
-					if ($row_user != NULL) {
-						//echo "CLAIMED";
-						$this->session->set_flashdata('info', $this->config->item('flash_register_claimed'));
-					}
- 				}
- 				else {
- 					//echo "NA";
- 					$this->session->set_flashdata('info', $this->config->item('flash_register_no_avail'));
- 				}
-			}
-			
-			//SEND MAIL
-			if (($uc_person != NULL) && ($row_user == NULL)){				
-				//	If Person Available & Hasn't Claim Yet
-				$this->load->library('email');
-
-				$this->email->from('lmspoltekpelsorong2021@gmail.com', 'Administrator : LMS');
-
-		        // Email penerima
-		        $this->email->to($email);
-		        $this->email->subject('Aktivasi Akun : LMS Poltekpel Sorong');
-
-		        $data_email = [
-		        	'full_name' => $full_name,
-		        	'email' => $email,
-		        	'uc' => $uc_user,
-		        	'username' => $username,
-		        	'password' => $password
-		        ];
-
-				//SEND MAIL ACTIVATION
-				$msg = $this->load->view('auth/temp_email', $data_email, TRUE);
-
-		        // Isi email
-		        $this->email->message($msg);
-
-		        //	UPDATE CLAIM STATUS
-		        if ($this->email->send()) {
-		        	//	If Mail Successfully Sent
-		        	$this->session->set_flashdata('info', $this->config->item('flash_register'));
-					
-					$update_data = array('is_claim' => 1);
-
-		        	if ($type_person == 2) {
-						//	IF INSCTRUCTOR
-						$filter = array('id_number' => $id_number);
-						$this->instructor_m->update_data($update_data, array());
-					}
-						
-					// if ($type_person == 3) {
-					// 	//	IF STUDENT
-					// 	$filter = array('no_peserta' => $no_peserta);
-					// 	$this->load->model('diklat_participant_m');
-					// 	$this->diklat_participant_m->update_data($update_data, $filter);
-					// }
-		        }
-		        else {
-		        	//	If Fail to Send
-		        	echo  show_error($this->email->print_debugger());
-
-		        	$this->session->set_flashdata('info', $this->config->item('flash_register_gagal'));
-		        }
-
-		        //	INSERT USER
-		        $data_user  = [
-					'uc' => $uc_user,
-					'uc_person' => $uc_person,
-					'username' => $username,
-					'password' => password_hash($password, PASSWORD_BCRYPT),
-					'email' => $email,
-					'category' => $this->input->post('f_type_user')
-				];
-
-				$this->user_m->insert_data($data_user);
-			}
-		}
-
-		redirect('auth/register');
-	}
-
-	function store_register_DUMP2() {
+	function store_register_NEW() {
 		if ($this->input->post('f_save')) {
 			$type_person = $this->input->post('f_type_user');
 
@@ -469,7 +338,23 @@ Class Auth extends CI_Controller{
 					
 				}
 
-				echo $uc_person;
+				// if ($type_person == 3) {
+					
+				// 	//INSERT TO Taruna
+
+				// 	$data_taruna = [
+				// 		'uc' => $uc_person,
+				// 		'no_peserta' => trim($this->input->post('f_nomor_peserta')),
+				// 		'full_name' => $fullname,
+						
+				// 	];
+
+				// 	$this->student_m->insert_data($data_taruna);
+				// }
+
+				//insert to USER
+				
+				
 
 				$data_user  = [
 					'uc' => $uc_user,
@@ -480,17 +365,13 @@ Class Auth extends CI_Controller{
 					'category' => $this->input->post('f_type_user')
 				];
 
-				echo "<pre>";
-				print_r($data_user);
-				echo "</pre>";
+				$this->user_m->insert_data($data_user);
 
-				// $this->user_m->insert_data($data_user);
-
-    // 			redirect('auth/register');
+    			redirect('auth/register');
 
 	        } else {
 
-	        	echo show_error($this->email->print_debugger());
+	        	echo  show_error($this->email->print_debugger());
 
 	        	$this->session->set_flashdata('info', $this->config->item('flash_register_gagal'));
 
@@ -499,7 +380,7 @@ Class Auth extends CI_Controller{
 	        }
 		}
 
-		//redirect('register');
+		redirect('register');
 	}
 
 	function store_register_DUMP(){

@@ -255,13 +255,13 @@ Class Auth extends CI_Controller{
 		if ($this->input->post('f_save')) {
 			$type_person = $this->input->post('f_type_user');
 
-			$email 		= trim($this->input->post('f_email'));
+			$email  	= trim($this->input->post('f_email'));
 			$username 	= trim($this->input->post('f_username'));
 			$password 	= trim($this->input->post('f_password'));
+			//$fullname = $this->input->post('f_nama_lengkap');
 
 			$uc_person = NULL;
 			$uc_user = uniqid();
-			$row_user = NULL;
 
 
 			//	CHECK PERSON AVAILABILITY
@@ -269,22 +269,19 @@ Class Auth extends CI_Controller{
 				//	IF INSCTRUCTOR
 				$id_number = $this->input->post('f_id_number');
 
-				$query = $this->instructor_m->get_available($id_number);
+				$query = $this->instructor_m->get_id_number($id_number);
 				
 				if ($query->num_rows() > 0) {
 					$row = $query->row();
 					$uc_person 	= $row->uc;
 					$full_name 	= $row->full_name;
 					$is_claim	= $row->is_claim;
-					$row_user	= $row->uc_user;
 
-					if ($row_user != NULL) {
-						//echo "CLAIMED";
+					if ($is_claim == 1) {
 						$this->session->set_flashdata('info', $this->config->item('flash_register_claimed'));
 					}
  				}
  				else {
- 					//echo "NA";
  					$this->session->set_flashdata('info', $this->config->item('flash_register_no_avail'));
  				}
 			}
@@ -299,22 +296,19 @@ Class Auth extends CI_Controller{
 					$row = $query->row();
 					$uc_person 	= $row->uc;
 					$full_name 	= $row->full_name;
-					$is_claim 	= $row->is_claim;
-					$row_user	= $row->uc_user;
+					$is_claim	= $row->is_claim;
 
-					if ($row_user != NULL) {
-						//echo "CLAIMED";
+					if ($is_claim == 1) {
 						$this->session->set_flashdata('info', $this->config->item('flash_register_claimed'));
 					}
  				}
  				else {
- 					//echo "NA";
  					$this->session->set_flashdata('info', $this->config->item('flash_register_no_avail'));
  				}
 			}
-			
+
 			//SEND MAIL
-			if (($uc_person != NULL) && ($row_user == NULL)){				
+			if (($uc_person != NULL) && ($is_claim != 1)) {
 				//	If Person Available & Hasn't Claim Yet
 				$this->load->library('email');
 
@@ -351,12 +345,12 @@ Class Auth extends CI_Controller{
 						$this->instructor_m->update_data($update_data, array());
 					}
 						
-					// if ($type_person == 3) {
-					// 	//	IF STUDENT
-					// 	$filter = array('no_peserta' => $no_peserta);
-					// 	$this->load->model('diklat_participant_m');
-					// 	$this->diklat_participant_m->update_data($update_data, $filter);
-					// }
+					if ($type_person == 3) {
+						//	IF STUDENT
+						$filter = array('no_peserta' => $no_peserta);
+						$this->load->model('diklat_participant_m');
+						$this->diklat_participant_m->update_data($update_data, $filter);
+					}	
 		        }
 		        else {
 		        	//	If Fail to Send

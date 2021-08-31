@@ -49,7 +49,7 @@ body {
                                             </div>
                                         <?php endif;?>
                                         <!-- Registration form-->
-                                        <?=form_open('auth/store_register_NEW',array('name' => 'registration'))?>
+                                        <?=form_open('auth/store_register',array('name' => 'registration'))?>
                                             <div class="form-group">
                                                 <label class="small mb-1" >Tipe Pengguna</label>
                                                 <select name="f_type_user" class="form-control form-control-lg">
@@ -58,13 +58,14 @@ body {
                                                     <option value="3">Peserta/Taruna</option>
                                                 </select>
                                             </div>
-                                           
+                                            <!--
                                             <div class="form-group">
                                                 <label class="small mb-1" >Nama Lengkap</label>
                                                 <input class="form-control" name="f_nama_lengkap" type="text"  />
                                             </div>
+                                            -->
                                             <div class="form-group">
-                                                <label class="small mb-1" >ID Number</label>
+                                                <label class="small mb-1" >NIK / No. Peserta</label>
                                                 <input type="text" name="f_id_number" class="form-control" required="">
                                             </div>
 
