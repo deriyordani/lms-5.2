@@ -83,78 +83,156 @@ Class Auth extends CI_Controller{
 			$password = $this->input->post('f_password');
 
 			$query = $this->user_m->get_filtered(array('username' => $username));
+
 			if ($query->num_rows() > 0) {
-				
+
 				$row = $query->row();
 				$uc_user = $row->uc;
-				$username = $row->username;
-				$full_name = $row->full_name;
+				$usersname = $row->username;
+				
 				$category = $row->category;
 				$uc_person = $row->uc_person;
 				$photo = $row->photo;
+				$uc_prodi = $row->uc_prodi;
+
+				//print_r($row);
+
 
 				//CEK PASSWORD
+
 				if(password_verify($password,$row->password)){
 
 					if ($category == 1) {
-						$data = array(
-							'log_uc'		=> $uc_user,
-							'log_username'		=> $username,
-							'log_full_name'		=> $full_name,
-							'log_category' 		=> $category,
+						$set_session = array(
+							'log_uc'	=> $uc_user,
+							'log_username' => $usersname,
+							'log_category' => $category,
 							'log_photo' => $photo
 							);
 
-						$this->session->set_userdata($data);
+						$this->session->set_userdata($set_session);
 
 						redirect('period');
 
-					}elseif ($category == 2) {
-						
-						$qins = $this->instructor_m->get_login_ins($uc_user);
-						if ($qins->num_rows() > 0) {
-							$qins = $query->row();
-							$data = array(
-								'log_uc'		=> $uc_user,
-								'log_username'		=> $username,
-								'log_full_name'		=> $full_name,
-								'log_category' 		=> $category,
-								'log_photo' => $photo,
-								'log_uc_prodi' => $qins->uc_prodi,
-								'log_uc_person' => $uc_person
-								);
-
-							$this->session->set_userdata($data);
-						}
-
-					}elseif ($category == 3) {
-						// code...
 					}
-					// $data = array(
-					// 	'log_uc'		=> $row->uc,
-					// 	'log_username'		=> $row->username,
-					// 	'log_full_name'		=> $row->full_name,
-					// 	'log_category' 		=> $row->category,
-					// 	'log_photo' => $row->photo
-					// 	);
 
-					// $this->session->set_userdata($data);
+					if ($category == 2 || $category == 4) {
+						//$qprodi = $this->user_m->get_login_prodi($uc_user)->row();
 
-					// redirect('period');
+						$set_session = array(
+							'log_uc'	=> $uc_user,
+							'log_username' => $usersname,
+							'log_category' => $category,
+							'log_photo' => $photo,
+							'log_uc_person' => $uc_person,
+							'log_uc_prodi' => $uc_prodi,
+							);
+
+						$this->session->set_userdata($set_session);
+
+						redirect('classroom');
+					}
+
+					if ($category == 3) {
+						$qstud = $this->user_m->get_login_stud($uc_user)->row();
+
+						$set_session = array(
+							'log_uc'	=> $uc_user,
+							'log_username' => $usersname,
+							'log_category' => $category,
+							'log_photo' => $photo,
+							'log_uc_person' => $uc_person,
+							'log_uc_prodi' => $uc_prodi,
+							);
+
+						$this->session->set_userdata($set_session);
+
+						redirect('student/classroom');
+					}
+
+					
 
 				}else{
-
 					//FLASH Password tidak cocok
 					$this->session->set_flashdata('info', $this->config->item('flash_login_password_not_match'));
 					redirect('auth/login');
 				}
 
-
-			}else{
-				//FLASH USERNAME TIDAK TERSEDIA
-				$this->session->set_flashdata('info', $this->config->item('flash_login_username_not_ready'));
-				redirect('auth/login');
 			}
+
+			// $query = $this->user_m->get_filtered(array('username' => $username));
+			// if ($query->num_rows() > 0) {
+				
+			// 	$row = $query->row();
+			// 	$uc_user = $row->uc;
+			// 	$username = $row->username;
+			// 	$full_name = $row->full_name;
+			// 	$category = $row->category;
+			// 	$uc_person = $row->uc_person;
+			// 	$photo = $row->photo;
+
+			// 	//CEK PASSWORD
+			// 	if(password_verify($password,$row->password)){
+
+			// 		if ($category == 1) {
+			// 			$data = array(
+			// 				'log_uc'		=> $uc_user,
+			// 				'log_username'		=> $username,
+			// 				'log_full_name'		=> $full_name,
+			// 				'log_category' 		=> $category,
+			// 				'log_photo' => $photo
+			// 				);
+
+			// 			$this->session->set_userdata($data);
+
+			// 			redirect('period');
+
+			// 		}elseif ($category == 2) {
+						
+			// 			$qins = $this->instructor_m->get_login_ins($uc_user);
+			// 			if ($qins->num_rows() > 0) {
+			// 				$qins = $query->row();
+			// 				$data = array(
+			// 					'log_uc'		=> $uc_user,
+			// 					'log_username'		=> $username,
+			// 					'log_full_name'		=> $full_name,
+			// 					'log_category' 		=> $category,
+			// 					'log_photo' => $photo,
+			// 					'log_uc_prodi' => $qins->uc_prodi,
+			// 					'log_uc_person' => $uc_person
+			// 					);
+
+			// 				$this->session->set_userdata($data);
+			// 			}
+
+			// 		}elseif ($category == 3) {
+			// 			// code...
+			// 		}
+			// 		// $data = array(
+			// 		// 	'log_uc'		=> $row->uc,
+			// 		// 	'log_username'		=> $row->username,
+			// 		// 	'log_full_name'		=> $row->full_name,
+			// 		// 	'log_category' 		=> $row->category,
+			// 		// 	'log_photo' => $row->photo
+			// 		// 	);
+
+			// 		// $this->session->set_userdata($data);
+
+			// 		// redirect('period');
+
+			// 	}else{
+
+			// 		//FLASH Password tidak cocok
+			// 		$this->session->set_flashdata('info', $this->config->item('flash_login_password_not_match'));
+			// 		redirect('auth/login');
+			// 	}
+
+
+			// }else{
+			// 	//FLASH USERNAME TIDAK TERSEDIA
+			// 	$this->session->set_flashdata('info', $this->config->item('flash_login_username_not_ready'));
+			// 	redirect('auth/login');
+			// }
 			
 		}
 	}

@@ -156,8 +156,10 @@
                                     elseif ($session_category == 3) {
                                         echo "Peserta Diklat";
                                     }
-                                    elseif ($session_category == 4 || $session_category == 5) {
-                                        echo "Operator";
+                                    elseif ($session_category == 4) {
+                                        echo "Operator Prodi";
+                                    }elseif ($session_category == 5) {
+                                        echo "Operator DKP";
                                     }
 
                                 ?>

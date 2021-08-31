@@ -4,7 +4,7 @@ Class Period extends CI_Controller{
 		parent::__construct();
 
 		if ((!$this->im_login->is_login('log_username'))) {
-			redirect('auth/admin');
+			redirect('auth/login');
 		}
 
 		$this->load->model('diklat_period_m');

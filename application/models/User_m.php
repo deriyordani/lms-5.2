@@ -130,4 +130,29 @@ Class User_m extends MY_Model{
 
 		return $this->exec_query($sql);
 	}
+
+	function get_login_prodi($uc_user = NULL){
+		$sql = "
+
+			SELECT u.*, p.prodi
+			FROM lms_user u 
+			LEFT JOIN lms_prodi p ON u.uc_prodi = p.uc 
+			WHERE u.uc = '".$uc_user."' 
+		";
+
+		return $this->exec_query($sql);
+	}
+
+	function get_login_stud($uc_user = NULL){
+		$sql = "
+
+			SELECT u.*, s.full_name,dp.uc as uc_diklat_participant, dp.uc_diklat_period, dp.uc_diklat_class
+			FROM lms_user u 
+			LEFT JOIN lms_student s ON u.uc_person = s.uc
+			LEFT JOIN lms_diklat_participant dp ON s.no_peserta = dp.no_peserta
+			WHERE u.uc = '".$uc_user."' 
+		";
+
+		return $this->exec_query($sql);
+	}
 }
