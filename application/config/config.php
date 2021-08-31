@@ -380,7 +380,11 @@ $config['encryption_key'] = 'lms123!';
 |
 */
 $config['sess_driver'] = 'files';
+<<<<<<< Updated upstream
 $config['sess_cookie_name'] = 'lms_session_ng';
+=======
+$config['sess_cookie_name'] = 'lms5.2';
+>>>>>>> Stashed changes
 $config['sess_expiration'] = 7200;
 $config['sess_save_path'] = sys_get_temp_dir();
 $config['sess_match_ip'] = FALSE;

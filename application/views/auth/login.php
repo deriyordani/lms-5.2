@@ -80,7 +80,7 @@ body {
                                     </div>
                                     <div class="card-footer text-center">
                                         <div class="small">
-                                            <a href="<?=base_url('auth/admin')?>">Login Admin & Prodi!</a>
+                                            <!-- <a href="<?=base_url('auth/admin')?>">Login Admin & Prodi!</a> -->
                                             <br/>  <br/>
                                             <a href="<?=base_url('auth/register')?>">Belum Memiliki Akun ? Daftar disini !</a>
                                         </div>
