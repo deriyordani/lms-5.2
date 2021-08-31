@@ -51,7 +51,7 @@ body {
                                         <!-- Registration form-->
                                         <?=form_open('auth/store_register_NEW',array('name' => 'registration'))?>
                                             <div class="form-group">
-                                                <label class="small mb-1" for="inputLastName">Tipe Pengguna</label>
+                                                <label class="small mb-1" >Tipe Pengguna</label>
                                                 <select name="f_type_user" class="form-control form-control-lg">
                                                     <option value="">---Pilih---</option>
                                                     <option value="2">Instruktur</option>
@@ -60,26 +60,22 @@ body {
                                             </div>
                                            
                                             <div class="form-group">
-                                                <label class="small mb-1" for="inputLastName">Nama Lengkap</label>
-                                                <input class="form-control" name="f_nama_lengkap" id="inputLastName" type="text"  />
+                                                <label class="small mb-1" >Nama Lengkap</label>
+                                                <input class="form-control" name="f_nama_lengkap" type="text"  />
                                             </div>
-                                            <div class="form-group student-show" style="display: none;">
-                                                <label class="small mb-1" for="inputLastName">Nomor Peserta</label>
-                                                <input class="form-control" name="f_nomor_peserta" id="inputLastName" type="text"   />
-                                            </div>
-                                            <div class="form-group instruktur-show" style="display: none;">
-                                                <label class="small mb-1" for="inputLastName">NIK</label>
-                                                <input class="form-control" name="f_nik" id="inputLastName" type="text"   />
+                                            <div class="form-group">
+                                                <label class="small mb-1" >ID Number</label>
+                                                <input type="text" name="f_id_number" class="form-control" required="">
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="small mb-1" for="inputLastName">Email</label>
-                                                <input class="form-control" name="f_email" id="inputLastName" type="text"   />
+                                                <label class="small mb-1" >Email</label>
+                                                <input class="form-control" name="f_email" type="text"   />
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="small mb-1" for="inputLastName">Username</label>
-                                                <input class="form-control" name="f_username" id="inputLastName" type="text"   />
+                                                <label class="small mb-1" >Username</label>
+                                                <input class="form-control" name="f_username" type="text"   />
                                             </div>
 
                                            <div class="form-row">
