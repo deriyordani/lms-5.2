@@ -146,7 +146,7 @@ Class User_m extends MY_Model{
 	function get_login_stud($uc_user = NULL){
 		$sql = "
 
-			SELECT u.*, s.full_name,dp.uc as uc_diklat_participant, dp.uc_diklat_period, dp.uc_diklat_class, cp.is_claim
+			SELECT u.*, s.full_name,dp.uc as uc_diklat_participant, dp.uc_diklat_period, dp.uc_diklat_class, dp.is_claim
 			FROM lms_user u 
 			LEFT JOIN lms_student s ON u.uc_person = s.uc
 			LEFT JOIN lms_diklat_participant dp ON s.no_peserta = dp.no_peserta

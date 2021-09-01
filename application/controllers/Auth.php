@@ -174,6 +174,11 @@ Class Auth extends CI_Controller{
 					redirect('auth/login');
 				}
 
+			}else{
+
+				//FLASH USERNAME TIDAK TERSEDIA
+				$this->session->set_flashdata('info', $this->config->item('flash_login_username_not_ready'));
+				redirect('auth/login');
 			}
 
 			// $query = $this->user_m->get_filtered(array('username' => $username));
@@ -307,7 +312,7 @@ Class Auth extends CI_Controller{
 
 			$data = ['is_claim' => 1];
 
-			$where = ['no_peserta' => $this->input->post('f_no_peserta')];
+			$where = ['no_peserta' => $this->input->post('f_id_number')];
 
 			$this->load->model('diklat_participant_m');
 			$this->diklat_participant_m->update_data($data, $where);
