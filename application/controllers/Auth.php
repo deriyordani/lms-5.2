@@ -324,7 +324,7 @@ Class Auth extends CI_Controller{
 			$password 	= trim($this->input->post('f_password'));
 
 			//	CHECK USERNAME AVAILABILITY
-			if ($this->username_validation) {
+			if ($this->username_validation($username)) {
 
 				$uc_person = NULL;
 				$uc_user = uniqid();
@@ -417,13 +417,6 @@ Class Auth extends CI_Controller{
 							$filter = array('id_number' => $id_number);
 							$this->instructor_m->update_data($update_data, array());
 						}
-							
-						// if ($type_person == 3) {
-						// 	//	IF STUDENT
-						// 	$filter = array('no_peserta' => $no_peserta);
-						// 	$this->load->model('diklat_participant_m');
-						// 	$this->diklat_participant_m->update_data($update_data, $filter);
-						// }
 			        }
 			        else {
 			        	//	If Fail to Send
@@ -582,11 +575,9 @@ Class Auth extends CI_Controller{
 		redirect('auth/login');
 	}
 
-	function username_validation() {
+	function username_validation($username = NULL) {
 		$this->load->model('user_m');
 		
-		$username = $this->input->post('js_username');
-
 		$query = $this->user_m->get_filtered(array('username' => $username));
 		if ($query->num_rows() > 0) {
 			$status = FALSE;
@@ -599,7 +590,7 @@ Class Auth extends CI_Controller{
 	}
 
 	function username_validation_ajax() {
-		$status = $this->username_validation();
+		$status = $this->username_validation($this->input->post('js_username'));
 		echo json_encode($status);
 	}
 }
