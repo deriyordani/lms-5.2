@@ -435,6 +435,18 @@ Class Users extends CI_Controller{
 		$this->load->view('user/edit_user', $data);
 	}
 
+	function update_user(){
+		if ($this->input->post('f_save')) {
+			$data = [
+
+				'username' => $this->input->post('f_username'),
+				'email' => $this->input->post('f_email')
+			];
+		}
+
+		redirect('users/lists/prodi/4');
+	}
+
 	// function instruktur(){
 
 	// 	$data = NULL;

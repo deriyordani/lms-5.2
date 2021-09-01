@@ -95,7 +95,6 @@ Class Auth extends CI_Controller{
 				$photo = $row->photo;
 				$uc_prodi = $row->uc_prodi;
 
-				//print_r($row);
 
 
 				//CEK PASSWORD
@@ -155,7 +154,14 @@ Class Auth extends CI_Controller{
 
 						activity_log('Masuk Sistem', 'Login : '.$usersname);
 
-						redirect('student/classroom');
+						if($qstud->is_claim == 0){
+
+							redirect('auth/claim/'.$row->uc.'/'.$row->uc_person.'/'.$row->category);
+						}else{
+							redirect('student/classroom');
+						}
+
+						
 					}
 
 					
