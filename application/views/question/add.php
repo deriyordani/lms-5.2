@@ -35,7 +35,7 @@
                 <div class="col-auto mb-3">
                     <h1 class="page-header-title">
                         <div class="page-header-icon"><i data-feather="file"></i></div>
-                        Form Add - Question
+                        Form Add Question
                     </h1>
                 </div>
                  <div class="col-12 col-xl-auto mb-3">
@@ -80,17 +80,17 @@
 
             <div class="form-group">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="f_type" id="inlineRadio1" value="1">
+                  <input class="form-check-input" type="radio" name="f_type" id="inlineRadio1" value="1" required="">
                   <label class="form-check-label" for="inlineRadio1">Multiple Choice</label>
                 </div>
 
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="f_type" id="inlineRadio2" value="2">
+                  <input class="form-check-input" type="radio" name="f_type" id="inlineRadio2" value="2" required="" required="">
                   <label class="form-check-label" for="inlineRadio2">True False</label>
                 </div>
 
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="f_type" id="inlineRadio2" value="3">
+                  <input class="form-check-input" type="radio" name="f_type" id="inlineRadio2" value="3" required="">
                   <label class="form-check-label" for="inlineRadio2">Essay</label>
                 </div>
             </div>

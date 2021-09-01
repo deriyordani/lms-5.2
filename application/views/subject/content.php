@@ -21,7 +21,20 @@
                                     <td>   
                                         <?=$row->subject_code." - ".$row->subject_title?></b>
                                     </td>
-                                    <td><?=$row->diklat.' - '.get_category($row->cat_diklat)?></td>
+                                    <td>
+                                        <?php
+                                            if (!is_null($row->cat_diklat)) {
+                                                echo $row->diklat.' - '.get_category($row->cat_diklat);      
+                                            }
+                                            else {
+                                                echo "-";
+                                            }
+                                        ?>
+                                        </td>
+
+                                    <!--
+                                    <td><?=$row->cat_diklat?></td>
+                                    -->
                                     <td><?=$row->prodi?></td>
                                     
                                     

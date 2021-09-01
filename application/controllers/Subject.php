@@ -9,7 +9,7 @@ Class Subject extends CI_Controller{
 
 		$this->load->model('subject_m');
 
-		$this->each_page 	= 20;
+		$this->each_page 	= 100;
 		$this->page_int 	= 5;
 	}
 

@@ -120,7 +120,7 @@
 </script>
 <?=form_open('classroom/store')?>
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Classroom Add</h5>
+    <h5 class="modal-title" id="exampleModalLabel">Add Classroom</h5>
     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>
 <div class="modal-body">
@@ -206,7 +206,7 @@
     </div>
     <div class="form-group">
     	<label>Jumlah Section/Pertemuan</label>
-    	<input type="number" name="f_section" class="form-control" required="">
+    	<input type="number" name="f_section" class="form-control"  min="1" value="1" required="">
     </div>
 </div>
 <div class="modal-footer">

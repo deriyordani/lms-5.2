@@ -115,7 +115,7 @@
         <?=form_open('question/add')?>
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Question Setting</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add Question Setting</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body">
@@ -164,11 +164,11 @@
                     
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="f_mode" id="inlineRadio1" value="1">
+                    <input class="form-check-input" type="radio" name="f_mode" id="inlineRadio1" value="1" required="">
                     <label class="form-check-label" for="inlineRadio1">Single</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="f_mode" id="inlineRadio2" value="2">
+                    <input class="form-check-input" type="radio" name="f_mode" id="inlineRadio2" value="2" required="">
                     <label class="form-check-label" for="inlineRadio2">Group</label>
                 </div>
 
