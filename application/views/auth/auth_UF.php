@@ -78,9 +78,11 @@ body {
                                             <div class="form-group">
                                                 <label class="small mb-1" >Username</label>
                                                 <input class="form-control" name="f_username" id="inputUsername" type="text"   />
-                                                <label class="error text-danger" id="username-exist" style="visibility:hidden;">
-                                                  Username, sudah ada yang menggunakan, silakan pilih yang lain!
+                                                <!--
+                                                <label class="error text-danger" id="inputUsername-error" for="inputUsername">
+                                                  This is a secondary alert—check it out!
                                                 </label>
+                                                -->
                                             </div>
 
                                            <div class="form-row">
@@ -140,6 +142,27 @@ body {
             $(document).ready(function(){
                 var base_url = $('#base-url').html();
 
+                $.validator.addMethod("checkAvailability",function(value,element){
+                    var username = $("input[name=f_username]").val();
+
+                    
+
+                    $.ajax({
+                        type        : 'post',
+                        dataType    : 'json',
+                        data        : { js_username : username },
+                        url         : base_url + 'auth/username_validation',
+                        success     : function(output) {
+                                        $(this).after('<p>ooooo</p>');                 
+                                        //return output;
+                        }
+                    });
+
+                    console.log("test");
+
+                    
+                },"Sorry, this user name is not available");
+
                 $('select[name=f_type_user]').change(function(){
             
                     var uc = $(this).val();
@@ -163,7 +186,8 @@ body {
                       // on the right side
                         f_nama_lengkap: "required",
                         f_username: {
-                            required: true
+                            required: true,
+                            checkAvailability: true
                         },
 
 
@@ -208,27 +232,12 @@ body {
                       form.submit();
                     }
                 });
-               
+                /*
                 $('input[name=f_username]').focusout(function(){
-                    var username = $(this).val();
-
-                    $.ajax({
-                        type        : 'post',
-                        dataType    : 'json',
-                        data        : { js_username : username },
-                        url         : base_url + 'auth/username_validation_ajax',
-                        success     : function(output) {
-                                        if (output == false) {
-                                            $('#username-exist').css('visibility','visible');
-                                        }
-                        }
-                    });
-                    
+                    alert('out');
+                    //$('input[name=f_username]').after('<label class="error text-danger" id="inputUsername-error" for="inputUsername">This is a secondary</label>');
                 });
-
-                $('input[name=f_username]').keyup(function(){
-                    $('#username-exist').css('visibility','hidden');
-                });
+                */
             });
         </script>
 </body>

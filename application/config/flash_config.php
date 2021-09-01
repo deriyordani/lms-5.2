@@ -7,6 +7,7 @@ $config['flash_register'] = ['class' => 'alert-info', 'message' => 'Registrasi B
 $config['flash_register_gagal'] = ['class' => 'alert-info', 'message' => 'Maaf server kami mengalami ganguan','icon' => 'fa-eraser'];
 $config['flash_register_no_avail'] = ['class' => 'alert-danger', 'message' => 'Maaf, data pengguna TIDAK TERDAFTAR','icon' => 'fa-eraser'];
 $config['flash_register_claimed'] = ['class' => 'alert-danger', 'message' => 'Maaf, pengguna SUDAH DIDAFTARKAN','icon' => 'fa-eraser'];
+$config['flash_register_username_exist'] = ['class' => 'alert-danger', 'message' => 'Username, sudah ada yang menggunakan, silakan pilih yang lain!','icon' => 'fa-exclamation'];
 $config['flash_activation'] = ['class' => 'alert-info', 'message' => 'Akun anda sudah aktif, silahkan login !','icon' => 'fa-check-circle'];
 $config['flash_send_forgot_pass'] = ['class' => 'alert-info', 'message' => 'Cek Email untuk, merubah password !','icon' => 'fa-check-circle'];
 $config['flash_pass_success'] = ['class' => 'alert-info', 'message' => 'Password berhasil diubah, silahkan login !','icon' => 'fa-check-circle'];
