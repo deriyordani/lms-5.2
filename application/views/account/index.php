@@ -61,10 +61,10 @@
                              <input type="text" class="form-control" name="f_username" value="<?=$row->username?>">
                         </div>
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                              <label>Nama Lengkap</label>
                              <input type="text" class="form-control" name="f_full_name" value="<?=$full_name?>">
-                        </div>
+                        </div> -->
 
                         <div class="form-group">
                              <label>Email</label>

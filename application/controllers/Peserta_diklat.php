@@ -246,6 +246,8 @@ Class Peserta_diklat extends CI_Controller{
 			}
 		}
 
+		activity_log('Upload Data', 'Peserta Diklat');
+
 		$this->db->truncate('lms_diklat_participant_temp');
 		$this->db->truncate('lms_student_temp');
 

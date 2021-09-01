@@ -111,6 +111,8 @@ Class Period extends CI_Controller{
 
 			$this->diklat_period_m->insert_data($data);
 
+			activity_log('Input Data', 'Periode Diklat'.$this->input->post('f_label'));
+
 			$this->session->set_flashdata('info', $this->config->item('flash_success'));
 		}
 
@@ -149,6 +151,8 @@ Class Period extends CI_Controller{
 
 			$this->diklat_period_m->update_data($data, $where);
 
+			activity_log('Update Data', 'Periode Diklat'.$this->input->post('f_label'));
+
 			$this->session->set_flashdata('info', $this->config->item('flash_success'));
 		}
 
@@ -160,6 +164,8 @@ Class Period extends CI_Controller{
 		if ($uc != NULL) {
 			
 			$this->diklat_period_m->delete_data(array('uc' => $uc));
+
+			activity_log('Hapus Data', 'Periode Diklat');
 
 			$this->session->set_flashdata('info', $this->config->item('flash_delete'));
 		}
@@ -240,6 +246,8 @@ Class Period extends CI_Controller{
 			$this->load->model('diklat_class_m');
 			$this->diklat_class_m->insert_data($data);
 
+			activity_log('Input Data', 'Periode Diklat : Kelas'.$this->input->post('f_label'));
+
 			$this->session->set_flashdata('info', $this->config->item('flash_success'));
 
 			
@@ -281,6 +289,8 @@ Class Period extends CI_Controller{
 			$this->load->model('diklat_class_m');
 			$this->diklat_class_m->update_data($data, $where);
 
+			activity_log('Update Data', 'Periode Diklat : Kelas'.$this->input->post('f_label'));
+
 			$this->session->set_flashdata('info', $this->config->item('flash_update'));
 
 			
@@ -294,6 +304,8 @@ Class Period extends CI_Controller{
 			
 			$this->load->model('diklat_class_m');
 			$this->diklat_class_m->delete_data(array('uc' => $uc));
+
+			activity_log('Hapus Data', 'Periode Diklat : Kelas');
 
 			$this->session->set_flashdata('info', $this->config->item('flash_delete'));
 		}

@@ -6,13 +6,17 @@ Class Dashboard extends CI_Controller{
 
 	function index(){
 
+		$this->load->model('log_m');
+
+		$data['log'] = $this->log_m->get_all('id','DESC',20,0)->result();
+
 		$session = $this->session->userdata('log_category');
 
 		if ($session == '1' || $session == '2') {
-			$this->im_render->main('dashboard');
+			$this->im_render->main('dashboard', $data);
 		
 		}elseif ($session == '3') {
-			$this->im_render->main_stu('dashboard_user');
+			$this->im_render->main_stu('dashboard_user', $data);
 		}
 
 		

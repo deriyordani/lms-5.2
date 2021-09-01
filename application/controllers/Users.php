@@ -291,6 +291,9 @@ Class Users extends CI_Controller{
 				}
 
 				$this->db->truncate('lms_instructor_temp');
+
+
+				activity_log('Upload Data', 'Instruktur');
 			}
 		}
 
@@ -318,17 +321,21 @@ Class Users extends CI_Controller{
 				'full_name' => $this->input->post('f_full_name')
 			];
 
+			activity_log('Update Data', 'User : Instruktur '.$this->input->post('f_full_name'));
+
 			$this->instructor_m->update_data($data, array('uc' => $this->input->post('f_uc')));
 		}
 
-		redirect('users/instruktur');
+		redirect('users/lists/instruktur/2');
 	}
 
 	function delete_ins($uc = NULL){
 
 		$this->instructor_m->delete_data(array('uc' => $uc));
 
-		redirect('users/instruktur');
+		activity_log('Hapus Data', 'User : Instruktur ');
+
+		redirect('users/lists/instruktur/2');
 	}
 
 	function store_user_prodi(){
@@ -348,6 +355,8 @@ Class Users extends CI_Controller{
 			];
 
 			$this->user_m->insert_data($data_user);
+
+			activity_log('Input Data', 'User : Prodi'.$this->input->post('f_username'));
 		}
 
 		redirect('users');
@@ -356,6 +365,8 @@ Class Users extends CI_Controller{
 	function delete($uc = NULL){
 
 		$this->user_m->delete_data(array('uc' => $uc));
+
+		activity_log('Hapus Data', 'User');
 
 		redirect('users');
 	}
@@ -397,6 +408,7 @@ Class Users extends CI_Controller{
 				
 				$this->user_m->update_data($data_user, $uc);
 
+				activity_log('Update Data', 'User : Password');
 
 				$this->session->set_flashdata('info', $this->config->item('flash_success'));
 
@@ -410,6 +422,17 @@ Class Users extends CI_Controller{
 				redirect('users/lists/instruktur/2');
 			}
 		}
+	}
+
+	function edit_user(){
+		$data =NULL;
+
+		$query = $this->user_m->get_filtered(array('uc' => $this->input->post('js_uc')));
+		if ($query->num_rows() > 0) {
+			$data['row'] = $query->row();
+		}
+
+		$this->load->view('user/edit_user', $data);
 	}
 
 	// function instruktur(){

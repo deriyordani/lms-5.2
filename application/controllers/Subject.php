@@ -155,6 +155,8 @@ Class Subject extends CI_Controller{
 
 			$this->subject_m->insert_data($data);
 
+			activity_log('Input Data', 'Subject: '.$this->input->post('f_subject_code').'-'.$this->input->post('f_subject_title'));
+
 			$this->session->set_flashdata('info', $this->config->item('flash_success'));
 		}
 
@@ -191,6 +193,8 @@ Class Subject extends CI_Controller{
 
 			$this->subject_m->update_data($data, $id);
 
+			activity_log('Update Data', 'Subject: '.$this->input->post('f_subject_code').'-'.$this->input->post('f_subject_title'));
+
 			$this->session->set_flashdata('info', $this->config->item('flash_update'));
 		}
 
@@ -202,6 +206,8 @@ Class Subject extends CI_Controller{
 		if ($uc != NULL) {
 			
 			$this->subject_m->delete_data(array('uc' => $uc));
+
+			activity_log('Hapus Data', 'Subject');
 
 			$this->session->set_flashdata('info', $this->config->item('flash_delete'));
 		}

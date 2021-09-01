@@ -3,7 +3,6 @@ Class Log_m extends MY_Model{
 	function __construct(){
 		parent::__construct();
 
-		$this->db = $this->load->database('master_db', TRUE);
 		
 		$this->table_name = 'lms_activity_log';
 	}

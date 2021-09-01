@@ -15,10 +15,10 @@
                     <thead>
                         <tr class="bg-light">
                             <td class="text-primary text-center" width="5%">No</td>
-                            	<td class="text-primary text-center">NIP</td>
+                            	<td class="text-primary text-center" width="20%">NIP</td>
 
-                            	<td class="text-primary text-center">Nama Lengkap</td>
-                            	<td class="text-primary text-center">Status</td>
+                            	<td class="text-primary text-center" width="25%">Nama Lengkap</td>
+                            	<td class="text-primary text-center" width="5%">Status</td>
                             <td class="text-primary text-center">Action</td>
                         </tr>
                     </thead>
@@ -33,17 +33,21 @@
                             		<?php if($row->is_claim == 0):?>
 
                                         <span class="badge badge-warning text-center">Not Admitted</span>
+                                        <?php $check = "disabled=''"?>
+                                        <?php $label = "Akun tidak tersedia !"?>
                                     <?php else:?>
                                         <span class="badge badge-success text-center">Admit</span>
+                                        <?php $check = ""?>
+                                        <?php $label = "Change Password !"?>
                                     <?php endif;?>
                             	</td>
                                 <td width="31%">
 
-                                     <button class="btn btn-dark btn-sm btn-change-password" uc="<?=$row->uc?>" data-toggle="modal" data-target="#exampleModal">
-                                        <i class="mr-1 fa fa-key" ></i> Change Password
+                                     <button <?=$check?> class="btn btn-dark btn-sm btn-change-password " uc="<?=$row->uc?>" data-toggle="modal" data-target="#modal-change">
+                                        <i class="mr-1 fa fa-key" ></i> <?=$label?>
                                     </button>
 
-                                    <button class="btn btn-info btn-sm btn-edit" uc="<?=$row->uc?>" data-toggle="modal" data-target="#exampleModal">
+                                    <button class="btn btn-info btn-sm btn-edit" uc="<?=$row->uc?>" data-toggle="modal" data-target="#modal-change">
                                         <i class="mr-1 fa fa-pen-square" ></i> Edit
                                     </button>
 
@@ -109,14 +113,14 @@
 
             var uc = $(this).attr('uc');
 
-           $('.load-form').load(base_url+'users/edit_ins', {js_uc : uc});
+           $('.load-form-change').load(base_url+'users/edit_ins', {js_uc : uc});
         });
 
          $('.btn-change-password').click(function(){
 
             var uc = $(this).attr('uc');
 
-           $('.load-form').load(base_url+'users/changepassword', {js_uc : uc,'js_category' : 'instruktur'});
+           $('.load-form-change').load(base_url+'users/changepassword', {js_uc : uc,'js_category' : 'instruktur'});
         });
 
         // $('.btn-search').click(function(){

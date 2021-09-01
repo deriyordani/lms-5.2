@@ -99,6 +99,8 @@ Class Prodi extends CI_Controller{
 
 			$this->prodi_m->insert_data($data);
 
+			activity_log('Input Data', 'Prodi : '.$this->input->post('f_prodi'));
+
 			
 			$this->session->set_flashdata('info', $this->config->item('flash_success'));
 
@@ -133,7 +135,7 @@ Class Prodi extends CI_Controller{
 
 			$this->prodi_m->update_data($data, $id);
 
-			
+			activity_log('Update Data', 'Prodi : '.$this->input->post('f_prodi'));
 
 			$this->session->set_flashdata('info', $this->config->item('flash_update'));
 
@@ -147,6 +149,8 @@ Class Prodi extends CI_Controller{
 		if ($uc != NULL) {
 			
 			$this->prodi_m->delete_data(array('uc' => $uc));
+
+			activity_log('Hapus Data', 'Prodi');
 
 			$this->session->set_flashdata('info', $this->config->item('flash_delete'));
 		}

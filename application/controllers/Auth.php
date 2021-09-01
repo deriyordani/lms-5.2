@@ -102,6 +102,8 @@ Class Auth extends CI_Controller{
 
 				if(password_verify($password,$row->password)){
 
+					
+
 					if ($category == 1) {
 						$set_session = array(
 							'log_uc'	=> $uc_user,
@@ -111,6 +113,8 @@ Class Auth extends CI_Controller{
 							);
 
 						$this->session->set_userdata($set_session);
+
+						activity_log('Masuk Sistem', 'Login : '.$usersname);
 
 						redirect('period');
 
@@ -130,6 +134,8 @@ Class Auth extends CI_Controller{
 
 						$this->session->set_userdata($set_session);
 
+						activity_log('Masuk Sistem', 'Login : '.$usersname);
+
 						redirect('classroom');
 					}
 
@@ -147,8 +153,12 @@ Class Auth extends CI_Controller{
 
 						$this->session->set_userdata($set_session);
 
+						activity_log('Masuk Sistem', 'Login : '.$usersname);
+
 						redirect('student/classroom');
 					}
+
+					
 
 					
 
@@ -558,6 +568,8 @@ Class Auth extends CI_Controller{
         $this->output->set_header("Pragma: no-cache");
 
 		// $this->user_m->update_data(array('is_online' => 0), array('uc' => $this->session->userdata('log_uc') ));
+
+        activity_log('Keluar Sistem', 'Logout : '.$this->session->userdata('log_username'));
 
 		$this->session->sess_destroy();
 		redirect('auth/login');

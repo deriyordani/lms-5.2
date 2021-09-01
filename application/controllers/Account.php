@@ -16,21 +16,24 @@ Class Account extends CI_Controller{
 		$this->load->model('student_m');
 		$this->load->model('instructor_m');
 
-		$uc_person = $this->session->userdata('log_uc_person');
+		$uc_person = $this->session->userdata('log_uc');
 
 
 		$type_user = $this->session->userdata('log_category');
-		if ($type_user == 2) {
-			
-			$row = $this->instructor_m->get_filtered(array('uc' => $uc_person))->row();
-		}elseif ($type_user == 3) {
-			
-			$row = $this->student_m->get_filtered(array('uc' => $uc_person))->row();
-		}
 
-		$data['full_name'] = $row->full_name;
+		// echo $type_user;
 
-		$data['row'] = $this->user_m->get_filtered(array('uc_person' => $uc_person))->row();
+		// if ($type_user == 2) {
+			
+		// 	$row = $this->instructor_m->get_filtered(array('uc' => $uc_person))->row();
+		// }elseif ($type_user == 3) {
+			
+		// 	$row = $this->student_m->get_filtered(array('uc' => $uc_person))->row();
+		// }
+
+		// $data['full_name'] = ($row->full_name);
+
+		$data['row'] = $this->user_m->get_filtered(array('uc' => $uc_person))->row();
 
 		$this->im_render->main_stu('account/index', $data);
 	}

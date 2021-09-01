@@ -28,10 +28,14 @@
                                 <td><?=$no?></td>
                                 <td><?=$row->username?></td>
                                 
-                                <td width="25%">
+                                <td width="35%">
 
-                                    <button class="btn btn-dark btn-sm btn-change-password" uc="<?=$row->uc?>" data-toggle="modal" data-target="#exampleModal">
+                                    <button class="btn btn-dark btn-sm btn-change-password" uc="<?=$row->uc?>" data-toggle="modal" data-target="#modal-change">
                                         <i class="mr-1 fa fa-key" ></i> Change Password
+                                    </button>
+
+                                    <button class="btn btn-info btn-sm btn-edit" uc="<?=$row->uc?>" data-toggle="modal" data-target="#modal-change">
+                                        <i class="mr-1 fa fa-pen-square" ></i> Edit
                                     </button>
 
                                     <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-<?=$row->id?>">
@@ -85,12 +89,19 @@
     $(document).ready(function(){
         var base_url = $("#base-url").html();
 
+         $('.btn-edit').click(function(){
+
+            var uc = $(this).attr('uc');
+
+           $('.load-form-change').load(base_url+'users/edit_user', {js_uc : uc});
+        });
+
     
          $('.btn-change-password').click(function(){
 
             var uc = $(this).attr('uc');
 
-           $('.load-form').load(base_url+'users/changepassword', {js_uc : uc,'js_category' : 'all'});
+           $('.load-form-change').load(base_url+'users/changepassword', {js_uc : uc,'js_category' : 'all'});
         });
 
         

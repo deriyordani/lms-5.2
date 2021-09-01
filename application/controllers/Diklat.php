@@ -109,6 +109,8 @@ Class diklat extends CI_Controller{
 
 			$this->diklat_m->insert_data($data);
 
+			activity_log('Input Data', 'Program Diklat : '.$this->input->post('f_diklat'));
+
 			$this->session->set_flashdata('info', $this->config->item('flash_success'));
 		}
 
@@ -142,6 +144,8 @@ Class diklat extends CI_Controller{
 
 			$this->diklat_m->update_data($data, $id);
 
+			activity_log('Update Data', 'Program Diklat : '.$this->input->post('f_diklat'));
+
 			$this->session->set_flashdata('info', $this->config->item('flash_update'));
 		}
 
@@ -153,6 +157,8 @@ Class diklat extends CI_Controller{
 		if ($uc != NULL) {
 			
 			$this->diklat_m->delete_data(array('uc' => $uc));
+
+			activity_log('Hapus Data', 'Program Diklat');
 
 			$this->session->set_flashdata('info', $this->config->item('flash_delete'));
 		}
