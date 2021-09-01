@@ -124,10 +124,7 @@ Class Question extends CI_Controller{
 		if ($this->input->post('f_save_group')) {
 			$this->do_insert();
 
-			$data['uc_diklat'] = $this->input->post('f_diklat_filter');
-			$data['uc_prodi'] = $this->input->post('f_prodi_filter');
-			$data['uc_subject'] = $this->input->post('f_subject_filter');
-
+			$data['uc_subject'] = $this->input->post('f_uc_subject');
 
 			$data['entry_mode']		= 2;
 

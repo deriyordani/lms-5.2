@@ -64,7 +64,7 @@
             </div>
 
             <div class="form-group">
-                <label>Deskripsi</label>
+                <label>Isi Pertanyaan</label>
                 <textarea id="editor" class="form-control " style="height: 230px;" name="f_deskripsi"></textarea>
             </div>
 
@@ -75,8 +75,7 @@
             </div>
 
             <div class="form-group">
-                <label>Type Soal</label>
-                
+                <label>Tipe Soal</label>
             </div>
 
             <div class="form-group">
@@ -126,10 +125,11 @@
                     <input type="file" class="form-control" name="f_lampiran_op_<?=$i?>" accept="image/*">
                 </div>
 
-                <div class="form-group">
-                    <input type="radio" name="f_key" value="<?=$i?>"> Kunci Jawaban
+                <div class="form-group mb-3">
+                    <input type="radio" name="f_key" value="<?=$i?>"> Jawaban Benar
                 </div>
 
+                <hr/>
             <?php endfor;?>
             </div>
             
@@ -139,7 +139,7 @@
                 <?php if ($entry_mode == 1) : ?>
                 <input type="submit" name="f_save_single" class="btn btn-primary" value="Save" />
             <?php else : ?>
-                <input type="submit" name="f_finish" class="btn btn-warning" value="Finish" />
+                <a href="<?=base_url('question')?>" class="btn btn-warning"> Finish </a>
                 <input type="submit" name="f_save_group" class="btn btn-primary ml-2" value="Save and Add Next Question" />
             <?php endif; ?> 
             </div>
