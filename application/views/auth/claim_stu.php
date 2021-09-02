@@ -44,7 +44,7 @@
                                         <!-- Login form-->
                                         <form action="<?=base_url('auth/update_claim_stu')?>" method="post">
                                            	<input type="hidden" name="f_uc_person" value="<?=$rs_stu->uc?>">
-                                            <input type="hidden" name="f_no_peserta" value="<?=$rs_stu->no_peserta?>">
+                                            <input type="hidden" name="f_id_number" value="<?=$rs_stu->no_peserta?>">
 
                                             <p>Pastikan data diri anda sudah sesuai dengan informasi berikut:</p>
 

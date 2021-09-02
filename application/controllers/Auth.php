@@ -33,13 +33,13 @@ Class Auth extends CI_Controller{
 				if(password_verify($password,$row->password)){
 
 					$data = array(
-						'log_uc'		=> $row->uc,
+						'log_uc'			=> $row->uc,
 						'log_username'		=> $row->username,
 						'log_full_name'		=> $row->full_name,
 						'log_category' 		=> $row->category,
 						'log_uc_person' 	=> $row->uc_person,
-						'log_uc_prodi' => $row->uc_prodi,
-						'log_photo' => $row->photo
+						'log_uc_prodi' 		=> $row->uc_prodi,
+						'log_photo' 		=> $row->photo
 						);
 
 					$this->session->set_userdata($data);
@@ -100,9 +100,6 @@ Class Auth extends CI_Controller{
 				//CEK PASSWORD
 
 				if(password_verify($password,$row->password)){
-
-					
-
 					if ($category == 1) {
 						$set_session = array(
 							'log_uc'	=> $uc_user,
@@ -313,11 +310,9 @@ Class Auth extends CI_Controller{
 			$data = ['is_claim' => 1];
 
 			$where = ['no_peserta' => $this->input->post('f_id_number')];
-
 			$this->load->model('diklat_participant_m');
 			$this->diklat_participant_m->update_data($data, $where);
 		}
-
 
 		redirect('student/classroom');
 	}

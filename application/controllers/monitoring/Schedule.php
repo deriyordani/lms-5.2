@@ -371,4 +371,12 @@ Class Schedule extends CI_Controller{
 		
 	}
 
+	function delete($uc = NULL) {
+		if ($uc != NULL) {
+
+		}
+
+		
+	}
+
 }

@@ -17,7 +17,7 @@
                                 <BR/>
                                 <div class="text-xs font-weight-bold d-inline-flex align-items-center">
 
-                                    <a href="<?=base_url('student/classroom/task/'.$row->uc.'/'.$row->uc_diklat_class)?>" class="btn btn-sm  mt-2 btn-transparent-dark">
+                                    <a href="<?=base_url('student/classroom/task/'.$row->uc.'/'.$row->uc_diklat_class)?>" class="btn btn-sm  mt-2 btn-primary">
                                        <i class="mr-1" data-feather="activity"></i> Masuk
                                        
                                     </a>

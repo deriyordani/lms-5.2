@@ -14,15 +14,15 @@
                                 <div class="text-xs font-weight-bold text-muted d-inline-flex align-items-center">
                                    Kelas : [<?=$row->class_label?>] <br/>Subject : <?=$row->subject_title?>
                                 </div>
-                                <BR/>
-                                <div class="text-xs font-weight-bold d-inline-flex align-items-center">
+                                
+                                <div class="text-xs font-weight-bold d-inline-flex align-items-center mt-4">
 
-                                    <a href="<?=base_url('classroom/task/'.$row->uc.'/'.$row->uc_diklat_class)?>" class="btn btn-sm  mt-2 btn-transparent-dark">
+                                    <a href="<?=base_url('classroom/task/'.$row->uc.'/'.$row->uc_diklat_class)?>" class="btn btn-sm  btn-primary">
                                        <i class="mr-1" data-feather="activity"></i> Manage
                                        
                                     </a>
                                     
-                                    <a href="<?=base_url('classroom/participant/'.$row->uc.'/'.$row->uc_diklat_class)?>" class="btn btn-sm  mt-2 btn-transparent-dark">
+                                    <a href="<?=base_url('classroom/participant/'.$row->uc.'/'.$row->uc_diklat_class)?>" class="ml-3 btn btn-sm  btn-warning">
                                         <i class="mr-1" data-feather="users"></i> Participant
                                     </a>
                                     
