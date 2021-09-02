@@ -69,7 +69,7 @@
                             <h5 class="plot-label"><small>No.</small></h5>
                             <span><?=$i?></span>
                         </div>
-                        <div class="col-md-2 py-2">
+                        <div class="col-md-3 py-2">
                             <h5 class="plot-label"><small>Diklat</small></h5>
                             <span><?=$res->diklat?></span>
                         </div>
@@ -78,7 +78,7 @@
                             <span><?=$res->prodi?></span>
                         </div>
                         <div class="col-md-3 py-2">
-                            <h5 class="plot-label"><small>Periode/Tahun</small></h5>
+                            <h5 class="plot-label"><small>Periode/Tahun - Kelas</small></h5>
                             <?php
                                 if ($res->category == 1) {
                                     $periode_tahun = $res->tahun;
@@ -87,14 +87,12 @@
                                     $periode_tahun = time_format($res->periode_mulai, "d M Y")." - ".$res->periode_selesai;
                                 }
                             ?>
-                            <span><?=$periode_tahun?></span>
-                        </div>
-                        <div class="col-md-2 py-2">
-                            <h5 class="plot-label"><small>Kelas</small></h5>
+                            <span><?=$periode_tahun?></span> <br />
                             <span><?=$res->class_label?></span>
                         </div>
-                        <div class="col-md-1 py-2">
+                        <div class="col-md-2 py-2">
                             <a href="<?=base_url('monitoring/schedule/manage/'.$res->uc)?>" class="btn btn-warning btn-sm"><i class="fa fa-grip-horizontal"></i></a>
+                            <a href="<?=base_url('monitoring/schedule/delete/'.$res->uc)?>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                         </div>
                     </div>
                 </div>

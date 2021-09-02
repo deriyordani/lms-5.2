@@ -192,10 +192,6 @@ Class Classroom extends CI_Controller{
 	// }
 
 	function task($uc_classroom = NULL, $uc_diklat_class = NULL){
-
-
-
-
 			$data = NULL;
 
 			$filter = [
@@ -270,7 +266,7 @@ Class Classroom extends CI_Controller{
 
 			$this->load->model('kehadiran_m');
 
-			/*PRENSENSI*/
+			// PRENSENSI
 
 				//cek section is active 1 where uc classroom
 				$this->load->model('section_m');
@@ -367,7 +363,7 @@ Class Classroom extends CI_Controller{
 				}
 			
 
-			/*END PRESENSI*/
+			// END PRESENSI
 
 
 
@@ -375,10 +371,6 @@ Class Classroom extends CI_Controller{
 			$data['uc_diklat_class'] = $uc_diklat_class;
 
 			$this->im_render->main_stu('student/classroom/task', $data);
-
-		
-
-		
 	}
 
 	function content($parameter = NULL, $uc_classroom = NULL, $uc_diklat_class = NULL,$uc_content = NULL){

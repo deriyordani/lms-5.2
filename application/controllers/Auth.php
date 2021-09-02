@@ -144,6 +144,7 @@ Class Auth extends CI_Controller{
 							'log_category' => $category,
 							'log_photo' => $photo,
 							'log_uc_person' => $uc_person,
+							'log_uc_diklat_participant' => $qstud->uc_diklat_participant,
 							'log_uc_prodi' => $uc_prodi,
 							);
 
@@ -157,13 +158,7 @@ Class Auth extends CI_Controller{
 						}else{
 							redirect('student/classroom');
 						}
-
-						
 					}
-
-					
-
-					
 
 				}else{
 					//FLASH Password tidak cocok

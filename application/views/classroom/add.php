@@ -77,7 +77,7 @@
 
             $('select[name=f_subject]').load(base_url+'master/subject_by_prody', {js_uc_prodi : uc_prodi, js_uc_diklat : uc_diklat});
 
-            $('select[name=f_instruktur]').load(base_url+'master/ins_by_prody', {js_uc_prodi : uc_prodi});
+            //$('select[name=f_instruktur]').load(base_url+'master/ins_by_prody', {js_uc_prodi : uc_prodi});
  
         });
 
@@ -160,9 +160,12 @@
 
     <div class="form-group">
         <label>Instruktur/Dosen</label>
+        <input type="text" name="f_instruktur" class="form-control form-control-lg" value="<?=$?>">
+        <!--
         <select name="f_instruktur" class="form-control form-control-lg" >
              <option value=""> --- Pilih ---</option>
         </select>
+        -->
     </div>
 
     <div class="form-group">
