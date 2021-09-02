@@ -8,82 +8,63 @@
             
             var uc = $(this).val();
 
-             $.ajax({
-                 type    : 'post',
-                 dataType: 'json',
-                 data    : { 
-                             js_uc : uc
-                                
+            if(uc != ""){
 
-                         },
-                 url     : base_url + 'master/check_diklat',
-                 success : function(output)
-                 {
-
-                    if (output['type_course'] == 1) {
-
-                        $('.long-show').css({'display' : 'block'});
-                        $('.short-show').css({'display' : 'none'});
-
-                        // $('.prodi-show').css({'display' : 'block'});
-                        // $('.dkp-show').css({'display' : 'none'});
-
-                    }else{
-                        $('.short-show').css({'display' : 'block'});
-                        $('.long-show').css({'display' : 'none'});
-
-                        // $('.dkp-show').css({'display' : 'block'});
-                        // $('.prodi-show').css({'display' : 'none'});
-                    }    
-
-
-                 }
-            });
-
-
-            if (uc == 'DKP') {
-                $('.dkp-show').css({'display' : 'block'});
-                $('.prodi-show').css({'display' : 'none'});
-            }else{
-
-                $('.prodi-show').css({'display' : 'block'});
                 $('.dkp-show').css({'display' : 'none'});
-            }       
+                $('.prodi-show').css({'display' : 'none'});
+                $('.long-show').css({'display' : 'none'});
+                $('.short-show').css({'display' : 'none'});
 
-            //alert(uc);
+                $.ajax({
+                     type    : 'post',
+                     dataType: 'json',
+                     data    : { 
+                                 js_uc : uc
+                                    
 
-            // $.ajax({
-            //      type    : 'post',
-            //      dataType: 'json',
-            //      data    : { 
-            //                  js_uc : uc
-                                
+                             },
+                     url     : base_url + 'master/check_diklat',
+                     success : function(output)
+                     {
 
-            //              },
-            //      url     : base_url + 'master/check_diklat',
-            //      success : function(output)
-            //      {
+                        if (output['type_course'] == 1) {
 
-            //         if (output['type_course'] == 1) {
+                            $('.long-show').css({'display' : 'block'});
+                            $('.short-show').css({'display' : 'none'});
 
-            //             $('.long-show').css({'display' : 'block'});
-            //             $('.short-show').css({'display' : 'none'});
+                            // $('.prodi-show').css({'display' : 'block'});
+                            // $('.dkp-show').css({'display' : 'none'});
 
-            //             $('.prodi-show').css({'display' : 'block'});
-            //             $('.dkp-show').css({'display' : 'none'});
+                        }else{
+                            $('.short-show').css({'display' : 'block'});
+                            $('.long-show').css({'display' : 'none'});
 
-            //         }else{
-            //             $('.short-show').css({'display' : 'block'});
-            //             $('.long-show').css({'display' : 'none'});
-
-            //             $('.dkp-show').css({'display' : 'block'});
-            //             $('.prodi-show').css({'display' : 'none'});
-            //         }    
+                            // $('.dkp-show').css({'display' : 'block'});
+                            // $('.prodi-show').css({'display' : 'none'});
+                        }    
 
 
-            //      }
-            // });
- 
+                     }
+                });
+
+
+                if (uc == 'DKP') {
+                    $('.dkp-show').css({'display' : 'block'});
+                    $('.prodi-show').css({'display' : 'none'});
+                }else{
+
+                    $('.prodi-show').css({'display' : 'block'});
+                    $('.dkp-show').css({'display' : 'none'});
+                }       
+            }else{
+                $('.dkp-show').css({'display' : 'none'});
+                $('.prodi-show').css({'display' : 'none'});
+                $('.long-show').css({'display' : 'none'});
+                $('.short-show').css({'display' : 'none'});
+            }
+
+
+            
         });
 
 
