@@ -25,4 +25,11 @@ Class Section_m extends MY_Model{
         $query = $this->db->query("SELECT uc, section_label, sequence FROM lms_section WHERE uc_classroom = '".$classroom."' ORDER BY sequence");
         return $query->result();
     }
+
+    function get_in_classroom($classroom){
+        $sql = "SELECT uc, section_label, sequence FROM lms_section WHERE uc_classroom = '".$classroom."' ORDER BY sequence ASC";
+
+        echo $sql;
+        return $this->exec_query($sql);
+    }
 }
