@@ -53,6 +53,40 @@ Class Kehadiran_m extends MY_Model{
 		return $this->exec_query($sql);
 	}
 
+	function presence_student($classroom) {
+		$sql = "SELECT k.*, s.`no_peserta`, s.`full_name` 
+				FROM `lms_kehadiran` k 
+				LEFT JOIN `lms_diklat_participant` dp
+				ON dp.`uc` = k.`uc_diklat_participant`
+				LEFT JOIN `lms_student` s
+				ON s.`no_peserta` = dp.`no_peserta`
+
+				WHERE k.`uc_classroom` = '".$classroom."'
+				AND k.`uc_diklat_participant` IS NOT NULL
+				ORDER BY s.`no_peserta` ASC";
+
+		//$sql = "SELECT uc_section, uc_diklat_participant, status FROM lms_kehadiran WHERE uc_classroom = '".$classroom."' AND `uc_diklat_participant` IS NOT NULL";
+
+		return $this->exec_query($sql);
+	}
+
+	function presence_instructor($classroom) {
+		$sql = "SELECT k.*, s.`no_peserta`, s.`full_name` 
+				FROM `lms_kehadiran` k 
+				LEFT JOIN `lms_diklat_participant` dp
+				ON dp.`uc` = k.`uc_diklat_participant`
+				LEFT JOIN `lms_student` s
+				ON s.`no_peserta` = dp.`no_peserta`
+
+				WHERE k.`uc_classroom` = '".$classroom."'
+				AND k.`uc_instructor` IS NOT NULL ";
+
+		//$sql = "SELECT uc_section, uc_diklat_participant, status FROM lms_kehadiran WHERE uc_classroom = '".$classroom."' AND `uc_diklat_participant` IS NOT NULL";
+
+
+		return $this->exec_query($sql);
+	}
+
 	function get_presence_in_class($classroom){
         $query = $this->db->query("SELECT uc_section, uc_diklat_participant, status FROM lms_kehadiran WHERE uc_classroom = '".$classroom."'");
         return $query->result();
