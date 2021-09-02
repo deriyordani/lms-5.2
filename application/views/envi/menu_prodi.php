@@ -33,3 +33,8 @@
     <div class="nav-link-icon"><i data-feather="message-circle"></i></div>
    Classroom
 </a>
+
+<a class="nav-link" href="<?=base_url('monitoring/presensi/diklat')?>">
+    <div class="nav-link-icon"><i data-feather="users"></i></div>
+   Presensi
+</a>
