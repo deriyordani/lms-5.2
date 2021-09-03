@@ -95,8 +95,6 @@ Class Auth extends CI_Controller{
 				$photo = $row->photo;
 				$uc_prodi = $row->uc_prodi;
 
-
-
 				//CEK PASSWORD
 
 				if(password_verify($password,$row->password)){
@@ -416,7 +414,7 @@ Class Auth extends CI_Controller{
 			        	if ($type_person == 2) {
 							//	IF INSCTRUCTOR
 							$filter = array('id_number' => $id_number);
-							$this->instructor_m->update_data($update_data, array());
+							$this->instructor_m->update_data($update_data, $filter);
 						}
 			        }
 			        else {

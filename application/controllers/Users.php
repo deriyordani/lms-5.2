@@ -297,7 +297,15 @@ Class Users extends CI_Controller{
 			}
 		}
 
-		redirect('users/lists/instruktur/2');
+		if($uc_prodi != NULL){
+			redirect('users/lists/instruktur/2/'.$uc_prodi);
+
+		}else{
+			
+			redirect('users/lists/instruktur/2');
+		}
+
+		
 	}
 
 	function edit_ins(){
