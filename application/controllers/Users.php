@@ -323,6 +323,9 @@ Class Users extends CI_Controller{
 
 	function update_ins(){
 		if ($this->input->post('f_save')) {
+
+			$uc_prodi = $this->input->post('f_uc_prodi');
+
 			$data = [
 
 				'id_number' => trim($this->input->post('f_nip')),
@@ -334,16 +337,29 @@ Class Users extends CI_Controller{
 			$this->instructor_m->update_data($data, array('uc' => $this->input->post('f_uc')));
 		}
 
-		redirect('users/lists/instruktur/2');
+		if($uc_prodi != NULL){
+			redirect('users/lists/instruktur/2/'.$uc_prodi);
+
+		}else{
+			
+			redirect('users/lists/instruktur/2');
+		}
 	}
 
-	function delete_ins($uc = NULL){
+	function delete_ins($uc = NULL, $uc_prodi = NULL){
 
 		$this->instructor_m->delete_data(array('uc' => $uc));
 
 		activity_log('Hapus Data', 'User : Instruktur ');
 
-		redirect('users/lists/instruktur/2');
+		
+		if($uc_prodi != NULL){
+			redirect('users/lists/instruktur/2/'.$uc_prodi);
+
+		}else{
+			
+			redirect('users/lists/instruktur/2');
+		}
 	}
 
 	function store_user_prodi(){
@@ -387,7 +403,8 @@ Class Users extends CI_Controller{
 		$category = $this->input->post('js_category');
 
 		if ($category == 'instruktur') {
-			$query = $this->user_m->get_filtered(array('uc_person' => $uc));		
+			$query = $this->user_m->get_filtered(array('uc_person' => $uc));
+			$data['prodi'] = $this->instructor_m->get_filtered(array('uc' => $uc))->row();
 		}else{
 			$query = $this->user_m->get_filtered(array('uc' => $uc));		
 		}
@@ -405,6 +422,7 @@ Class Users extends CI_Controller{
 			$new_pass = $this->input->post('f_password');
 			$re_pass	= $this->input->post('f_re_password');
 			$uc = $this->input->post('f_uc');
+			$uc_prodi = $this->input->post('f_uc_prodi');
 
 			if ($new_pass == $re_pass) {
 
@@ -414,21 +432,27 @@ Class Users extends CI_Controller{
 
 				$where = ['uc' => $uc];
 				
-				$this->user_m->update_data($data_user, $uc);
+				$this->user_m->update_data($data_user, $where);
 
 				activity_log('Update Data', 'User : Password');
 
 				$this->session->set_flashdata('info', $this->config->item('flash_success'));
 
-				redirect('users/lists/instruktur/2');
-
-
+				
 			}else{
 
 				$this->session->set_flashdata('info', $this->config->item('not_matching_pass'));
 
-				redirect('users/lists/instruktur/2');
+				
 			}
+		}
+
+		if($uc_prodi != NULL){
+			redirect('users/lists/instruktur/2/'.$uc_prodi);
+
+		}else{
+			
+			redirect('users/lists/instruktur/2');
 		}
 	}
 
@@ -453,6 +477,35 @@ Class Users extends CI_Controller{
 		}
 
 		redirect('users/lists/prodi/4');
+	}
+
+	function store_ins(){
+		if($this->input->post('f_store')){
+
+			$uc_prodi = $this->input->post('f_uc_prodi');
+
+			$data = [
+				'uc' => uniqid(),
+				'id_number' => trim($this->input->post('f_id_number')),
+				'full_name' => $this->input->post('f_full_name'),
+				'uc_prodi' => $uc_prodi
+			];
+
+			activity_log('Input Data', 'User : Instruktur '.$this->input->post('f_full_name'));
+
+			$this->instructor_m->insert_data($data);
+
+			$this->session->set_flashdata('info', $this->config->item('flash_success'));
+
+		}
+
+		if($uc_prodi != NULL){
+			redirect('users/lists/instruktur/2/'.$uc_prodi);
+
+		}else{
+			
+			redirect('users/lists/instruktur/2');
+		}
 	}
 
 	// function instruktur(){

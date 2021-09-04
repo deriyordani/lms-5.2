@@ -46,15 +46,15 @@
                         $active_prodi = '';
                         $active_admin = '';
                         if ( $this->uri->segment('3') == 'instruktur') {
-                            $active_ins = 'active';
+                            $active_ins = 'active bg-dark';
                             $active_prodi = '';
                             $active_admin = '';
                         }elseif ($this->uri->segment('3') == 'prodi') {
-                            $active_prodi = 'active';
+                            $active_prodi = 'active bg-dark';
                             $active_ins = '';
                             $active_admin = '';
                         }elseif ($this->uri->segment('3') == 'admin') {
-                            $active_admin = 'active';
+                            $active_admin = 'active bg-dark';
                             $active_prodi = '';
                             $active_ins = '';
                         }
@@ -123,7 +123,7 @@
                             <select name="f_uc_prodi" class="form-control form-control-lg">
                                 <option value=""> --- Pilih ---</option>
                                 <?php foreach($list_prodi as $lp):?>
-                                    <option value="<?=$lp->uc?>"><?=$lp->prodi?></option>
+                                    <option value="<?=$lp->uc?>" <?=select_set($lp->uc, $this->session->userdata('log_uc_prodi'))?>><?=$lp->prodi?></option>
                                 <?php endforeach;?>
                             </select>
                         <?php endif;?>
@@ -215,6 +215,46 @@
     </div>
 </div>
 
+<div class="modal fade" id="add-form-ins" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content load-form-change">
+            <?=form_open_multipart('users/store_ins')?>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Instruktur</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>NIK</label>
+                        <input type="text" class="form-control" name="f_id_number" required="">
+                    </div>
+                    <div class="form-group">
+                        <label>Nama Lengkap</label>
+                        <input type="text" class="form-control" name="f_full_name" required="">
+                    </div>
+                    <div class="form-group">
+                        <label>Prodi</label>
+                        <?php $list_prodi = list_prodi();?>
+                        <?php if(isset($list_prodi)):?>
+                            <select name="f_uc_prodi" class="form-control form-control-lg">
+                                <option value=""> --- Pilih ---</option>
+                                <?php foreach($list_prodi as $lp):?>
+                                    <option value="<?=$lp->uc?>" <?=select_set($lp->uc, $this->session->userdata('log_uc_prodi'))?>><?=$lp->prodi?></option>
+                                <?php endforeach;?>
+                            </select>
+                        <?php endif;?>
+                    </div>
+                   
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" name="f_store" class="btn btn-primary" value="Proses">
+                </div>
+           <?=form_close()?>
+        </div>
+    </div>
+</div>
+
 
 <script type="text/javascript">
     $(document).ready(function(){
@@ -240,7 +280,7 @@
 
             var uc = $(this).attr('uc');
 
-           $('.load-form').load(base_url+'users/edit_ins', {js_uc : uc});
+           $('.load-form-edit').load(base_url+'users/edit_ins', {js_uc : uc});
         });
 
         // $('.btn-search').click(function(){

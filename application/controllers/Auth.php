@@ -416,6 +416,7 @@ Class Auth extends CI_Controller{
 							$filter = array('id_number' => $id_number);
 							$this->instructor_m->update_data($update_data, $filter);
 						}
+						
 			        }
 			        else {
 			        	//	If Fail to Send

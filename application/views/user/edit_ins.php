@@ -1,5 +1,6 @@
 <?=form_open('users/update_ins')?>
 <input type="hidden" name="f_uc" value="<?=$row->uc?>">
+<input type="hidden" name="f_uc_prodi" value="<?=$row->uc_prodi?>">
 <div class="modal-header">
     <h5 class="modal-title" id="exampleModalLabel">Ubah Instruktur</h5>
     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
