@@ -119,7 +119,7 @@ Class Master extends CI_Controller{
 
 			$data = [
 
-				'uc' => uniqid(),
+				'uc' => unique_code(),
 				'uc_tpack_section' => 'ps0105',
 				'page' => $i
 			];

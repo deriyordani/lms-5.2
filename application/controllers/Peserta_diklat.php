@@ -163,8 +163,8 @@ Class Peserta_diklat extends CI_Controller{
 
 					if (isset($nomor_peserta)) { // Check for seafarer code
 						if ($curr_seafarer != $nomor_peserta) {	
-							$value .= "('".uniqid()."','".$uc_diklat_period."','".$uc_diklat_class."','".trim($nomor_peserta)."'),";
-							$value_stu .= "('".uniqid()."','".trim($nomor_peserta)."','".str_replace("'", "''", $full_name)."'),";
+							$value .= "('".unique_code()."','".$uc_diklat_period."','".$uc_diklat_class."','".trim($nomor_peserta)."'),";
+							$value_stu .= "('".unique_code()."','".trim($nomor_peserta)."','".str_replace("'", "''", $full_name)."'),";
 
 							$curr_seafarer = trim($nomor_peserta);
 
@@ -312,7 +312,7 @@ Class Peserta_diklat extends CI_Controller{
 
 					if (isset($nomor_peserta)) { // Check for seafarer code
 						if ($curr_seafarer != $nomor_peserta) {	
-							$value .= "('".uniqid()."','".$uc_diklat_period."','".$uc_diklat_class."','".trim($nomor_peserta)."'),";
+							$value .= "('".unique_code()."','".$uc_diklat_period."','".$uc_diklat_class."','".trim($nomor_peserta)."'),";
 
 							$curr_seafarer = trim($nomor_peserta);
 
@@ -349,12 +349,84 @@ Class Peserta_diklat extends CI_Controller{
 		redirect('peserta_diklat');
 	}
 
-	function delete($uc_person){
+	function edit(){
+		$uc = $this->input->post('js_uc');
 
-		$this->diklat_participant_m->delete_data(array('uc' => $uc_person));
+		$query = $this->student_m->get_filtered(array('uc' => $uc));
+		if ($query->num_rows() > 0) {
+			$data['row'] = $query->row();
+		}
+
+		$data['diklat'] = $this->diklat_participant_m->get_filtered(array('no_peserta' => $data['row']->no_peserta))->row();
+		
+
+		$this->load->view('peserta_diklat/edit', $data);
+	}
+
+	function update(){
+		if ($this->input->post('f_save')) {
+			
+			$uc_student = $this->input->post('f_uc_student');
+
+			$data_student = [
+
+				'no_peserta' => $this->input->post('f_id_number'),
+				'full_name' => $this->input->post('f_full_name')
+			];
+
+			$this->student_m->update_data($data_student, array('uc' => $uc_student));
+
+			$uc_diklat_participant = $this->input->post('f_uc_diklat_participant');
+
+			$data_participant = [
+				'uc_diklat_class' => $this->input->post('f_kelas'),
+				'no_peserta' => $this->input->post('f_id_number')
+			];
+
+			$this->diklat_participant_m->update_data($data_participant, array('uc' => $uc_diklat_participant));
+		}
 
 		redirect('peserta_diklat');
+	}
 
+	// function delete($uc_person){
+
+	// 	$this->diklat_participant_m->delete_data(array('uc' => $uc_person));
+
+	// 	redirect('peserta_diklat');
+
+	// }
+
+
+	function add_single(){
+		$this->load->view('peserta_diklat/add_single');
+	}
+
+	function store_single(){
+		if ($this->input->post('f_save')) {
+
+			$no_peserta = $this->input->post('f_id_number');
+
+			$data_stu = [
+				'uc' => unique_code(),
+				'no_peserta' => $no_peserta,
+				'full_name' => $this->input->post('f_full_name')
+			];
+
+			$this->student_m->insert_data($data_stu);
+
+			$data_diklat_par = [
+
+				'uc' => unique_code(),
+				'uc_diklat_period' => $this->input->post('f_uc_diklat_periode'),
+				'uc_diklat_class' => $this->input->post('f_kelas'),
+				'no_peserta' => $no_peserta
+			];
+
+			$this->diklat_participant_m->insert_data($data_diklat_par);
+		}
+
+		redirect('peserta_diklat');
 	}
 
 	

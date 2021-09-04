@@ -83,9 +83,9 @@
     });
 </script>
 
-<?=form_open_multipart('peserta_diklat/store')?>
+<?=form_open_multipart('peserta_diklat/store_single')?>
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Upload Peserta Diklat</h5>
+    <h5 class="modal-title" id="exampleModalLabel">Tambah Peserta Diklat</h5>
     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>
 <div class="modal-body">
@@ -150,19 +150,15 @@
         </select>
     </div>
 
-
+    <div class="form-group">
+        <label>No. Peserta</label>
+        <input type="text" name="f_id_number" class="form-control">
+    </div>
 
     <div class="form-group">
-        <label>Upload File</label>
-        <input type="file" name="f_file" class="form-control">
+        <label>Nama Lengkap</label>
+        <input type="text" name="f_full_name" class="form-control">
     </div>
-    <div class="form-group">
-        <label>Template File Excel</label>
-        <br/>
-        <a href="<?=base_url('assets/file/temp_peserta_diklat.xls')?>">Download</a>
-    </div>
-   
-    
 </div>
 <div class="modal-footer">
     <input type="submit" name="f_save" class="btn btn-primary" value="Upload">

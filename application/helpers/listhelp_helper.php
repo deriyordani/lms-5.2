@@ -77,6 +77,25 @@ function list_diklat_periode($filter = NULL){
 	}
 }
 
+function list_diklat_class($filter = NULL){
+	$CI =& get_instance();
+	$CI->load->model('diklat_class_m');
+	
+	if ($filter != NULL) {		
+		$query = $CI->diklat_class_m->get_filtered($filter);
+	}
+	else {
+		$query = $CI->diklat_class_m->get_all('id','ASC');	
+	}
+	
+	if ($query->num_rows() > 0) {
+		return $query->result();
+	}
+	else {
+		return NULL;
+	}
+}
+
 function list_dkp($filter = NULL){
 	$CI =& get_instance();
 	$CI->load->model('diklat_dkp_m');

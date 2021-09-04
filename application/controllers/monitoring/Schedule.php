@@ -32,7 +32,7 @@ Class Schedule extends CI_Controller{
 			$this->load->model('schedule_m');
 
 			$data = array (
-							'uc' 				=> uniqid(),
+							'uc' 				=> unique_code(),
 							'uc_diklat_class'	=> $this->input->post('f_class')
 							);
 
@@ -72,7 +72,7 @@ Class Schedule extends CI_Controller{
 			$uc = $this->input->post('f_uc');
 
 			$data = array(
-							'uc'			=> uniqid(),
+							'uc'			=> unique_code(),
 							'uc_schedule'	=> $uc,
 							'minggu_ke'		=> $this->input->post('f_week'),
 							'tanggal_mulai'	=> time_format($this->input->post('f_tanggal_awal'),"Y-m-d"),
@@ -167,7 +167,7 @@ Class Schedule extends CI_Controller{
 			foreach ($subject as $idx => $sub) {
 				
 				if ($sub != NULL) {
-					$value .= "('".uniqid()."', '".$this->input->post('f_uc_sched_week')."', '".$idx."', '".$jam_mulai[$idx]."', '".$jam_selesai[$idx]."', '".$subject[$idx]."', '".$instructor[$idx]."'),";
+					$value .= "('".unique_code()."', '".$this->input->post('f_uc_sched_week')."', '".$idx."', '".$jam_mulai[$idx]."', '".$jam_selesai[$idx]."', '".$subject[$idx]."', '".$instructor[$idx]."'),";
 				}
 			}
 
@@ -271,7 +271,7 @@ Class Schedule extends CI_Controller{
 			if ($this->input->post('f_jam_ke') != NULL) {
 				$value = NULL;
 				foreach ($this->input->post('f_jam_ke') as $jk) {
-					$value .= "('".uniqid()."', '".$this->input->post('f_uc_sched_week')."', '".$jk."', '".$jam_mulai[$jk]."', '".$jam_selesai[$jk]."', '".$this->input->post('f_uc_subject')."', '".$this->input->post('f_uc_instructor')."'),";					
+					$value .= "('".unique_code()."', '".$this->input->post('f_uc_sched_week')."', '".$jk."', '".$jam_mulai[$jk]."', '".$jam_selesai[$jk]."', '".$this->input->post('f_uc_subject')."', '".$this->input->post('f_uc_instructor')."'),";					
 				}
 
 				$value = substr_replace($value, '', -1);

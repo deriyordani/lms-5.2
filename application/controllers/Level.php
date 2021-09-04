@@ -96,7 +96,7 @@ Class Level extends CI_Controller{
 				'label' => $this->input->post('f_label'),
 				'majors' => $this->input->post('f_majors'),
 				'level_majors' => $this->input->post('f_level_majors'),
-				'uc' => uniqid(),
+				'uc' => unique_code(),
 			];
 
 			$this->level_m->insert_data($data);

@@ -230,7 +230,7 @@ Class Users extends CI_Controller{
 
 					if (isset($id_number)) { 
 						if ($curr_seafarer != $id_number) {	
-							$value .= "('".uniqid()."','".trim($id_number)."','".str_replace("'", "''", $full_name)."','".$uc_prodi."'),";
+							$value .= "('".unique_code()."','".trim($id_number)."','".str_replace("'", "''", $full_name)."','".$uc_prodi."'),";
 
 							$curr_seafarer = trim($id_number);
 
@@ -365,7 +365,7 @@ Class Users extends CI_Controller{
 	function store_user_prodi(){
 		if ($this->input->post('f_save')) {
 			
-			$uc_user = uniqid();
+			$uc_user = unique_code();
 
 			$data_user  = [
 				'uc' => $uc_user,
@@ -485,7 +485,7 @@ Class Users extends CI_Controller{
 			$uc_prodi = $this->input->post('f_uc_prodi');
 
 			$data = [
-				'uc' => uniqid(),
+				'uc' => unique_code(),
 				'id_number' => trim($this->input->post('f_id_number')),
 				'full_name' => $this->input->post('f_full_name'),
 				'uc_prodi' => $uc_prodi

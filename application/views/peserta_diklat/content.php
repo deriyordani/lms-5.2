@@ -46,9 +46,9 @@
                                     <td width="18%">
 
                                       
-                                        <!-- <button class="btn btn-info btn-sm btn-edit" uc="<?=$row->uc?>" data-toggle="modal" data-target="#exampleModal">
+                                        <button class="btn btn-info btn-sm btn-edit" uc="<?=$row->uc?>" data-toggle="modal" data-target="#exampleModal">
                                             <i class="mr-1 fa fa-pen-square" ></i> Edit
-                                        </button> -->
+                                        </button>
 
                                         <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-<?=$row->id?>">
                                             <i class="mr-1 fa fa-trash-alt" ></i> Delete
@@ -105,7 +105,11 @@
     $(document).ready(function(){
         var base_url = $("#base-url").html();
 
-        
+         $('.btn-add-single').click(function(){
+
+           $('.load-form').load(base_url+'peserta_diklat/add_single');
+        });
+
         $('.btn-add').click(function(){
 
            $('.load-form').load(base_url+'peserta_diklat/add');

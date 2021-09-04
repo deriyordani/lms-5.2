@@ -1,11 +1,11 @@
 <div class="tab-content" id="cardPillContent">
    <div class="tab-pane fade show active" id="overviewPill" role="tabpanel" aria-labelledby="overview-pill">
 
-   		   <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#add-form-ins"> 
+   		   <a href="#" class="btn btn-primary mb-3 btn-sm" data-toggle="modal" data-target="#add-form-ins"> 
                 <i class="fa fa-plus"></i> &nbsp; Add Instruktur
             </a>
 
-   			<a href="#" class="btn btn-success mb-3" data-toggle="modal" data-target="#upload-ins"> 
+   			<a href="#" class="btn btn-success mb-3 btn-sm" data-toggle="modal" data-target="#upload-ins"> 
    				<i class="fa fa-file-excel"></i> &nbsp; Import Data
    			</a>
 

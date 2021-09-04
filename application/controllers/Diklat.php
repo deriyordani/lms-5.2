@@ -104,7 +104,7 @@ Class diklat extends CI_Controller{
 
 				'diklat' => $this->input->post('f_diklat'),
 				'category' => $this->input->post('f_category'),
-				'uc' => uniqid(),
+				'uc' => unique_code(),
 			];
 
 			$this->diklat_m->insert_data($data);

@@ -150,7 +150,7 @@ Class Subject extends CI_Controller{
 				'uc_diklat_dkp' => $this->input->post('f_diklat_dkp'),
 				'uc_prodi' => $this->input->post('f_prodi'),
 				'category' => $this->input->post('f_category'),
-				'uc' => uniqid()
+				'uc' => unique_code()
 			];
 
 			$this->subject_m->insert_data($data);

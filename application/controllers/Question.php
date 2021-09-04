@@ -158,7 +158,7 @@ Class Question extends CI_Controller{
 				$answer = 0;
 			}
 
-			$uc_question = uniqid();
+			$uc_question = unique_code();
 
 			// $this->load->library('im_upload');
 			// $file_img = $this->im_upload->uploading('f_lampiran','question');
@@ -252,7 +252,7 @@ Class Question extends CI_Controller{
 				    }
 
 
-				    $value .= "('".uniqid()."','".$uc_question."','".$option."', '".$answer."', '".$att_file."'),";
+				    $value .= "('".unique_code()."','".$uc_question."','".$option."', '".$answer."', '".$att_file."'),";
 
 				}else{
 
@@ -268,7 +268,7 @@ Class Question extends CI_Controller{
 					$att_file = $this->input->post('f_lampiran_op_old_'.$i);
 
 
-					$value .= "('".uniqid()."','".$uc_question."','".$option."', '".$answer."', '".$att_file."'),";
+					$value .= "('".unique_code()."','".$uc_question."','".$option."', '".$answer."', '".$att_file."'),";
 
 				}
 

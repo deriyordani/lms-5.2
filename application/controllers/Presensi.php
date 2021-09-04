@@ -123,7 +123,7 @@ Class Presensi extends CI_Controller{
             		//INSERT PERTAMA KALI
 
             		$data_presensi = [
-            			'uc' => uniqid(),
+            			'uc' => unique_code(),
             			'uc_classroom' => $uc_classroom,
 	            		'uc_section' => $uc_sec,
 	            		'uc_instructor' => $this->session->userdata('log_uc_person'),
@@ -262,7 +262,7 @@ Class Presensi extends CI_Controller{
 
 			$data_insert = [
 
-				'uc' => uniqid(),
+				'uc' => unique_code(),
 				'uc_classroom' => $uc_classroom,
 				'uc_instructor' => $this->session->userdata('log_uc_person'),
 				'uc_student' => $uc_student,
@@ -408,7 +408,7 @@ Class Presensi extends CI_Controller{
 
 	function set(){
 		$data = array(
-						'uc'					=> uniqid(),
+						'uc'					=> unique_code(),
 						'uc_classroom' 			=> $this->input->post('f_uc_classroom'),
 						'uc_section'			=> $this->input->post('f_uc_section'),
 						'uc_diklat_participant'	=> $this->input->post('f_uc_dikpar'),

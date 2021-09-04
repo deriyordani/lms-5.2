@@ -99,7 +99,7 @@ Class Period extends CI_Controller{
 			
 			$data = [
 
-				'uc' => uniqid(),
+				'uc' => unique_code(),
 				'uc_prodi' => $this->input->post('f_prodi'),
 				'uc_diklat' => $this->input->post('f_diklat'),
 				'uc_diklat_dkp' => $this->input->post('f_diklat_dkp'),
@@ -238,7 +238,7 @@ Class Period extends CI_Controller{
 			
 			$data = [
 
-				'uc' => uniqid(),
+				'uc' => unique_code(),
 				'uc_diklat_period' => $uc_period_diklat,
 				'class_label' => $this->input->post('f_label'),
 			];

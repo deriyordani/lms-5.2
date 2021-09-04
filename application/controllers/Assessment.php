@@ -382,7 +382,7 @@ Class Assessment extends CI_Controller{
 		if ($uc_answer == NULL) {
 			// INSERT
 			$data = array(
-							'uc'				=> uniqid(),
+							'uc'				=> unique_code(),
 							'uc_ass_attempt'	=> $uc_ass_attempt,
 							'uc_ass_question'	=> $uc_ass_question,
 							'answer'			=> $answer

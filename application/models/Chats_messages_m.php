@@ -26,7 +26,7 @@ Class Chats_messages_m extends MY_Model{
 
 		$result = $this->db->query($sql, [$uc_classroom, $last_chat_message_id]);
 
-		//echo $sql;
+		echo $sql;
         return $result;
 	}
 

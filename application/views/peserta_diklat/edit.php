@@ -83,89 +83,47 @@
     });
 </script>
 
-<?=form_open_multipart('peserta_diklat/store')?>
+<?=form_open_multipart('peserta_diklat/update')?>
+<input type="hidden" name="f_uc_diklat_participant" value="<?=$diklat->uc?>">
+<input type="hidden" name="f_uc_student" value="<?=$row->uc?>">
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Upload Peserta Diklat</h5>
+    <h5 class="modal-title" id="exampleModalLabel">Ubah Peserta Diklat</h5>
     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>
 <div class="modal-body">
 
-    <div class="form-group">
-        <label>Periode Diklat</label>
-        <select name="f_diklat" class="form-control form-control-lg">
-            <?php 
-                $list_diklat = list_diklat();
-                if(isset($list_diklat)):
-            ?>
-            <option value="">---Pilih---</option>
-            <?php foreach($list_diklat as $ld):?>
-                <option value="<?=$ld->uc?>"><?=$ld->diklat?></option>
-            <?php endforeach;?>
-        <?php endif;?>
-        </select>
-    </div>
 
-   
-    <div class="form-group prodi-show" style="display: none;">
-        <label>Prodi</label>
-        <select name="f_prodi" class="form-control form-control-lg">
-            <?php 
-                $list_prodi = list_prodi();
-                if(isset($list_prodi)):
-            ?>
-            <option value="">---Pilih---</option>
-            <?php foreach($list_prodi as $lp):?>
-                <option value="<?=$lp->uc?>"><?=$lp->prodi?></option>
-            <?php endforeach;?>
-        <?php endif;?>
-        </select>
-    </div>
-
-    <div class="form-group dkp-show" style="display: none;">
-        <label>Daftar Diklat DKP</label>
-        <select name="f_diklat_dkp" class="form-control form-control-lg">
-            <?php 
-                $list_dkp = list_dkp();
-                if(isset($list_dkp)):
-            ?>
-            <option value="">---Pilih---</option>
-            <?php foreach($list_dkp as $lp):?>
-                <option value="<?=$lp->uc?>"><?=$lp->label_dkp?></option>
-            <?php endforeach;?>
-        <?php endif;?>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label>Tahun/Periode</label>
-        <select name="f_uc_diklat_periode" class="form-control form-control-lg">
-             <option> --- Pilih ---</option>
-        </select>
-    </div>
 
     <div class="form-group">
         <label>Kelas</label>
         <select name="f_kelas" class="form-control form-control-lg">
-            <option> --- Pilih ---</option>
+            <?php 
+                $list_diklat_class = list_diklat_class(array('uc_diklat_period' => $diklat->uc_diklat_period ));
+                if(isset($list_diklat_class)):
+            ?>
+            <option value="">---Pilih---</option>
+            <?php foreach($list_diklat_class as $lp):?>
+                <option value="<?=$lp->uc?>" <?=select_set($lp->uc, $diklat->uc_diklat_class)?>><?=$lp->class_label?></option>
+            <?php endforeach;?>
+        <?php endif;?>
         </select>
     </div>
 
-
-
     <div class="form-group">
-        <label>Upload File</label>
-        <input type="file" name="f_file" class="form-control">
+        <label>No. Peserta</label>
+        <input type="text" name="f_id_number" class="form-control" value="<?=$row->no_peserta?>">
     </div>
-    <div class="form-group">
-        <label>Template File Excel</label>
-        <br/>
-        <a href="<?=base_url('assets/file/temp_peserta_diklat.xls')?>">Download</a>
+
+     <div class="form-group">
+        <label>Nama Peserta</label>
+        <input type="text" name="f_full_name" class="form-control" value="<?=$row->full_name?>">
     </div>
+   
    
     
 </div>
 <div class="modal-footer">
-    <input type="submit" name="f_save" class="btn btn-primary" value="Upload">
+    <input type="submit" name="f_save" class="btn btn-primary" value="Save">
 </div>
 
 <?=form_close();?>

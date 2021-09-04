@@ -177,7 +177,7 @@ Class Classroom extends CI_Controller{
 			
 	// 	// 	$data_presensi = [
 
-	// 	// 		'uc' => uniqid(),
+	// 	// 		'uc' => unique_code(),
 	// 	// 		'uc_classroom' => $uc_classroom,
 	// 	// 		'uc_instructor' => $data['info']->uc_instructor,
 	// 	// 		'uc_student' => $uc_student,
@@ -323,7 +323,7 @@ Class Classroom extends CI_Controller{
 	            		//INSERT PERTAMA KALI
 
 	            		$data_presensi = [
-	            			'uc' => uniqid(),
+	            			'uc' => unique_code(),
 	            			'uc_classroom' => $uc_classroom,
 		            		'uc_section' => $section->uc,
 		            		'uc_diklat_participant' => $this->session->userdata('log_uc_diklat_participant'),
@@ -504,7 +504,7 @@ Class Classroom extends CI_Controller{
 			        
 			        $data = [
 
-						'uc' => uniqid(),
+						'uc' => unique_code(),
 						'uc_assignment' => $uc_content,
 						'uc_participant' => $this->session->userdata('log_uc_person'),
 						'file_attach' => $upload_data['file_name'],
@@ -736,7 +736,7 @@ Class Classroom extends CI_Controller{
 			$file_att = $this->im_upload->uploading('f_file_attach', 'materi');
 
 			$data = [
-				'uc' => uniqid(),
+				'uc' => unique_code(),
 				'uc_classroom' => $uc_classroom,
 				'uc_diklat_class' => $uc_diklat_class,
 				'uc_instructor' => $this->session->userdata('log_uc_person'),
@@ -803,7 +803,7 @@ Class Classroom extends CI_Controller{
 		$this->load->model('forum_comment_m');
 
 		$data = [
-			'uc' => uniqid(),
+			'uc' => unique_code(),
 			'comment' => $this->input->post('f_comment'),
 			'uc_user' => $this->session->userdata('log_uc'),
 			'uc_forum' => $this->input->post('f_uc_content')
@@ -886,7 +886,7 @@ Class Classroom extends CI_Controller{
 	        $content = $this->input->post('content', true);
 
 	        $data = [
-	        	'uc' => uniqid(),
+	        	'uc' => unique_code(),
 	        	'uc_classroom' => $uc_classroom,
 	        	'uc_user' => $uc_user,
 	        	'content' => $content

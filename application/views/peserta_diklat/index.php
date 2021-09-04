@@ -39,10 +39,13 @@
             <div class="card-header">
                 Daftar Peserta Diklat
                 <button class="btn btn-success btn-sm btn-add" data-toggle="modal" data-target="#exampleModal">
-                    Import Peserta
+                    <i class="fa fa-file-excel"></i> &nbsp; Import Data
                 </button>
             </div>
             <div class="card-body ">
+                <button class="btn btn-primary btn-sm btn-add-single" data-toggle="modal" data-target="#exampleModal">
+                    <i class="fa fa-plus"></i> &nbsp; Add Peserta Diklat
+                </button>
 
                 <!-- <div class="row">
 

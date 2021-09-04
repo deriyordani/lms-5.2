@@ -94,7 +94,7 @@ Class Prodi extends CI_Controller{
 			$data = [
 
 				'prodi' => $this->input->post('f_prodi'),
-				'uc' => uniqid(),
+				'uc' => unique_code(),
 			];
 
 			$this->prodi_m->insert_data($data);

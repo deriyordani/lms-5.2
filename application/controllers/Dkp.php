@@ -92,7 +92,7 @@ Class Dkp extends CI_Controller{
 			$data = [
 
 				'label_dkp' => $this->input->post('f_label'),
-				'uc' => uniqid(),
+				'uc' => unique_code(),
 			];
 
 			$this->diklat_dkp_m->insert_data($data);

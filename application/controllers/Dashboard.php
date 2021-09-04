@@ -8,7 +8,7 @@ Class Dashboard extends CI_Controller{
 
 		$this->load->model('log_m');
 
-		$data['log'] = $this->log_m->get_all('id','DESC',20,0)->result();
+		$data['log'] = $this->log_m->get_filtered(array('log_user' => $this->session->userdata('log_uc')),'id','DESC')->result();
 
 		$session = $this->session->userdata('log_category');
 
