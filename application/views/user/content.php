@@ -1,7 +1,7 @@
 <div class="tab-content" id="cardPillContent">
    <div class="tab-pane fade show active" id="overviewPill" role="tabpanel" aria-labelledby="overview-pill">
 
-   	    <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#add-user-prodi"> 
+   	    <a href="#" class="btn btn-primary mb-3 btn-sm" data-toggle="modal" data-target="#add-user-prodi"> 
             <i class="fa fa-plus"></i> &nbsp; Add
         </a>
 

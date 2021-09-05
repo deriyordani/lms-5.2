@@ -164,7 +164,7 @@ Class Peserta_diklat extends CI_Controller{
 					if (isset($nomor_peserta)) { // Check for seafarer code
 						if ($curr_seafarer != $nomor_peserta) {	
 							$value .= "('".unique_code()."','".$uc_diklat_period."','".$uc_diklat_class."','".trim($nomor_peserta)."'),";
-							$value_stu .= "('".unique_code()."','".trim($nomor_peserta)."','".str_replace("'", "''", $full_name)."'),";
+							$value_stu .= "('".unique_code('ST')."','".trim($nomor_peserta)."','".str_replace("'", "''", $full_name)."'),";
 
 							$curr_seafarer = trim($nomor_peserta);
 
@@ -212,7 +212,7 @@ Class Peserta_diklat extends CI_Controller{
 
 					foreach ($query->result() as $res) {
 						$value .= "('".$res->uc."','".$res->uc_diklat_period."','".$res->uc_diklat_class."','".$res->no_peserta."'),";
-						$value_stu .= "('".$res->uc."','".$res->no_peserta."','".str_replace("'", "''", $res->full_name)."'),";
+						$value_stu .= "('".$res->uc_student."','".$res->no_peserta."','".str_replace("'", "''", $res->full_name)."'),";
 
 						if (($i%50) == 0) {
 

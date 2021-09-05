@@ -94,7 +94,7 @@ Class Classroom extends CI_Controller{
 	function store(){
 		if ($this->input->post('f_save')) {
 
-			$uc_class = uniqid();
+			$uc_class = unique_code();
 
 			$uc_subject = $this->input->post('f_subject');
 			
@@ -119,7 +119,7 @@ Class Classroom extends CI_Controller{
 
 				$data_section = [
 
-					'uc' => uniqid(),
+					'uc' => unique_code(),
 					'section_label' => 'Pertemuan Ke '.$i,
 					'uc_classroom' => $uc_class,
 					'sequence' => $i
@@ -139,7 +139,7 @@ Class Classroom extends CI_Controller{
 
 				$data_content = [
 
-					'uc' => uniqid(),
+					'uc' => unique_code(),
 					'uc_classroom' => $uc_class,
 					'uc_section' => $uc_section,
 					'category' => 1,
@@ -455,7 +455,7 @@ Class Classroom extends CI_Controller{
 
 				$data = [
 
-					'uc' => uniqid(),
+					'uc' => unique_code(),
 					'uc_classroom' => $uc_classroom,
 					'uc_section' => $uc_section,
 					'content_title' => $this->input->post('f_judul'),
@@ -611,7 +611,7 @@ Class Classroom extends CI_Controller{
 		$this->load->model('comment_m');
 
 		$data = [
-			'uc' => uniqid(),
+			'uc' => unique_code(),
 			'comment' => $this->input->post('f_comment'),
 			'uc_user' => $this->session->userdata('log_uc'),
 			'uc_content' => $this->input->post('f_uc_content')
@@ -933,7 +933,7 @@ Class Classroom extends CI_Controller{
 			$file_att = $this->im_upload->uploading('f_file_attach', 'materi');
 
 			$data = [
-				'uc' => uniqid(),
+				'uc' => unique_code(),
 				'uc_classroom' => $uc_classroom,
 				'uc_diklat_class' => $uc_diklat_class,
 				'uc_instructor' => $this->session->userdata('log_uc_person'),
@@ -1030,7 +1030,7 @@ Class Classroom extends CI_Controller{
 		$this->load->model('forum_comment_m');
 
 		$data = [
-			'uc' => uniqid(),
+			'uc' => unique_code(),
 			'comment' => $this->input->post('f_comment'),
 			'uc_user' => $this->session->userdata('log_uc'),
 			'uc_forum' => $this->input->post('f_uc_content')
@@ -1061,7 +1061,7 @@ Class Classroom extends CI_Controller{
 			$uc_diklat_class = $this->input->post('f_uc_diklat_class');
 			$uc_forum = $this->input->post('f_uc_forum');
 
-			$uc_group = uniqid();
+			$uc_group = unique_code();
 
 			$group_data = [
 
@@ -1091,7 +1091,7 @@ Class Classroom extends CI_Controller{
 				$participan = "";
 
 				foreach ($query->result() as $val) {
-					$participan .= "('".uniqid()."', '".$uc_group."', '".$val->uc."','".$val->uc_student."'),";
+					$participan .= "('".unique_code()."', '".$uc_group."', '".$val->uc."','".$val->uc_student."'),";
 				}
 
 				$participan = substr($participan, 0, -1);
@@ -1179,7 +1179,7 @@ Class Classroom extends CI_Controller{
 				$participan = "";
 
 				foreach ($query->result() as $val) {
-					$participan .= "('".uniqid()."', '".$uc_group."', '".$val->uc."','".$val->uc_student."'),";
+					$participan .= "('".unique_code()."', '".$uc_group."', '".$val->uc."','".$val->uc_student."'),";
 				}
 
 				$participan = substr($participan, 0, -1);
@@ -1324,7 +1324,7 @@ Class Classroom extends CI_Controller{
 	        $content = $this->input->post('content', true);
 
 	        $data = [
-	        	'uc' => uniqid(),
+	        	'uc' => unique_code(),
 	        	'uc_classroom' => $uc_classroom,
 	        	'uc_user' => $uc_user,
 	        	'content' => $content
@@ -1449,7 +1449,7 @@ Class Classroom extends CI_Controller{
 
 		    $seq = 0;
 
-		    $uc_content = uniqid();
+		    $uc_content = unique_code();
 
 			$uc_section = $this->input->post('f_section');
 			$seq = $this->section_m->get_seq_content($uc_classroom, $uc_section)->row()->sequence;
@@ -1480,7 +1480,7 @@ Class Classroom extends CI_Controller{
 
 
 			// INSERT TO ASS
-			$uc_assessment = uniqid();
+			$uc_assessment = unique_code();
 
 			$data = array(
 							'uc'						=> $uc_assessment,
@@ -1521,7 +1521,7 @@ Class Classroom extends CI_Controller{
 					// Fill value for `tech_exam_question`
 					foreach ($q_quest->result() as $res) {
 						// Definition for uc_exam_question
-						$uc_exam_question = uniqid();
+						$uc_exam_question = unique_code();
 						// Value for inserting the question
 						$val_quest .= "('".$uc_exam_question."', '".$res->uc."', '".$res->question_title."', '".htmlspecialchars(addslashes(mb_convert_encoding($res->question_text,"HTML-ENTITIES","UTF-8")))."', '".$res->att_file."', '".$res->question_type."', '".$res->truefalse_answer."', '".$uc_assessment."'), ";
 						// Get the uc_exam_question
@@ -1548,7 +1548,7 @@ Class Classroom extends CI_Controller{
 						///	Prepare value
 						$val_opt = "";			
 						foreach ($result as $res) {
-							$val_opt .= "('".uniqid()."', '".htmlspecialchars(addslashes(mb_convert_encoding($res->option_text,"HTML-ENTITIES","UTF-8")))."','".$res->att_file."','".$res->is_correct."','".$res->uc."','".$uc_assessment."'),";
+							$val_opt .= "('".unique_code()."', '".htmlspecialchars(addslashes(mb_convert_encoding($res->option_text,"HTML-ENTITIES","UTF-8")))."','".$res->att_file."','".$res->is_correct."','".$res->uc."','".$uc_assessment."'),";
 						}
 
 						$val_opt = substr_replace($val_opt, '', -1);

@@ -7,12 +7,19 @@ Class Diklat_participant_temp_m extends MY_Model{
 	}
 
 	function temp_not_in_real() {
-		$sql = "SELECT dpt.*, st.`full_name` 
+		// $sql = "SELECT dpt.*, st.`full_name` 
+		// 			FROM `lms_diklat_participant_temp` dpt 
+		// 			LEFT JOIN `lms_student_temp` st 
+		// 			ON st.`no_peserta` = dpt.`no_peserta` 
+		// 			WHERE dpt.`no_peserta` NOT IN 
+		// 			( SELECT `no_peserta` FROM `lms_diklat_participant` )";
+
+		$sql = " SELECT dpt.*, st.`full_name`, st.uc as uc_student
 					FROM `lms_diklat_participant_temp` dpt 
 					LEFT JOIN `lms_student_temp` st 
 					ON st.`no_peserta` = dpt.`no_peserta` 
 					WHERE dpt.`no_peserta` NOT IN 
-					( SELECT `no_peserta` FROM `lms_diklat_participant` )";
+					( SELECT `no_peserta` FROM `lms_diklat_participant` ) ";
 
 		return $this->exec_query($sql);			
 	}

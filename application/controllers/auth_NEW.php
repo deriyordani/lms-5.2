@@ -263,7 +263,7 @@ Class Auth extends CI_Controller{
 			if ($this->username_validation) {
 
 				$uc_person = NULL;
-				$uc_user = uniqid();
+				$uc_user = unique_code();
 				$row_user = NULL;
 
 

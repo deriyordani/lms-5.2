@@ -281,7 +281,7 @@ Class Auth extends CI_Controller{
 				$email = trim($this->input->post('f_email'));
 				$fullname = $this->input->post('f_nama_lengkap');
 
-				$uc_person = uniqid();
+				$uc_person = unique_code();
 
 				if ($type_person == 2) {
 
@@ -321,7 +321,7 @@ Class Auth extends CI_Controller{
 				// }
 
 				//insert to USER
-				$uc_user = uniqid();
+				$uc_user = unique_code();
 
 				$data_user  = [
 					'uc' => $uc_user,
@@ -360,7 +360,7 @@ Class Auth extends CI_Controller{
 			$email = trim($this->input->post('f_email'));
 			$fullname = $this->input->post('f_nama_lengkap');
 
-			$uc_person = uniqid();
+			$uc_person = unique_code();
 
 			if ($type_person == 2) {
 
@@ -400,7 +400,7 @@ Class Auth extends CI_Controller{
 			}
 
 			//insert to USER
-			$uc_user = uniqid();
+			$uc_user = unique_code();
 
 			$data_user  = [
 				'uc' => $uc_user,
