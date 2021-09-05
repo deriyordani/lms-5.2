@@ -30,7 +30,8 @@ Class Fparticipant_m extends MY_Model{
 				AND p.`uc_fgroup` = '".$uc_group."'
 
 				LEFT JOIN `lms_student` s ON r.no_peserta = s.no_peserta
-				WHERE r.`uc_diklat_class` = '".$uc_diklat_class."'
+				WHERE r.uc NOT IN (SELECT uc_diklat_participant FROM lms_fgroup_participant)
+				AND r.`uc_diklat_class` = '".$uc_diklat_class."'
 				AND r.is_claim = '1' ";
 
 		return $this->exec_query($sql);	

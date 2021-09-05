@@ -1090,9 +1090,10 @@ Class Classroom extends CI_Controller{
 		$data = NULL;
 
 		$uc_content = $this->input->post('js_uc_content');
+		$uc_fgroup = $this->input->post('js_uc_fgroup');
 
 		$this->load->model('forum_comment_m');
-		$query_com = $this->forum_comment_m->get_list($uc_content);
+		$query_com = $this->forum_comment_m->get_list($uc_content,$uc_group);
 		if ($query_com->num_rows() > 0) {
 			$data['comment'] = $query_com->result();
 		}
