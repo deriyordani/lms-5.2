@@ -66,8 +66,6 @@ Class Diklat_period_m extends MY_Model{
 
 		//echo $sql;
 
-		
-
 		return $this->exec_query($sql);
 
 	}

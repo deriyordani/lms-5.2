@@ -106,7 +106,7 @@
 </div>
 <div class="modal-body">
         <div class="form-group">
-        <label>Periode Diklat</label>
+        <label>Periode Diklat <?=$this->session->userdata('log_uc_prodi')?></label>
         <select name="f_diklat" class="form-control form-control-lg" required="">
             <?php 
                 $list_diklat = list_diklat();
@@ -123,6 +123,7 @@
    
     <div class="form-group prodi-show" style="display: none;">
         <label>Prodi</label>
+
         <select name="f_prodi" class="form-control form-control-lg" required="">
             <?php 
                 $list_prodi = list_prodi();

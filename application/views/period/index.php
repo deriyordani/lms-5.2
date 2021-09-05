@@ -59,19 +59,33 @@
                     </div>
 
                     <div class="col-md-3">
-                        <select name="f_prodi" class="form-control form-control-lg">
-                            <?php 
-                                $list_prodi = list_prodi();
-                                if(isset($list_prodi)):
-                            ?>
-                            <option value="">---Pilih Prodi---</option>
-                            <?php foreach($list_prodi as $lp):?>
-                                <option value="<?=$lp->uc?>"><?=$lp->prodi?></option>
-                            <?php endforeach;?>
-                        <?php endif;?>
-                        </select>
+                        <?php if ($this->session->userdata('log_category') == 4) : ?>
+                            <input type="hidden" name="f_prodi" value="<?=$this->session->userdata('log_uc_prodi')?>">
+                            <select class="form-control form-control-lg" disabled="">
+                                <?php 
+                                    $list_prodi = list_prodi();
+                                    if(isset($list_prodi)):
+                                        ?>
+                                        <option value="">---Pilih Prodi---</option>
+                                            <?php foreach($list_prodi as $lp):?>
+                                                <option value="<?=$lp->uc?>" <?=select_set($lp->uc, $this->session->userdata('log_uc_prodi'))?>><?=$lp->prodi?></option>
+                                            <?php endforeach;?>
+                                <?php endif;?>
+                            </select> 
+                        <?php else : ?>
+                            <select name="f_prodi" class="form-control form-control-lg">
+                                <?php 
+                                    $list_prodi = list_prodi();
+                                    if(isset($list_prodi)):
+                                        ?>
+                                        <option value="">---Pilih Prodi---</option>
+                                            <?php foreach($list_prodi as $lp):?>
+                                                <option value="<?=$lp->uc?>"><?=$lp->prodi?></option>
+                                            <?php endforeach;?>
+                                <?php endif;?>
+                            </select>
+                        <?php endif; ?>
                    </div>
-
                 
                    <div class="col-md-2">
                         <button class="btn btn-info btn-search-period"><i class="fa fa-search"></i> &nbsp;Search</button>
@@ -80,23 +94,19 @@
                 
                 <div class="row load-data mt-4">
                     
-                        <?php 
+                    <?php 
 
-                        $data = NULL;
-                        if (isset($result)) {
-                            $data['result']         = $result;
-                            $data['total_record']   = $total_record;
-                            $data['pagination']     = $pagination;
-                        }
+                    $data = NULL;
+                    if (isset($result)) {
+                        $data['result']         = $result;
+                        $data['total_record']   = $total_record;
+                        $data['pagination']     = $pagination;
+                    }
 
-                        $this->load->view('period/content', $data);
+                    $this->load->view('period/content', $data);
                     ?>
                     
                 </div>
-                    
-                    
-              
-                
             </div>
         </div>
         </div>
@@ -112,3 +122,20 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var base_url = $("#base-url").html();
+
+        $('.btn-search-period').click(function(){         
+            var page    = 1;
+
+            var prodi = $('select[name=f_prodi] option:selected').val();
+            var diklat = $('select[name=f_diklat] option:selected').val();
+
+            $('.load-data').load(base_url+'period/page', {js_page : page, js_prodi : prodi, js_diklat : diklat});
+
+            return false;
+        });
+    });
+</script>

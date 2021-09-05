@@ -127,7 +127,7 @@ Class Auth extends CI_Controller{
 							);
 
 						$this->session->set_userdata($set_session);
-
+						//print_r($set_session);
 						activity_log('Masuk Sistem', 'Login : '.$usersname);
 
 						redirect('classroom');

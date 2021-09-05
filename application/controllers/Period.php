@@ -31,14 +31,19 @@ Class Period extends CI_Controller{
 						);
 
 		$data['numbering'] 	= ($this->each_page * ($page-1)) + 1;
+		
+		if ($this->session->userdata('log_category') == 4) {
+			$filter['uc_prodi'] = $this->session->userdata('log_uc_prodi');
+		}
 
-		$filter = ['uc_prodi' => $this->session->userdata('log_uc_prodi'), 'count' => FALSE];
+		$filter['count'] = FALSE;
 
 		$query = $this->diklat_period_m->get_list($filter, $this->each_page, $offset);
 		if ($query->num_rows() > 0) {
 			$data['result'] = $query->result();
 		}
 
+		$filter['count'] = TRUE;
 		$query = $this->diklat_period_m->get_list($filter);			
 		if ($query->num_rows() > 0) {
 			$params['total_record'] = $query->num_rows();
@@ -53,6 +58,7 @@ Class Period extends CI_Controller{
 		$data = NULL;
 
 		$page 	= ($this->input->post('js_page') != 1 ? $this->input->post('js_page') : 1);
+
 		//	Pagination Initialization
 		$this->load->library('im_pagination');
 		///	Define Offset
@@ -66,20 +72,29 @@ Class Period extends CI_Controller{
 							'model'			=> 'diklat_period_m'
 						);
 
-		$filter = [
-
-			'uc_prodi' => $this->input->post('js_prodi'),
-			'uc_diklat' => $this->input->post('js_diklat')
-
-		];
-
 		$data['numbering'] 	= ($this->each_page * ($page-1)) + 1;
+
+
+		if ($this->input->post('js_prodi') != NULL) {
+			$filter['uc_prodi'] = $this->input->post('js_prodi');
+		}
+
+		if ($this->session->userdata('log_category') == 4) {
+			$filter['uc_prodi'] = $this->session->userdata('log_uc_prodi');
+		}
+
+		if ($this->input->post('js_diklat') != NULL) {
+			$filter['uc_diklat'] = $this->input->post('js_diklat');
+		}
+
+		$filter['count'] = FALSE;
 
 		$query = $this->diklat_period_m->get_list($filter, $this->each_page, $offset);
 		if ($query->num_rows() > 0) {
 			$data['result'] = $query->result();
 		}
 
+		$filter['count'] = TRUE;
 		$query = $this->diklat_period_m->get_list($filter);			
 		if ($query->num_rows() > 0) {
 			$params['total_record'] = $query->num_rows();
