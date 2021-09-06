@@ -20,10 +20,7 @@
                     <hr class="mt-2 mb-4">
                 </div>
             </div>
-
-
             
-        
            <div class="row mt-3 load-data">
                 <?php 
 

@@ -27,7 +27,10 @@
                         Aktivitas Kelas
                     </a>
 
-                    <a class="list-group-item list-group-item-action" href="<?=base_url('classroom/forum/'.$info->uc.'/'.$info->uc_diklat_class)?>">
+                    <?php
+                        $forum = ($this->session->userdata('log_category') == 3 ? 'forum_student' : 'forum');
+                    ?>
+                    <a class="list-group-item list-group-item-action" href="<?=base_url('classroom/'.$forum.'/'.$info->uc.'/'.$info->uc_diklat_class)?>">
                         <i class="fas fa-comments fa-fw text-dark mr-2"></i>
                        Forum
                     </a>

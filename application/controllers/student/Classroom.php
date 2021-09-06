@@ -611,9 +611,10 @@ Class Classroom extends CI_Controller{
 	/*FORUM*/
 
 	function forum($uc_classroom = NULL, $uc_diklat_class = NULL){
-		if ($uc_classroom != NULL || $uc_diklat_class != NULL) {
-			
-			$data = NULL;
+
+		$data = NULL;
+
+		$this->load->model('fparticipant_m');
 
 
 			$filter = [
@@ -623,10 +624,6 @@ Class Classroom extends CI_Controller{
 			];
 
 			$data['info'] = $this->classroom_m->get_list($filter)->row();
-
-			
-			$this->load->model('forum_m');
-
 
 			$page = 1;
 			//	Pagination Initialization
@@ -639,7 +636,7 @@ Class Classroom extends CI_Controller{
 								'each_page'		=> $this->each_page,
 								'page_int'		=> $this->page_int,	
 								'segment' 		=> 'forum',
-								'model'			=> 'forum_m'
+								'model'			=> 'fparticipant_m'
 							);
 
 
@@ -649,14 +646,16 @@ Class Classroom extends CI_Controller{
 			$where = [
 				'uc_classroom' => $uc_classroom,
 				'uc_diklat_class' => $uc_diklat_class,
+				'uc_student' => $this->session->userdata('log_uc_person'),
+				'count' => FALSE
 			];
 
-			$query = $this->forum_m->get_filtered($where,'id', 'DESC', $this->each_page, $offset);
+			$query = $this->fparticipant_m->get_forum_by_student($where,$this->each_page, $offset);
 			if ($query->num_rows() > 0) {
 				$data['result'] = $query->result();
 			}
 
-			$query = $this->forum_m->get_filtered($where);			
+			$query = $this->fparticipant_m->get_forum_by_student($where);			
 			if ($query->num_rows() > 0) {
 				$params['total_record'] = $query->num_rows();
 				$data['pagination'] 	= $this->im_pagination->render_ajax($params);
@@ -668,61 +667,9 @@ Class Classroom extends CI_Controller{
 			$data['uc_diklat_class'] = $uc_diklat_class;
 
 
-			$this->im_render->main_stu('student/classroom/forum', $data);
+			//$this->im_render->main_stu('student/classroom/forum', $data);
 
-		}
-	}
-
-	function page_forum(){
-
-		$data= NULL;
-
-		$this->load->model('forum_m');
-
-
-		$page = ($this->input->post('js_page') != 1 ? $this->input->post('js_page') : 1);
-
-		$uc_classroom = $this->input->post('js_uc_classroom');
-		$uc_diklat_class = $this->input->post('js_uc_diklat_class');
-
-		//	Pagination Initialization
-		$this->load->library('im_pagination');
-		///	Define Offset
-		$offset = ($page - 1) * $this->each_page;
-		//	Define Parameters
-		$params = array(
-							'page_number'	=> $page,
-							'each_page'		=> $this->each_page,
-							'page_int'		=> $this->page_int,	
-							'segment' 		=> 'forum',
-							'model'			=> 'forum_m'
-						);
-
-
-
-		$data['numbering'] 	= ($this->each_page * ($page-1)) + 1;
-
-		$where = [
-			'uc_classroom' => $uc_classroom,
-			'uc_diklat_class' => $uc_diklat_class,
-		];
-
-		$query = $this->forum_m->get_filtered($where,'id', 'DESC', $this->each_page, $offset);
-		if ($query->num_rows() > 0) {
-			$data['result'] = $query->result();
-		}
-
-		$query = $this->forum_m->get_filtered($where);			
-		if ($query->num_rows() > 0) {
-			$params['total_record'] = $query->num_rows();
-			$data['pagination'] 	= $this->im_pagination->render_ajax($params);
-			$data['total_record'] 	= $query->num_rows();
-		}
-
-		$this->load->view('classroom/forum/content', $data);
-
-
-		
+		$this->im_render->main_stu('student/classroom/forum', $data);
 	}
 
 	function posting_forum(){
@@ -752,7 +699,7 @@ Class Classroom extends CI_Controller{
 		redirect('student/classroom/forum/'.$uc_classroom.'/'.$uc_diklat_class);
 	}
 
-	function view_forum($uc_classroom = NULL, $uc_diklat_class = NULL, $uc_forum = NULL){
+	function view_forum($uc_classroom = NULL, $uc_diklat_class = NULL, $uc_forum = NULL, $uc_group = NULL){
 
 		$data = NULL;
 
@@ -776,14 +723,49 @@ Class Classroom extends CI_Controller{
 
 
 		$this->load->model('forum_comment_m');
-		$query_com = $this->forum_comment_m->get_list($uc_forum);
+		$query_com = $this->forum_comment_m->get_list($uc_forum, $uc_group);
 		if ($query_com->num_rows() > 0) {
 			$data['comment'] = $query_com->result();
 		}
 
+		// $this->load->model('Fparticipant_m');
+
+		// $filter = array('uc_fgroup' => $uc_forum);
+		// $query = $this->Fparticipant_m->get_checked_list($filter, 'uc_fgroup', 'lms_diklat_participant');
+		// $data['interest'] = $query->result();
+
+		$this->load->model('diklat_participant_m');
+		$query = $this->diklat_participant_m->get_student_by_diklat($uc_diklat_class);
+		if ($query->num_rows() > 0) {
+			$data['participant'] = $query->result();
+		}
 
 
-		$this->im_render->main_stu('student/classroom/view_forum', $data);
+		$this->load->model('fgroup_m');
+
+		$data['kelompok'] = $this->fgroup_m->get_all()->result();
+
+
+		$data['uc_forum'] = $uc_forum;
+		$data['uc_classroom'] = $uc_classroom;
+		$data['uc_diklat_class'] = $uc_diklat_class;
+
+		$this->load->model('fparticipant_m');
+		// $data['group'] = $this->fparticipant_m->get_group($uc_group)->result();
+		
+		// $this->im_render->main_stu('classroom/forum/view_group', $data);
+
+		if ($uc_group != NULL) {
+
+			$this->load->model('fparticipant_m');
+			$data['group'] = $this->fparticipant_m->get_group($uc_group)->result();
+			
+			$this->im_render->main_stu('student/classroom/view_group', $data);
+		}else{
+			$this->im_render->main_stu('student/classroom/view_forum', $data);
+		}
+
+		
 
 	}
 
