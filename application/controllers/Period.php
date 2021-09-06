@@ -36,6 +36,10 @@ Class Period extends CI_Controller{
 			$filter['uc_prodi'] = $this->session->userdata('log_uc_prodi');
 		}
 
+		if ($this->session->userdata('log_category') == 5) {
+			$filter['uc_diklat'] = "DKP";
+		}
+
 		$filter['count'] = FALSE;
 
 		$query = $this->diklat_period_m->get_list($filter, $this->each_page, $offset);

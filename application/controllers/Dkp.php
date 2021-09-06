@@ -154,12 +154,12 @@ Class Dkp extends CI_Controller{
 	}
 
 	function load_select() {
-		$data = NULL;
-		$query = $this->diklat_dkp_m->get_all('label_dkp', 'ASC');
-		if ($query->num_rows() > 0) {
-			$data['result'] = $query->result();
-		}
+		// $data = NULL;
+		// $query = $this->diklat_dkp_m->get_all('label_dkp', 'ASC');
+		// if ($query->num_rows() > 0) {
+		// 	$data['result'] = $query->result();
+		// }
 
-		$this->load->view('dkp/load_select', $data);
+		$this->load->view('dkp/load_select');
 	}
 }
