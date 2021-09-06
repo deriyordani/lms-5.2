@@ -4,7 +4,8 @@
     var base_url = $("#base-url").html();
       $("#formComment").submit(function(e) {
 
-            var uc_content = $('input[name=f_uc_content]').val();
+        var uc_content = $('input[name=f_uc_content]').val();
+        var uc_fgroup = $('input[name=f_uc_fgroup]').val();
           e.preventDefault();
           $.ajax({
               url: base_url+'classroom/store_comment_forum',
@@ -15,7 +16,7 @@
               // $('#status').html(data);
                 $('#modals-view-form').modal('toggle');
 
-                $('.load-comment').load(base_url+'classroom/load_comment_forum',{js_uc_content : uc_content});           
+                $('.load-comment').load(base_url+'classroom/load_comment_forum',{js_uc_content : uc_content, js_uc_fgroup : uc_fgroup});           
               }
           });
       });
@@ -28,6 +29,7 @@
 </div>
 <div class="modal-body">
     <input type="hidden" name="f_uc_content" value="<?=$uc_content?>">
+    <input type="hidden" name="f_uc_fgroup" value="<?=$uc_fgroup?>">
     <div class="form-group">
         <label>Deskripsi </label>
         <textarea id="editor" class="form-control " style="height: 230px;" name="f_comment"></textarea>
