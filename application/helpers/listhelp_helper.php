@@ -101,10 +101,10 @@ function list_dkp($filter = NULL){
 	$CI->load->model('diklat_dkp_m');
 	
 	if ($filter != NULL) {		
-		$query = $CI->diklat_dkp_m->get_filtered($filter);
+		$query = $CI->diklat_dkp_m->get_filtered($filter, 'label_dkp', 'ASC');
 	}
 	else {
-		$query = $CI->diklat_dkp_m->get_all('id','ASC');	
+		$query = $CI->diklat_dkp_m->get_all('label_dkp','ASC');	
 	}
 	
 	if ($query->num_rows() > 0) {

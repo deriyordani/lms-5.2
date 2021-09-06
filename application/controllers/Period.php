@@ -75,21 +75,26 @@ Class Period extends CI_Controller{
 		$data['numbering'] 	= ($this->each_page * ($page-1)) + 1;
 
 
+		if ($this->input->post('js_diklat') != NULL) {
+			$filter['uc_diklat'] = $this->input->post('js_diklat');
+		}
+
 		if ($this->input->post('js_prodi') != NULL) {
 			$filter['uc_prodi'] = $this->input->post('js_prodi');
+		}
+
+		if ($this->input->post('js_program') != NULL) {
+			$filter['uc_diklat_dkp'] = $this->input->post('js_program');
 		}
 
 		if ($this->session->userdata('log_category') == 4) {
 			$filter['uc_prodi'] = $this->session->userdata('log_uc_prodi');
 		}
 
-		if ($this->input->post('js_diklat') != NULL) {
-			$filter['uc_diklat'] = $this->input->post('js_diklat');
-		}
-
 		$filter['count'] = FALSE;
 
 		$query = $this->diklat_period_m->get_list($filter, $this->each_page, $offset);
+		
 		if ($query->num_rows() > 0) {
 			$data['result'] = $query->result();
 		}

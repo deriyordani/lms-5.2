@@ -43,22 +43,35 @@
             <div class="card-body ">
 
                 <div class="row">
+                    <input type="hidden" name="f_log_category" value="<?=$this->session->userdata('log_category')?>" />
+                    <?php if ($this->session->userdata('log_category') != 5) : ?>
+                        <div class="col-md-3">
 
-                    <div class="col-md-3">
-                        <select name="f_diklat" class="form-control form-control-lg">
-                            <?php 
-                                $list_diklat = list_diklat();
-                                if(isset($list_diklat)):
-                            ?>
-                            <option value="">---Pilih Program Diklat---</option>
-                            <?php foreach($list_diklat as $ld):?>
-                                <option value="<?=$ld->uc?>"><?=$ld->diklat?></option>
-                            <?php endforeach;?>
-                        <?php endif;?>
-                        </select>
-                    </div>
+                            <select name="f_diklat" class="form-control form-control-lg select-diklat">
+                                <?php 
+                                    $list_diklat = list_diklat();
+                                    if(isset($list_diklat)):
+                                        ?>
+                                        <option value="">---Pilih Program Diklat---</option>
+                                        
+                                        <?php foreach($list_diklat as $ld):?>
+                                            <?php if ($ld->uc != 'DKP') : ?>
+                                                <option value="<?=$ld->uc?>"><?=$ld->diklat?></option>
+                                            <?php else : ?>
+                                                <?php if ($this->session->userdata('log_category') == 1) :  ?>
+                                                    <option value="<?=$ld->uc?>"><?=$ld->diklat?></option>
+                                                <?php endif; ?>    
+                                            <?php endif; ?>
+                                        <?php endforeach;?>
+                                <?php endif;?>
+                            </select>
 
-                    <div class="col-md-3">
+                        </div>
+                    <?php else : ?>
+                        <input type="hidden" name="f_diklat" value="DKP">
+                    <?php endif; ?>
+
+                    <div class="col-md-5 select-program">
                         <?php if ($this->session->userdata('log_category') == 4) : ?>
                             <input type="hidden" name="f_prodi" value="<?=$this->session->userdata('log_uc_prodi')?>">
                             <select class="form-control form-control-lg" disabled="">
@@ -71,7 +84,19 @@
                                                 <option value="<?=$lp->uc?>" <?=select_set($lp->uc, $this->session->userdata('log_uc_prodi'))?>><?=$lp->prodi?></option>
                                             <?php endforeach;?>
                                 <?php endif;?>
-                            </select> 
+                            </select>
+                        <?php elseif ($this->session->userdata('log_category') == 5): ?>
+                            <select name="f_diklat_dkp" class="form-control form-control-lg">
+                                <?php 
+                                    $list_prodi = list_dkp();
+                                    if(isset($list_prodi)):
+                                        ?>
+                                        <option value="">---Pilih Program---</option>
+                                            <?php foreach($list_prodi as $lp):?>
+                                                <option value="<?=$lp->uc?>"><?=$lp->label_dkp?></option>
+                                            <?php endforeach;?>
+                                <?php endif;?>
+                            </select>
                         <?php else : ?>
                             <select name="f_prodi" class="form-control form-control-lg">
                                 <?php 
@@ -127,13 +152,33 @@
     $(document).ready(function(){
         var base_url = $("#base-url").html();
 
+        $('select[name=f_diklat]').change(function(){
+            var diklat = $('select[name=f_diklat] option:selected').val();
+
+            if (diklat == 'DKP') {
+                $('.select-program').load(base_url+'dkp/load_select', {js_diklat_dkp : diklat});
+            }
+            else {
+                 $('.select-program').load(base_url+'prodi/load_select');
+            }
+        });
+
         $('.btn-search-period').click(function(){         
             var page    = 1;
 
-            var prodi = $('select[name=f_prodi] option:selected').val();
-            var diklat = $('select[name=f_diklat] option:selected').val();
+            var log_category = $('input[name=f_log_category]').val();
 
-            $('.load-data').load(base_url+'period/page', {js_page : page, js_prodi : prodi, js_diklat : diklat});
+            if (log_category != 5) {
+                var diklat = $('select[name=f_diklat] option:selected').val();
+                var prodi = $('select[name=f_prodi] option:selected').val();
+                var program = $('select[name=f_diklat_dkp] option:selected').val();
+            }
+            else {
+                var diklat = $('input[name=f_diklat]').val();
+                var program = $('select[name=f_diklat_dkp] option:selected').val();
+            }
+
+            $('.load-data').load(base_url+'period/page', {js_page : page, js_prodi : prodi, js_diklat : diklat, js_program : program});
 
             return false;
         });

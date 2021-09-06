@@ -49,6 +49,17 @@ Class Diklat_period_m extends MY_Model{
 			$sql .= " dp.uc_prodi = '".$filter['uc_prodi']."' ";
 		}
 
+		if (@$filter['uc_diklat_dkp'] != NULL) {
+			if ($where) {
+				$sql .= " AND ";
+			}
+			else {
+				$sql .= " WHERE ";
+				$where = TRUE;
+			}
+			$sql .= " dp.uc_diklat_dkp = '".$filter['uc_diklat_dkp']."' ";
+		}
+
 		if (@$filter['uc_diklat'] != NULL) {
 			if ($where) {
 				$sql .= " AND ";
@@ -64,10 +75,7 @@ Class Diklat_period_m extends MY_Model{
 			$sql .= "  LIMIT ".$offset.", ".$limit." ";
 		}
 
-		//echo $sql;
-
 		return $this->exec_query($sql);
-
 	}
 
 	function get_combo_periode_diklat($filter = NULL){

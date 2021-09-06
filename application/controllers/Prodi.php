@@ -157,4 +157,8 @@ Class Prodi extends CI_Controller{
 
 		redirect('prodi');
 	}
+
+	function load_select() {
+		$this->load->view('prodi/load_select');
+	}
 }
