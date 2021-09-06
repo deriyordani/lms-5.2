@@ -17,6 +17,7 @@
 </script>
 
 <?=form_open('subject/update')?>
+<input type="hidden" name="f_uc" value="<?=$row->uc?>">
 <div class="modal-header">
     <h5 class="modal-title" id="exampleModalLabel">Subject Edit</h5>
     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
