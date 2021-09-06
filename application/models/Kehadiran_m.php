@@ -71,12 +71,10 @@ Class Kehadiran_m extends MY_Model{
 	}
 
 	function presence_instructor($classroom) {
-		$sql = "SELECT k.*, s.`no_peserta`, s.`full_name` 
+		$sql = "SELECT k.*, i.`id_number`, i.`full_name` 
 				FROM `lms_kehadiran` k 
-				LEFT JOIN `lms_diklat_participant` dp
-				ON dp.`uc` = k.`uc_diklat_participant`
-				LEFT JOIN `lms_student` s
-				ON s.`no_peserta` = dp.`no_peserta`
+				LEFT JOIN `lms_instructor` i
+				ON i.`uc` = k.`uc_instructor`
 
 				WHERE k.`uc_classroom` = '".$classroom."'
 				AND k.`uc_instructor` IS NOT NULL ";

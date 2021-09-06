@@ -78,6 +78,17 @@
 
                 </div>
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col col-md-12">
+                            <h2 class="text-primary">PRESENSI INSTRUKTUR </h2>
+                        </div>
+                    </div>
+                    <div class="row mb-3 mt-2">
+                        <div class="col-md-7">
+                            <h5>Instruktur</h5>
+                            <span>(<?=$id_number?>) <?=$full_name?></span>
+                        </div>
+                    </div>
                     <div class="row mb-3">
                         <div class="col-md-7">
                             <h5>Periode</h5>

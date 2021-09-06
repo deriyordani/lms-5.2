@@ -29,18 +29,22 @@
                         <?php foreach($result as $row):?>
                             <tr>
                                 <td><?=$no?></td>
-                            	<td><?=$row->id_number?></td>
+                            	<td>
+                                    <?=$row->id_number?> <br />
+                                    <?=$this->session->userdata('log_uc_prodi')?>
+                                    
+                                </td>
                             	<td class="text-primary text-center"><?=$row->full_name?></td>
                             	<td class="text-primary text-center">
                             		<?php if($row->is_claim == 0):?>
 
                                         <span class="badge badge-warning text-center">Not Admitted</span>
                                         <?php $check = "disabled=''"?>
-                                        <?php $label = "Akun tidak tersedia !"?>
+                                        <?php $label = "Change Password"?>
                                     <?php else:?>
                                         <span class="badge badge-success text-center">Admit</span>
                                         <?php $check = ""?>
-                                        <?php $label = "Change Password !"?>
+                                        <?php $label = "Change Password"?>
                                     <?php endif;?>
                             	</td>
                                 <td width="31%">

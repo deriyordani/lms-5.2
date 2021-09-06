@@ -150,6 +150,9 @@ Class Presensi extends CI_Controller{
 			        if ($query->num_rows() > 0) {
 			        	$presence = $query->result();
 
+			        	$data['id_number'] = $presence[0]->id_number;
+			        	$data['full_name'] = $presence[0]->full_name;
+
 			        	foreach($presence as $pre) {
 			        		$kehadiran[$pre->uc_section]['status'] = $pre->status;
 			        	}
