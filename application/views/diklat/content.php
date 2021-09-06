@@ -8,6 +8,7 @@
                             <tr class="btn-light">
                                 <td class="text-primary text-center" width="5%">No</td>
                                 <td class="text-primary text-center">Program Diklat</td>
+                                <td class="text-primary text-center" width="28%">Kategori</td>
                                 <td class="text-primary text-center">Action</td>
                             </tr>
                         </thead>
@@ -17,7 +18,7 @@
                                 <tr>
                                     <td><?=$no?></td>
                                     <td><?=$row->diklat?></td>
-                                    
+                                    <td><?=($row->category == 1 ? 'Long Course' : 'Short Course')?></td>
                                     <td width="17%">
 
                                         <button class="btn btn-info btn-sm btn-edit" uc="<?=$row->uc?>" data-toggle="modal" data-target="#exampleModal">
