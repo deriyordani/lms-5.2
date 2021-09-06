@@ -1,13 +1,4 @@
-
-IndexIgnore *
-Options +FollowSymlinks
-
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L]
-
-RewriteCond %{HTTP_REFERER} !^http://(www\\.)?localhost [NC]
-RewriteCond %{REQUEST_URI} !hotlink\\.(gif|png|jpeg|jpg|doc|xls|pdf|html|htm|xlsx|docx|mp4|m4v|ogv|webm) [NC]
-RewriteRule .*\\.(gif|png|jpeg|jpg|doc|xls|pdf|html|htm|xlsx|docx|mp4|m4v|ogv|webm)$ http://localhost [NC]
-

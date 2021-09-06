@@ -37,6 +37,64 @@ Class Fparticipant_m extends MY_Model{
 		return $this->exec_query($sql);	
 	}
 
+	function get_forum_by_student($filter = NULL,$limit = NULL, $offset = 0){
+
+		$sql = " SELECT fgp.*";
+
+ 		if (!$filter['count']) {
+ 			$sql .= ", fg.uc_forum,fg.group_name, f.topic, ins.full_name  ";
+ 		}
+
+ 		$sql .= "FROM `lms_fgroup_participant` fgp";
+
+		if (!$filter['count']) {
+			$sql .= " 
+		    			LEFT JOIN lms_fgroup fg ON fgp.uc_fgroup = fg.uc
+						LEFT JOIN lms_forum f ON fg.uc_forum = f.uc
+						LEFT JOIN lms_instructor ins ON f.uc_instructor = ins.uc
+	    			";
+	    }
+
+	    $where = FALSE;
+
+	    if (@$filter['uc_classroom'] != NULL) {
+			if ($where) {
+				$sql .= " AND ";
+			}
+			else {
+				$sql .= " WHERE ";
+				$where = TRUE;
+			}
+
+			$sql .= " f.uc_classroom = '".$filter['uc_classroom']."' ";
+		}
+
+		if (@$filter['uc_student'] != NULL) {
+			if ($where) {
+				$sql .= " AND ";
+			}
+			else {
+				$sql .= " WHERE ";
+				$where = TRUE;
+			}
+
+			$sql .= " fgp.uc_student = '".$filter['uc_student']."' ";
+		}
+
+		if ($limit != NULL) {
+			$sql .= "  LIMIT ".$offset.", ".$limit." ";
+		}
+
+		//echo $sql;
+
+		return $this->exec_query($sql);
+
+		// $sql = " SELECT fgp.*, 
+				
+				
+		// 		WHERE f.uc_classroom = '428-53111-54-54' AND fgp.uc_student = '207-63974-81-48' ";
+	}
+
 	// function get_checked_list($filter = NULL, $pick_field = NULL, $reference_table = NULL, $uc_diklat_class){
 	// 	$sql  = "SELECT r . * , p.`".$pick_field."` ";
 	// 	$sql .= " FROM `".$reference_table."` r ";
