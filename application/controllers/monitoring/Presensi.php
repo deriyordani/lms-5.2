@@ -91,6 +91,53 @@ Class Presensi extends CI_Controller{
 		$this->im_render->main('monitoring/presensi/periode', $data);
 	}
 
+	function periode_ajax() {
+		$data = NULL;
+
+		$this->load->model('classroom_m');
+
+		$uc_diklat 	= $this->input->post('js_diklat');
+		$uc_program = $this->input->post('js_prodi');
+
+		$this->load->model('diklat_class_m');
+
+		/*
+		if ($uc_diklat == '60fa030218852') {
+			// If DKP
+
+		}
+		else {
+			// If Pembentukan or Peningkatan
+			$filter = array(
+							'uc_prodi'	=> $uc_program,
+							'uc_diklat'	=> $uc_diklat
+							);
+		}
+
+		$query = $this->classroom_m->get_presensi($filter);
+		*/
+
+		$filter = array(
+						'uc_prodi'	=> $uc_program,
+						'uc_diklat'	=> $uc_diklat
+						);
+
+		//$query = $this->classroom_m->get_presensi($filter);
+
+		$filter['count'] = FALSE;
+		$query = $this->diklat_class_m->get_diklat_class($filter);
+
+		if ($query->num_rows() > 0) {
+			$data['result'] = $query->result();
+		}
+
+		$data['uc_diklat'] 	= $uc_diklat;
+		$data['uc_program']	= $uc_program;
+		$data['submit'] = TRUE;
+
+		$this->load->view('monitoring/presensi/periode', $data);
+	}
+
 	function subject($uc_diklat = NULL, $uc_program = NULL, $uc_diklat_class = NULL) {
 		$data = NULL;
 
@@ -117,6 +164,8 @@ Class Presensi extends CI_Controller{
 				if ($query->num_rows() > 0) {
 					$data['result'] = $query->result();
 				}
+
+				//print_r($data['info']);
 
 				$this->im_render->main('monitoring/presensi/classroom', $data);
 			}
