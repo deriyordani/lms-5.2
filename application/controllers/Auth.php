@@ -98,7 +98,7 @@ Class Auth extends CI_Controller{
 				//CEK PASSWORD
 
 				if(password_verify($password,$row->password)){
-					if ($category == 1) {
+					if ($category == 1 || $category == 5) {
 						$set_session = array(
 							'log_uc'	=> $uc_user,
 							'log_username' => $usersname,
@@ -114,7 +114,7 @@ Class Auth extends CI_Controller{
 
 					}
 
-					if ($category == 2 || $category == 4) {
+					if ($category == 2 || $category == 4 ) {
 						//$qprodi = $this->user_m->get_login_prodi($uc_user)->row();
 
 						$set_session = array(
