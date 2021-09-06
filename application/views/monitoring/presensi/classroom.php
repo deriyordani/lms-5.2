@@ -43,39 +43,20 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    
-                    <form class="form-row" method="post" action="<?=base_url('monitoring/presensi/periode')?>" >
-                        <input type="hidden" name="f_program" />
-                        <div class="col">
-                            <select name="f_diklat" class="form-control">
-                                <?php $list_diklat = list_diklat() ?>
-                                    <option>-- Diklat --</option>
-                                    <?php if (isset($list_diklat)): ?>
-                                        <?php foreach ($list_diklat as $ld): ?>
-                                            <option value="<?=$ld->uc?>" <?=select_set($ld->uc, @$uc_diklat)?> ><?=$ld->diklat?></option>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
-                            </select>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h5>Diklat</h5>
+                            <h4 class="text-black">
+                                <?=$info->diklat?> - <?=$info->prodi?>
+                                
+                            </h4>
                         </div>
-                        <div class="col" id="pro">
-                            <?php $prodi = list_prodi(); ?>
-                            <select class="form-control form-control" name="f_program" disabled="disabled">
-                                <option value="" selected>-- Program --</option>
-                                <?php foreach ($prodi as $pd) : ?>
-                                    <?php if ($this->session->userdata('log_category') != 1) : ?>
-                                        <option value="<?=$pd->uc?>" <?=select_set($pd->uc, $this->session->userdata('log_uc_prodi'))?>><?=$pd->prodi?></option>
-                                    <?php else : ?>
-                                        <option value="<?=$pd->uc?>"><?=$pd->prodi?></option>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-
-                        <div class="col">
-                            <button type="submit" class="btn btn-primary">OK</button>
-                        </div>
-                    </form>
-
+                        <div class="col-md-3 ml-auto text-right">
+                            <a href="<?=base_url('monitoring/presensi/diklat')?>" class="text-warning" style="font-size: 20pt">
+                                <i class="fa fa-chevron-circle-left"></i>
+                            </a>
+                        </div>    
+                    </div>
                 </div>
                 <div class="card-body">
                         

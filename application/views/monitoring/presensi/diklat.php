@@ -43,80 +43,90 @@
             <div class="card">
                 <div class="card-header">
 
-                    <!--
-                    <?php if ($this->session->userdata('log_uc_prodi')) : ?>
-                    <?php else : ?>
-                    <?php endif; ?>    
-                    -->
                     
+                    <!--
                     <form class="form-row" method="post" action="<?=base_url('monitoring/presensi/periode')?>" >
-                        <input type="hidden" name="f_program" />
-                        <div class="col">
-                            <select name="f_diklat" class="form-control">
-                                <?php $list_diklat = list_diklat() ?>
-                                    <option>-- Diklat --</option>
-                                    <?php if (isset($list_diklat)): ?>
-                                        <?php foreach ($list_diklat as $ld): ?>
-                                            <option value="<?=$ld->uc?>" <?=select_set($ld->uc, @$uc_diklat)?> ><?=$ld->diklat?></option>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
-                            </select>
-                        </div>
-                        <div class="col" id="pro">
-                            <?php $prodi = list_prodi(); ?>
-                            <select class="form-control form-control" name="f_program" disabled="disabled">
-                                <option value="" selected>-- Program --</option>
-                                <?php foreach ($prodi as $pd) : ?>
-                                    <?php if ($this->session->userdata('log_category') != 1) : ?>
-                                        <option value="<?=$pd->uc?>" <?=select_set($pd->uc, $this->session->userdata('log_uc_prodi'))?>><?=$pd->prodi?></option>
-                                    <?php else : ?>
-                                        <option value="<?=$pd->uc?>"><?=$pd->prodi?></option>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
+                    -->
+                    <div class="row">
+                        <input type="hidden" name="f_log_category" value="<?=$this->session->userdata('log_category')?>" />
+                        <?php if ($this->session->userdata('log_category') != 5) : ?>
+                            <div class="col-md-3">
 
-                        <div class="col">
-                            <button type="submit" class="btn btn-primary">OK</button>
-                        </div>
-                    </form>    
-                </div>
-                <div class="card-body">
-                    <?php if (isset($submit)) : ?>
-                        <?php if (isset($result)) : ?>
-                            <?php $i = 1; ?>
-                            <?php foreach ($result as $res) : ?>    
-                                <div class="card card-body bg-white my-1">
-                                    <div class="row small">
-                                        <div class="col-md-1 py-2">
-                                            <h5 class="plot-label"><small>No.</small></h5>
-                                            <span><?=$i?></span>
-                                        </div>
-                                        <div class="col-md-3 py-2">
-                                            <h5 class="plot-label"><small>Subject</small></h5>
-                                            <span><?=$res->subject_title?></span>
-                                        </div>
-                                        <div class="col-md-4 py-2">
-                                            <h5 class="plot-label"><small>Classroom</small></h5>
-                                            <span>[<?=$res->classroom_code?>] <br /><?=$res->classroom_title?></span>
-                                        </div>
-                                        <div class="col-md-3 py-2">
-                                            <h5 class="plot-label"><small>Instructor</small></h5>
-                                            <span><?=$res->full_name?></span>
-                                        </div>
-                                        <div class="col-md-1 py-2">
-                                            <h5 class="plot-label"><small></small></h5>
-                                            <span><a href=""><i class="fa fa-grip-horizontal"></i></a></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php $i++; ?>
-                            <?php endforeach; ?>
+                                <select name="f_diklat" class="form-control form-control-lg select-diklat">
+                                    <?php 
+                                        $list_diklat = list_diklat();
+                                        if(isset($list_diklat)):
+                                            ?>
+                                            <option value="">---Pilih Program Diklat---</option>
+                                            
+                                            <?php foreach($list_diklat as $ld):?>
+                                                <?php if ($ld->uc != 'DKP') : ?>
+                                                    <option value="<?=$ld->uc?>"><?=$ld->diklat?></option>
+                                                <?php else : ?>
+                                                    <?php if ($this->session->userdata('log_category') == 1) :  ?>
+                                                        <option value="<?=$ld->uc?>"><?=$ld->diklat?></option>
+                                                    <?php endif; ?>    
+                                                <?php endif; ?>
+                                            <?php endforeach;?>
+                                    <?php endif;?>
+                                </select>
 
+                            </div>
                         <?php else : ?>
-                            Kosong
-                        <?php endif; ?>    
-                    <?php endif; ?>    
+                            <input type="hidden" name="f_diklat" value="DKP">
+                        <?php endif; ?>
+
+                        <div class="col-md-5 select-program">
+                            <?php if ($this->session->userdata('log_category') == 4) : ?>
+                                <input type="hidden" name="f_prodi" value="<?=$this->session->userdata('log_uc_prodi')?>">
+                                <select class="form-control form-control-lg" disabled="">
+                                    <?php 
+                                        $list_prodi = list_prodi();
+                                        if(isset($list_prodi)):
+                                            ?>
+                                            <option value="">---Pilih Prodi---</option>
+                                                <?php foreach($list_prodi as $lp):?>
+                                                    <option value="<?=$lp->uc?>" <?=select_set($lp->uc, $this->session->userdata('log_uc_prodi'))?>><?=$lp->prodi?></option>
+                                                <?php endforeach;?>
+                                    <?php endif;?>
+                                </select>
+                            <?php elseif ($this->session->userdata('log_category') == 5): ?>
+                                <select name="f_diklat_dkp" class="form-control form-control-lg">
+                                    <?php 
+                                        $list_prodi = list_dkp();
+                                        if(isset($list_prodi)):
+                                            ?>
+                                            <option value="">---Pilih Program---</option>
+                                                <?php foreach($list_prodi as $lp):?>
+                                                    <option value="<?=$lp->uc?>"><?=$lp->label_dkp?></option>
+                                                <?php endforeach;?>
+                                    <?php endif;?>
+                                </select>
+                            <?php else : ?>
+                                <select name="f_prodi" class="form-control form-control-lg">
+                                    <?php 
+                                        $list_prodi = list_prodi();
+                                        if(isset($list_prodi)):
+                                            ?>
+                                            <option value="">---Pilih Prodi---</option>
+                                                <?php foreach($list_prodi as $lp):?>
+                                                    <option value="<?=$lp->uc?>"><?=$lp->prodi?></option>
+                                                <?php endforeach;?>
+                                    <?php endif;?>
+                                </select>
+                            <?php endif; ?>
+                       </div>
+                    
+                       <div class="col-md-2">
+                            <button class="btn btn-info btn-ok-presensi">OK</button>
+                       </div>
+                    </div>  
+                        <!--
+                    </form> 
+                    -->   
+                </div>
+                <div class="card-body content-presensi">
+
                 </div>
             </div>
             
@@ -124,3 +134,34 @@
     </div>
 
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var base_url = $("#base-url").html();
+
+        $('.btn-ok-presensi').click(function(){         
+            var log_category = $('input[name=f_log_category]').val();
+
+            if (log_category != 5) {
+                var diklat = $('select[name=f_diklat] option:selected').val();
+
+                if (log_category == 4) {
+                    var prodi = $('input[name=f_prodi]').val();
+                }
+                else {
+                    var prodi = $('select[name=f_prodi] option:selected').val();
+                }
+                
+            }
+            else {
+                var diklat = $('input[name=f_diklat]').val();
+            }
+            
+            var program = $('select[name=f_diklat_dkp] option:selected').val();
+
+            $('.content-presensi').load(base_url+'monitoring/presensi/periode_ajax', {js_prodi : prodi, js_diklat : diklat, js_program : program});
+
+            return false;
+        });
+    });
+</script>

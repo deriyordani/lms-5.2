@@ -170,13 +170,20 @@
 
             if (log_category != 5) {
                 var diklat = $('select[name=f_diklat] option:selected').val();
-                var prodi = $('select[name=f_prodi] option:selected').val();
-                var program = $('select[name=f_diklat_dkp] option:selected').val();
+
+                if (log_category == 4) {
+                    var prodi = $('input[name=f_prodi]').val();
+                }
+                else {
+                    var prodi = $('select[name=f_prodi] option:selected').val();
+                }
+                
             }
             else {
                 var diklat = $('input[name=f_diklat]').val();
-                var program = $('select[name=f_diklat_dkp] option:selected').val();
             }
+            
+            var program = $('select[name=f_diklat_dkp] option:selected').val();
 
             $('.load-data').load(base_url+'period/page', {js_page : page, js_prodi : prodi, js_diklat : diklat, js_program : program});
 
