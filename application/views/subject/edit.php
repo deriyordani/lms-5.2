@@ -40,7 +40,7 @@
 
     <?php if($row->uc_diklat_dkp != NULL):?>
         <div class="form-group dkp-show" >
-            <label>Daftar Diklat DKP</label>
+            <label>Diklat DKP</label>
             <select name="f_diklat_dkp" class="form-control form-control-lg">
                 <?php 
                     $list_dkp = list_dkp();

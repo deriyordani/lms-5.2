@@ -183,9 +183,9 @@ Class Subject extends CI_Controller{
 			$data = [
 				'subject_code' => $this->input->post('f_subject_code'),
 				'subject_title' => $this->input->post('f_subject_title'),
-				// 'uc_diklat' => $this->input->post('f_diklat'),
-				// 'uc_diklat_dkp' => $this->input->post('f_diklat_dkp'),
-				// 'uc_prodi' => $this->input->post('f_prodi'),
+				'uc_diklat' => $this->input->post('f_diklat'),
+				'uc_diklat_dkp' => $this->input->post('f_diklat_dkp'),
+				'uc_prodi' => $this->input->post('f_prodi'),
 				'category' => $this->input->post('f_category'),
 			];
 
