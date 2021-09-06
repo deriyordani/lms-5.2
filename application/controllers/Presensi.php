@@ -5,7 +5,7 @@ Class Presensi extends CI_Controller{
 
 
 		if ((!$this->im_login->is_login('log_username'))) {
-			redirect('auth/admin');
+			redirect('auth/login');
 		}
 
 		$this->load->model('kehadiran_m');

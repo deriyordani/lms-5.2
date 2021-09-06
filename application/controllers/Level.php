@@ -4,7 +4,7 @@ Class Level extends CI_Controller{
 		parent::__construct();
 
 		if ((!$this->im_login->is_login('log_username'))) {
-			redirect('auth/admin');
+			redirect('auth/login');
 		}
 
 		$this->load->model('level_m');
