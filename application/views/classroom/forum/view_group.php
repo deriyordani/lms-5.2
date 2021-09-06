@@ -108,8 +108,10 @@
 	            		
 	                </div>
 
+	          
+
 	                <div class="row mb-3 ">
-	                	 <button data-toggle="modal" data-target="#modals-view-form" type="button" class="btn btn-komentar btn-success  mb-3 ml-3" uc="<?=$row->uc?>"><i class="ion ion-md-create"></i>&nbsp; Beri Komentar</button> 
+	                	 <button data-toggle="modal" data-target="#modals-view-form" type="button" class="btn btn-komentar btn-success  mb-3 ml-3" uc="<?=$row->uc?>" ucfgroup="<?=$group[0]->uc_fgroup?>"><i class="ion ion-md-create"></i>&nbsp; Beri Komentar</button> 
 	                </div>
                     
 
@@ -152,8 +154,9 @@
         $('.btn-komentar').click(function(){
 
             var uc_content = $(this).attr('uc');
+            var uc_fgroup = $(this).attr('ucfgroup');
 
-           $('.load-form-view').load(base_url+'classroom/form_comment_forum',{js_uc_content : uc_content});
+           $('.load-form-view').load(base_url+'classroom/form_comment_forum',{js_uc_content : uc_content, js_uc_fgroup : uc_fgroup});
         });
 
         

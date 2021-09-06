@@ -1019,7 +1019,7 @@ Class Classroom extends CI_Controller{
 
 
 		$this->load->model('forum_comment_m');
-		$query_com = $this->forum_comment_m->get_list($uc_forum);
+		$query_com = $this->forum_comment_m->get_list($uc_forum, $uc_group);
 		if ($query_com->num_rows() > 0) {
 			$data['comment'] = $query_com->result();
 		}
@@ -1046,6 +1046,11 @@ Class Classroom extends CI_Controller{
 		$data['uc_classroom'] = $uc_classroom;
 		$data['uc_diklat_class'] = $uc_diklat_class;
 
+		$this->load->model('fparticipant_m');
+		// $data['group'] = $this->fparticipant_m->get_group($uc_group)->result();
+		
+		// $this->im_render->main_stu('classroom/forum/view_group', $data);
+
 		if ($uc_group != NULL) {
 
 			$this->load->model('fparticipant_m');
@@ -1065,6 +1070,7 @@ Class Classroom extends CI_Controller{
 		$data = NULL;
 
 		$data['uc_content'] = $this->input->post('js_uc_content');
+		$data['uc_fgroup'] = $this->input->post('js_uc_fgroup');
 
 	
 		$this->load->view('classroom/forum/form_comment',$data);
@@ -1079,7 +1085,8 @@ Class Classroom extends CI_Controller{
 			'uc' => unique_code(),
 			'comment' => $this->input->post('f_comment'),
 			'uc_user' => $this->session->userdata('log_uc'),
-			'uc_forum' => $this->input->post('f_uc_content')
+			'uc_forum' => $this->input->post('f_uc_content'),
+			'uc_fgroup' => $this->input->post('f_uc_fgroup')
 		];
 
 		$this->forum_comment_m->insert_data($data);
@@ -1090,9 +1097,10 @@ Class Classroom extends CI_Controller{
 		$data = NULL;
 
 		$uc_content = $this->input->post('js_uc_content');
+		$uc_fgroup = $this->input->post('js_uc_fgroup');
 
 		$this->load->model('forum_comment_m');
-		$query_com = $this->forum_comment_m->get_list($uc_content);
+		$query_com = $this->forum_comment_m->get_list($uc_content,$uc_fgroup);
 		if ($query_com->num_rows() > 0) {
 			$data['comment'] = $query_com->result();
 		}

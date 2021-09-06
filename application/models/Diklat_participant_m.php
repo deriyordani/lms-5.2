@@ -57,10 +57,15 @@ Class Diklat_participant_m extends MY_Model{
 
 
 	function get_student_by_diklat($uc_diklat_class = NULL){
+		// $sql = " SELECT dp.*, s.full_name, s.uc as uc_student
+		// 	FROM `lms_diklat_participant`  dp
+		// 	LEFT JOIN lms_student s ON dp.no_peserta = s.no_peserta
+		// 	WHERE dp.uc_diklat_class = '".$uc_diklat_class."' AND dp.is_claim = '1' ";
 		$sql = " SELECT dp.*, s.full_name, s.uc as uc_student
-			FROM `lms_diklat_participant`  dp
-			LEFT JOIN lms_student s ON dp.no_peserta = s.no_peserta
-			WHERE dp.uc_diklat_class = '".$uc_diklat_class."' AND dp.is_claim = '1' ";
+				FROM `lms_diklat_participant`  dp
+				LEFT JOIN lms_student s ON dp.no_peserta = s.no_peserta
+				WHERE dp.uc NOT IN (SELECT uc_diklat_participant FROM lms_fgroup_participant)
+				AND dp.uc_diklat_class = '".$uc_diklat_class."' AND dp.is_claim = '1' ";
 
 		return $this->exec_query($sql);
 	}
