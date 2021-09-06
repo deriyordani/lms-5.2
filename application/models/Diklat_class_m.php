@@ -26,7 +26,7 @@ Class Diklat_class_m extends MY_Model{
 
 	function get_detail($uc) {
 		$sql = "SELECT dc.*, dp.`label_periode`, dp.`tahun`, dp.`periode_mulai`, dp.`periode_selesai` 
-					, d.`diklat` , d.`category`, p.`prodi`
+					, d.`uc` AS `uc_diklat`, d.`diklat`, d.`category`, p.`uc` AS `uc_prodi`, p.`prodi`
 					FROM `lms_diklat_class` dc
 					LEFT JOIN `lms_diklat_period` dp
 					ON dp.`uc` = dc.`uc_diklat_period`

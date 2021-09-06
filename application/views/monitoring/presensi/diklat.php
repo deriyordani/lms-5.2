@@ -29,7 +29,7 @@
                         <div class="page-header-icon">
                             <i class="fa fa-boxes"></i>
                         </div>
-                        Presensi
+                        Presensi Instruktur
                     </h1>
                 </div>
             </div>

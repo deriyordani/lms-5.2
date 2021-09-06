@@ -175,6 +175,8 @@ Class Presensi extends CI_Controller{
 	function rekap($uc_classroom = NULL, $uc_diklat_class = NULL, $output = NULL) {
 		$data = NULL;
 
+
+
 		$filter = [
 			'uc' => $uc_classroom,
 			'uc_diklat_class' => $uc_diklat_class,
@@ -191,7 +193,7 @@ Class Presensi extends CI_Controller{
 			
 			if ($query->num_rows() > 0) {
 				$data['info'] = $query->row();
-
+				
 				$qsection 	= $this->section_m->get_in_classroom($uc_classroom);
 				if ($qsection->num_rows() > 0) {
 					$section = $qsection->result();
@@ -214,6 +216,7 @@ Class Presensi extends CI_Controller{
 			}
 		}		
 
+		$data['uc_diklat_class'] = $uc_diklat_class;
 		$data['section'] 	= $section;
 
 		if ($output == "excel") {
