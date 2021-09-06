@@ -9,7 +9,7 @@
                                 <td class="text-primary text-center" width="5%">No</td>
                                 <td class="text-primary text-center">Subject</td>
                                 <td class="text-primary text-center">Diklat</td>
-                                <td class="text-primary text-center">Prodi</td>
+                                <td class="text-primary text-center">Prodi/Diklat DKP</td>
                                 <td class="text-primary text-center">Action</td>
                             </tr>
                         </thead>
@@ -22,9 +22,10 @@
                                         <?=$row->subject_code." - ".$row->subject_title?></b>
                                     </td>
                                     <td>
+
                                         <?php
                                             if (!is_null($row->cat_diklat)) {
-                                                echo $row->diklat.' - '.get_category($row->cat_diklat);      
+                                                echo $row->diklat;      
                                             }
                                             else {
                                                 echo "-";
@@ -35,7 +36,7 @@
                                     <!--
                                     <td><?=$row->cat_diklat?></td>
                                     -->
-                                    <td><?=$row->prodi?></td>
+                                    <td><?=($row->prodi != NULL ? $row->prodi : $row->label_dkp)?></td>
                                     
                                     
                                     <td width="17%">

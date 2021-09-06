@@ -11,7 +11,7 @@ Class Subject_m extends MY_Model{
 		$sql = " SELECT s.*";
 
  		if (!$filter['count']) {
- 			$sql .= ", d.diklat, d.category as cat_diklat, p.prodi  ";
+ 			$sql .= ", d.diklat, d.category as cat_diklat, p.prodi, dkp.label_dkp  ";
  		}
 
  		$sql .= "FROM `lms_subject` s";
@@ -20,6 +20,7 @@ Class Subject_m extends MY_Model{
 			$sql .= " 
 		    			LEFT JOIN `lms_diklat` d ON s.uc_diklat = d.uc
 						LEFT JOIN `lms_prodi` p ON s.uc_prodi = p.uc
+						LEFT JOIN `lms_diklat_dkp` dkp ON s.uc_diklat_dkp = dkp.uc
 	    			";
 	    }
 

@@ -5,7 +5,7 @@
             
             var uc = $(this).val();
 
-            if (uc == '602f59cb3de54') {
+            if (uc == 'DKP') {
                 $('.dkp-show').css({'display' : 'block'});
                 $('.prodi-show').css({'display' : 'none'});
             }else{
