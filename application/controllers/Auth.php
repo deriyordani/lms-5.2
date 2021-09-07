@@ -569,9 +569,15 @@ Class Auth extends CI_Controller{
 
 		// $this->user_m->update_data(array('is_online' => 0), array('uc' => $this->session->userdata('log_uc') ));
 
-        activity_log('Keluar Sistem', 'Logout : '.$this->session->userdata('log_username'));
+		if($this->session->userdata('log_username') != NULL){
+
+			activity_log('Keluar Sistem', 'Logout : '.$this->session->userdata('log_username'));
+		}
+
+        
 
 		$this->session->sess_destroy();
+
 		redirect('auth/login');
 	}
 
