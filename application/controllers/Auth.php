@@ -494,7 +494,7 @@ Class Auth extends CI_Controller{
 
 		          $this->session->set_flashdata('info', $this->config->item('flash_send_forgot_pass'));
 
-	    			redirect('auth/register');
+	    			redirect('auth/forgotPass');
 
 		        } else {
 
@@ -502,7 +502,7 @@ Class Auth extends CI_Controller{
 
 		        	$this->session->set_flashdata('info', $this->config->item('flash_send_forgot_pass'));
 
-	    			redirect('auth/register');
+	    			redirect('auth/forgotPass');
 
 		        }
 
@@ -553,6 +553,8 @@ Class Auth extends CI_Controller{
 
 				'password' => password_hash($this->input->post('f_password'), PASSWORD_BCRYPT)
 			];
+
+			$uc = $this->input->post('f_uc');
 
 			$this->user_m->update_data($data, array('uc' => $uc));
 			
