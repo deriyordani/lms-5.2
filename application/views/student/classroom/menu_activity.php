@@ -29,7 +29,7 @@
                        Chatting Group
                     </a>
 
-                    <a class="list-group-item list-group-item-action" href="<?=base_url('presensi/student/'.$info->uc.'/'.$info->uc_diklat_class)?>">
+                    <a class="list-group-item list-group-item-action" href="<?=base_url('student/presensi/rekap/'.$info->uc.'/'.$info->uc_diklat_class)?>">
                         <i class="fas fa-comments fa-fw text-dark mr-2"></i>
                        Presensi
                     </a>

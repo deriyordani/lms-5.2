@@ -59,7 +59,11 @@
                                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <p class="text-center"><i class="fa fa-info-circle" ></i> Do you really want to delete this record ?</p>
+                                                        <p class="text-center"><i class="fa fa-info-circle" ></i> Yakin akan menghapus?</p>
+                                                        <p class="text-danger">PERINGATAN!!!</p>
+                                                        <p>
+                                                            Menghapus subject akan ikut serta menghapus materi &amp; bank soal subject yang bersangkutan!
+                                                        </p>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <a href="<?=base_url('subject/delete/'.$row->uc)?>" class="btn btn-danger">

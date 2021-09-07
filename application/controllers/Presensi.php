@@ -405,8 +405,9 @@ Class Presensi extends CI_Controller{
 			$this->im_render->main_stu('presensi/rekap_kelas', $data);
         }
 	}
-
-	function student($uc_classroom = NULL, $uc_diklat_class = NULL, $type = NULL){
+	
+	/*
+	function student_DUMP($uc_classroom = NULL, $uc_diklat_class = NULL, $type = NULL){
 		$data = NULL;
 
 		$filter = [
@@ -438,6 +439,7 @@ Class Presensi extends CI_Controller{
 			$this->im_render->main_stu('presensi/rekap_kelas', $data);
         }
 	}
+	*/
 
 	function set(){
 		$data = array(
