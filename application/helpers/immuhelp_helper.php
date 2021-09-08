@@ -196,4 +196,18 @@ function get_category($value = NULL){
 	return $name;
 }
 
+function getCategoryUser($value = NULL){
+	switch($value){
+		case 1	: $users = "Administrator";	break;
+		case 2	: $users = "Instruktur";	break;
+		case 3	: $users = "Peserta Diklat";	break;
+		case 4 	: $users = "Operator Prodi"; break;
+		case 5 	: $users = "Operator DKP"; break;
+	}
+
+	return $users;
+	
+	return $name;
+}
+
 ?>

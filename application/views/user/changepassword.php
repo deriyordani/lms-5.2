@@ -1,6 +1,6 @@
 <?=form_open('users/update_password', array('name' => 'passwordmatch'))?>
 <input type="hidden" name="f_uc" value="<?=$row->uc?>">
-<input type="hidden" name="f_uc_prodi" value="<?=$prodi->uc_prodi?>">
+<input type="hidden" name="f_uc_prodi" value="<?=@$prodi->uc_prodi?>">
 <div class="modal-header">
     <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
