@@ -474,6 +474,10 @@ Class Users extends CI_Controller{
 				'username' => $this->input->post('f_username'),
 				'email' => $this->input->post('f_email')
 			];
+
+			$where = array('uc' => $this->input->post('f_uc'));
+
+			$this->user_m->update_data($data, $where);
 		}
 
 		redirect('users/lists/prodi/4');
