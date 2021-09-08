@@ -15,7 +15,7 @@ Class Presensi extends CI_Controller{
 		$this->page_int 	= 5;
 	}
 
-	function rekap($uc_classroom = NULL, $uc_diklat_class = NULL, $type = NULL){
+	function rekap($uc_classroom = NULL, $uc_diklat_class = NULL, $output = NULL){
 		$data = NULL;
 
 		$filter = [
@@ -24,27 +24,49 @@ Class Presensi extends CI_Controller{
 			'count' => FALSE
 		];
 
-		$data['info'] = $this->classroom_m->get_list($filter)->row();
+		$this->load->model('classroom_m');
+		$this->load->model('section_m');
+		$this->load->model('diklat_class_m');
+		$this->load->model('kehadiran_m');
 
+		if ($uc_diklat_class != NULL) {
+			$query = $this->diklat_class_m->get_detail($uc_diklat_class);
+			
+			if ($query->num_rows() > 0) {
+				$data['info'] = $query->row();
+				
+				$qsection 	= $this->section_m->get_in_classroom($uc_classroom);
+				if ($qsection->num_rows() > 0) {
+					$section = $qsection->result();
 
-	    $data['section'] = $this->section_m->get_section_in_classroom($uc_classroom);
-        if ($this->session->userdata('log_category') == 2) {
-        	//	Instruktur
-			$data['student'] = $this->student_m->get_student_in_diklat_class($uc_classroom);
-        	$data['kehadiran'] = $this->kehadiran_m->get_presence_in_class($uc_classroom);
-        }
-        elseif ($this->session->userdata('log_category') == 3) {
-        	//	Student
-        }
+			        $query = $this->kehadiran_m->presence_student($uc_classroom, $this->session->userdata('log_uc_diklat_participant'));
+			        
+			        if ($query->num_rows() > 0) {
+			        	$presence = $query->result();
 
-        $data['uc_classroom'] = $uc_classroom;
-        $data['uc_diklat_class'] = $uc_diklat_class;
+			        	
+			        	$data['no_peserta'] = $presence[0]->no_peserta;
+			        	$data['full_name'] 	= $presence[0]->full_name;
 
-        if ($type == "excel") {
-        	$this->load->view('presensi/excel', $data);
+			        	foreach($presence as $pre) {
+			        		$kehadiran[$pre->uc_section]['status'] = $pre->status;
+			        	}
+
+			        	$data['kehadiran'] = $kehadiran;
+			        }
+				}
+				
+			}
+		}		
+
+		$data['uc_diklat_class'] = $uc_diklat_class;
+		$data['section'] 	= $section;
+
+		if ($output == "excel") {
+        	$this->load->view('monitoring/presensi/excel', $data);
         }
         else {
-			$this->im_render->main_stu('student/presensi/rekap', $data);
+  			$this->im_render->main('monitoring/presensi/rekap', $data);
         }
 	}
 }

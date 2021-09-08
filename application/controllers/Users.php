@@ -47,12 +47,14 @@ Class Users extends CI_Controller{
 
 			if ($prodi != NULL) {
 				
-				$query = $this->instructor_m->get_filtered(array('uc_prodi' => $prodi),'id','DESC', $this->each_page, $offset);
+				//$query = $this->instructor_m->get_filtered(array('uc_prodi' => $prodi),'id','DESC', $this->each_page, $offset);
+				$query = $this->instructor_m->get_list_detail($prodi, $this->each_page, $offset);
 				if ($query->num_rows() > 0) {
 					$data['result'] = $query->result();
 				}
 
-				$query = $this->instructor_m->get_filtered(array('uc_prodi' => $prodi));			
+				//$query = $this->instructor_m->get_filtered(array('uc_prodi' => $prodi));
+				$query = $this->instructor_m->get_list_detail($prodi);
 				if ($query->num_rows() > 0) {
 					$params['total_record'] = $query->num_rows();
 					$data['pagination'] 	= $this->im_pagination->render_ajax($params);
@@ -60,14 +62,14 @@ Class Users extends CI_Controller{
 				}
 
 			}else{
-
-
-				$query = $this->instructor_m->get_all('id','DESC', $this->each_page, $offset);
+				//$query = $this->instructor_m->get_all('id','DESC', $this->each_page, $offset);
+				$query = $this->instructor_m->get_list_detail(NULL, $this->each_page, $offset);
 				if ($query->num_rows() > 0) {
 					$data['result'] = $query->result();
 				}
 
-				$query = $this->instructor_m->get_all();			
+				//$query = $this->instructor_m->get_all();	
+				$query = $this->instructor_m->get_list_detail(NULL);
 				if ($query->num_rows() > 0) {
 					$params['total_record'] = $query->num_rows();
 					$data['pagination'] 	= $this->im_pagination->render_ajax($params);
@@ -76,10 +78,7 @@ Class Users extends CI_Controller{
 
 			}
 
-			
-
 		}else{
-
 			$query = $this->user_m->get_list($filter, $this->each_page, $offset);
 			if ($query->num_rows() > 0) {
 				$data['result'] = $query->result();
@@ -329,7 +328,8 @@ Class Users extends CI_Controller{
 			$data = [
 
 				'id_number' => trim($this->input->post('f_nip')),
-				'full_name' => $this->input->post('f_full_name')
+				'full_name' => $this->input->post('f_full_name'),
+				'uc_prodi' => $this->input->post('f_prodi')
 			];
 
 			activity_log('Update Data', 'User : Instruktur '.$this->input->post('f_full_name'));

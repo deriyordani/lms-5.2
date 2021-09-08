@@ -17,9 +17,9 @@
                     <thead>
                         <tr class="bg-light">
                             <td class="text-primary text-center" width="5%">No</td>
-                            	<td class="text-primary text-center" width="20%">NIP</td>
+                            	<td class="text-primary text-center" width="20%">Nama Lengkap &amp; NIK</td>
 
-                            	<td class="text-primary text-center" width="25%">Nama Lengkap</td>
+                            	<td class="text-primary text-center" width="25%">Program Studi</td>
                             	<td class="text-primary text-center" width="5%">Status</td>
                             <td class="text-primary text-center">Action</td>
                         </tr>
@@ -30,11 +30,12 @@
                             <tr>
                                 <td><?=$no?></td>
                             	<td>
-                                    <?=$row->id_number?> <br />
-                                    <?=$this->session->userdata('log_uc_prodi')?>
-                                    
+                                    <span><?=$row->full_name?> </span>
+                                    <span class="small">(<?=$row->id_number?>) </span>
                                 </td>
-                            	<td class="text-primary text-center"><?=$row->full_name?></td>
+                            	<td class="text-primary text-center">
+                                    <?=$row->prodi?>   
+                                </td>
                             	<td class="text-primary text-center">
                             		<?php if($row->is_claim == 0):?>
 

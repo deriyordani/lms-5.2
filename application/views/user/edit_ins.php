@@ -14,6 +14,20 @@
         <label>Nama Lengkap</label>
         <input type="text" class="form-control" name="f_full_name" value="<?=$row->full_name?>" >
     </div>
+    <div class="form-group">
+        <select name="f_prodi" class="form-control form-control-lg">
+            <?php 
+                $list_prodi = list_prodi();
+                if(isset($list_prodi)):
+                    ?>
+                    <option value="">---Pilih Prodi---</option>
+                        <?php foreach($list_prodi as $lp):?>
+                            <option value="<?=$lp->uc?>" <?=select_set($lp->uc, $row->uc_prodi)?>><?=$lp->prodi?></option>
+                        <?php endforeach;?>
+            <?php endif;?>
+        </select>
+
+    </div>
     
 </div>
 <div class="modal-footer">

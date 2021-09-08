@@ -33,13 +33,13 @@ Class Auth extends CI_Controller{
 				if(password_verify($password,$row->password)){
 
 					$data = array(
-						'log_uc'		=> $row->uc,
+						'log_uc'			=> $row->uc,
 						'log_username'		=> $row->username,
 						'log_full_name'		=> $row->full_name,
 						'log_category' 		=> $row->category,
 						'log_uc_person' 	=> $row->uc_person,
-						'log_uc_prodi' => $row->uc_prodi,
-						'log_photo' => $row->photo
+						'log_uc_prodi' 		=> $row->uc_prodi,
+						'log_photo' 		=> $row->photo
 						);
 
 					$this->session->set_userdata($data);
@@ -82,103 +82,170 @@ Class Auth extends CI_Controller{
 			$username = $this->input->post('f_username');
 			$password = $this->input->post('f_password');
 
-			$query = $this->user_m->get_login($username);
+			$query = $this->user_m->get_filtered(array('username' => $username));
+
 			if ($query->num_rows() > 0) {
-				
+
 				$row = $query->row();
+				$uc_user = $row->uc;
+				$usersname = $row->username;
+				
+				$category = $row->category;
+				$uc_person = $row->uc_person;
+				$photo = $row->photo;
+				$uc_prodi = $row->uc_prodi;
 
 
-				// echo "<pre>";
-				// print_r($row);
-				// echo "</pre>";
 
 				//CEK PASSWORD
+
 				if(password_verify($password,$row->password)){
-					
+					if ($category == 1) {
+						$set_session = array(
+							'log_uc'	=> $uc_user,
+							'log_username' => $usersname,
+							'log_category' => $category,
+							'log_photo' => $photo
+							);
 
-					//STATUS AKTIF
-					if ($row->is_active == 1) {
+						$this->session->set_userdata($set_session);
 
-						//set session
+						activity_log('Masuk Sistem', 'Login : '.$usersname);
 
-						$data = array(
-								'log_uc'		=> $row->uc,
-								'log_username'		=> $row->username,
-								'log_full_name'		=> $row->full_name,
-								'log_email'			=> $row->email,
-								'log_category' 		=> $row->category,
-								'log_uc_person' 	=> $row->uc_person,
-								'log_uc_diklat_participant' => $row->uc_diklat_participant,
-								'log_uc_diklat_period' => $row->uc_diklat_period,
-								'log_uc_diklat_class' => $row->uc_diklat_class,
-								'log_uc_prodi' => $row->uc_prodi,
-								'log_photo' => $row->photo
-								);
-
-
-						//UPDATE LAST LOGIN
-
-						//$this->user_m->update_data(array('is_online' => 1,'last_login' => time_format(current_time(),'Y-m-d H:i')), array('uc' => $row->uc ));
-
-						$this->session->set_userdata($data);
-						
-						if ($row->is_claim == 1) {
-
-							if ($row->category == 1) {
-								redirect('diklat');
-							}
-							
-							if ($row->category == 2) {
-								//redirect instruktur
-								redirect('classroom');
-							}
-
-							if ($row->category == 3) {
-								//redirect student
-								redirect('student/classroom');
-							}
-
-							if ($row->category == 4) {
-								//redirect student
-								redirect('subject');
-							}
-
-						}else{
-							//munculkan informasi klaim data
-
-							// echo "<pre>";
-							// print_r($row);
-							// echo "</pre>";
-
-							redirect('auth/claim/'.$row->uc.'/'.$row->uc_person.'/'.$row->category);
-						}
-
-						
-						
-
-					}else{
-
-						//FLASH AKUN BELUM AKTIF
-						$this->session->set_flashdata('info', $this->config->item('flash_login_akun_not_ready'));
-						redirect('auth/login');
+						redirect('period');
 
 					}
 
+					if ($category == 2 || $category == 4) {
+						//$qprodi = $this->user_m->get_login_prodi($uc_user)->row();
 
-				}
-				else{
+						$set_session = array(
+							'log_uc'	=> $uc_user,
+							'log_username' => $usersname,
+							'log_category' => $category,
+							'log_photo' => $photo,
+							'log_uc_person' => $uc_person,
+							'log_uc_prodi' => $uc_prodi,
+							);
 
+						$this->session->set_userdata($set_session);
+						//print_r($set_session);
+						activity_log('Masuk Sistem', 'Login : '.$usersname);
+
+						redirect('classroom');
+					}
+
+					if ($category == 3) {
+						$qstud = $this->user_m->get_login_stud($uc_user)->row();
+
+						$set_session = array(
+							'log_uc'	=> $uc_user,
+							'log_username' => $usersname,
+							'log_category' => $category,
+							'log_photo' => $photo,
+							'log_uc_person' => $uc_person,
+							'log_uc_diklat_participant' => $qstud->uc_diklat_participant,
+							'log_uc_prodi' => $uc_prodi,
+							);
+
+						$this->session->set_userdata($set_session);
+
+						activity_log('Masuk Sistem', 'Login : '.$usersname);
+
+						if($qstud->is_claim == 0){
+
+							redirect('auth/claim/'.$row->uc.'/'.$row->uc_person.'/'.$row->category);
+						}else{
+							redirect('student/classroom');
+						}
+					}
+
+				}else{
 					//FLASH Password tidak cocok
 					$this->session->set_flashdata('info', $this->config->item('flash_login_password_not_match'));
 					redirect('auth/login');
 				}
 
-
 			}else{
+
 				//FLASH USERNAME TIDAK TERSEDIA
 				$this->session->set_flashdata('info', $this->config->item('flash_login_username_not_ready'));
 				redirect('auth/login');
 			}
+
+			// $query = $this->user_m->get_filtered(array('username' => $username));
+			// if ($query->num_rows() > 0) {
+				
+			// 	$row = $query->row();
+			// 	$uc_user = $row->uc;
+			// 	$username = $row->username;
+			// 	$full_name = $row->full_name;
+			// 	$category = $row->category;
+			// 	$uc_person = $row->uc_person;
+			// 	$photo = $row->photo;
+
+			// 	//CEK PASSWORD
+			// 	if(password_verify($password,$row->password)){
+
+			// 		if ($category == 1) {
+			// 			$data = array(
+			// 				'log_uc'		=> $uc_user,
+			// 				'log_username'		=> $username,
+			// 				'log_full_name'		=> $full_name,
+			// 				'log_category' 		=> $category,
+			// 				'log_photo' => $photo
+			// 				);
+
+			// 			$this->session->set_userdata($data);
+
+			// 			redirect('period');
+
+			// 		}elseif ($category == 2) {
+						
+			// 			$qins = $this->instructor_m->get_login_ins($uc_user);
+			// 			if ($qins->num_rows() > 0) {
+			// 				$qins = $query->row();
+			// 				$data = array(
+			// 					'log_uc'		=> $uc_user,
+			// 					'log_username'		=> $username,
+			// 					'log_full_name'		=> $full_name,
+			// 					'log_category' 		=> $category,
+			// 					'log_photo' => $photo,
+			// 					'log_uc_prodi' => $qins->uc_prodi,
+			// 					'log_uc_person' => $uc_person
+			// 					);
+
+			// 				$this->session->set_userdata($data);
+			// 			}
+
+			// 		}elseif ($category == 3) {
+			// 			// code...
+			// 		}
+			// 		// $data = array(
+			// 		// 	'log_uc'		=> $row->uc,
+			// 		// 	'log_username'		=> $row->username,
+			// 		// 	'log_full_name'		=> $row->full_name,
+			// 		// 	'log_category' 		=> $row->category,
+			// 		// 	'log_photo' => $row->photo
+			// 		// 	);
+
+			// 		// $this->session->set_userdata($data);
+
+			// 		// redirect('period');
+
+			// 	}else{
+
+			// 		//FLASH Password tidak cocok
+			// 		$this->session->set_flashdata('info', $this->config->item('flash_login_password_not_match'));
+			// 		redirect('auth/login');
+			// 	}
+
+
+			// }else{
+			// 	//FLASH USERNAME TIDAK TERSEDIA
+			// 	$this->session->set_flashdata('info', $this->config->item('flash_login_username_not_ready'));
+			// 	redirect('auth/login');
+			// }
 			
 		}
 	}
@@ -237,12 +304,10 @@ Class Auth extends CI_Controller{
 
 			$data = ['is_claim' => 1];
 
-			$where = ['no_peserta' => $this->input->post('f_no_peserta')];
-
+			$where = ['no_peserta' => $this->input->post('f_id_number')];
 			$this->load->model('diklat_participant_m');
 			$this->diklat_participant_m->update_data($data, $where);
 		}
-
 
 		redirect('student/classroom');
 	}
@@ -260,7 +325,7 @@ Class Auth extends CI_Controller{
 			$password 	= trim($this->input->post('f_password'));
 
 			//	CHECK USERNAME AVAILABILITY
-			if ($this->username_validation) {
+			if ($this->username_validation($username)) {
 
 				$uc_person = NULL;
 				$uc_user = unique_code();
@@ -353,13 +418,6 @@ Class Auth extends CI_Controller{
 							$filter = array('id_number' => $id_number);
 							$this->instructor_m->update_data($update_data, array());
 						}
-							
-						// if ($type_person == 3) {
-						// 	//	IF STUDENT
-						// 	$filter = array('no_peserta' => $no_peserta);
-						// 	$this->load->model('diklat_participant_m');
-						// 	$this->diklat_participant_m->update_data($update_data, $filter);
-						// }
 			        }
 			        else {
 			        	//	If Fail to Send
@@ -512,15 +570,15 @@ Class Auth extends CI_Controller{
 
 		// $this->user_m->update_data(array('is_online' => 0), array('uc' => $this->session->userdata('log_uc') ));
 
+        activity_log('Keluar Sistem', 'Logout : '.$this->session->userdata('log_username'));
+
 		$this->session->sess_destroy();
 		redirect('auth/login');
 	}
 
-	function username_validation() {
+	function username_validation($username = NULL) {
 		$this->load->model('user_m');
 		
-		$username = $this->input->post('js_username');
-
 		$query = $this->user_m->get_filtered(array('username' => $username));
 		if ($query->num_rows() > 0) {
 			$status = FALSE;
@@ -533,7 +591,7 @@ Class Auth extends CI_Controller{
 	}
 
 	function username_validation_ajax() {
-		$status = $this->username_validation();
+		$status = $this->username_validation($this->input->post('js_username'));
 		echo json_encode($status);
 	}
 }

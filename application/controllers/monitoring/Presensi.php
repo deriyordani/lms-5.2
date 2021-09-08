@@ -175,8 +175,6 @@ Class Presensi extends CI_Controller{
 	function rekap($uc_classroom = NULL, $uc_diklat_class = NULL, $output = NULL) {
 		$data = NULL;
 
-
-
 		$filter = [
 			'uc' => $uc_classroom,
 			'uc_diklat_class' => $uc_diklat_class,
