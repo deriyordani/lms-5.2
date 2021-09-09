@@ -7,39 +7,22 @@ Class Instructor_m extends MY_Model{
 	}
 
 	function get_list_detail($filter = NULL, $limit = NULL, $offset = NULL) {
-		// $sql = " SELECT i.* ";
-				
-		// 		if (isset($filter['uc_prodi'])) {
-		// 			$sql .= ", p.`prodi` ";
-		// 		}
-
-		// 		$sql .= " FROM `lms_instructor` i ";
-					
-		// 		if (isset($filter['uc_prodi'])) {
-		// 			$sql .= " LEFT JOIN `lms_prodi` p
-		// 				ON p.`uc` = i.`uc_prodi` ";
-		// 		}
-
-		// 		if (isset($filter['uc_prodi'])) {
-		// 			$sql .= " WHERE `uc_prodi` = '".$filter['uc_prodi']."' ";
-		// 		}			
-		// 		$sql .= " ORDER BY i.`full_name` ASC ";
-
-		// 		if($limit != NULL){
-		// 			$sql .= " LIMIT ".$offset.",".$limit." ";
-		// 		}
-
-
 		$sql = " SELECT i.*, p.`prodi` ";
 		$sql .= " FROM `lms_instructor` i ";
 		$sql .= " LEFT JOIN `lms_prodi` p
 					ON p.`uc` = i.`uc_prodi` ";
-		//$sql .= " WHERE `uc_prodi` = '".$filter['uc_prodi']."' ";	
-		 $sql .= " ORDER BY i.`full_name` ASC ";
-		//$sql .= " LIMIT ".$offset.",".$limit." ";
-				
-		return $this->exec_query($sql);			
-					
+
+		if (isset($filter['uc_prodi'])) {
+			$sql .= " WHERE `uc_prodi` = '".$filter['uc_prodi']."' ";
+		}
+
+		$sql .= " ORDER BY i.`full_name` ASC ";
+
+		if($limit != NULL){
+			$sql .= " LIMIT ".$offset.",".$limit." ";
+		}	
+		
+		return $this->exec_query($sql);
 	}
 
 	function get_id_number($id_number = NULL){

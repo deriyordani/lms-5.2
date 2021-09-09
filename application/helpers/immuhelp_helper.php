@@ -133,7 +133,7 @@ date_default_timezone_set('Etc/GMT-7');
 		$unique = rand(10,99);
 	}
 
-	$code = rand(100,999)."-".substr(date_timestamp_get($date), -5)."-".rand(10,99)."-".rand(10,99)."-".$unique;
+	$code = rand(100,999)."-".substr(date_timestamp_get($date), -5)."-".rand(10,99)."-".rand(10,99);
 
 	return $code;
 }

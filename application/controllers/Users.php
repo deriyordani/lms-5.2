@@ -12,7 +12,7 @@ Class Users extends CI_Controller{
 		$this->load->model('instructor_temp_m');
 		$this->load->model('instructor_m');
 
-		$this->each_page 	= 30;
+		$this->each_page 	= 20;
 		$this->page_int 	= 10;
 	}
 
@@ -42,19 +42,17 @@ Class Users extends CI_Controller{
 
 		$filter = ['category' => $category, 'count' => FALSE];
 
-
 		if ($akses == 'instruktur') {
+			
+			if ($this->session->userdata('log_uc_prodi') != NULL) {
+				$filter['uc_prodi'] = $this->session->userdata('log_uc_prodi');
 
-			if ($prodi != NULL) {
-				
-				//$query = $this->instructor_m->get_filtered(array('uc_prodi' => $prodi),'id','DESC', $this->each_page, $offset);
-				$query = $this->instructor_m->get_list_detail($prodi, $this->each_page, $offset);
+				$query = $this->instructor_m->get_list_detail($filter, $this->each_page, $offset);
 				if ($query->num_rows() > 0) {
 					$data['result'] = $query->result();
 				}
 
-				//$query = $this->instructor_m->get_filtered(array('uc_prodi' => $prodi));
-				$query = $this->instructor_m->get_list_detail($prodi);
+				$query = $this->instructor_m->get_list_detail($filter);
 				if ($query->num_rows() > 0) {
 					$params['total_record'] = $query->num_rows();
 					$data['pagination'] 	= $this->im_pagination->render_ajax($params);
@@ -62,20 +60,17 @@ Class Users extends CI_Controller{
 				}
 
 			}else{
-				//$query = $this->instructor_m->get_all('id','DESC', $this->each_page, $offset);
 				$query = $this->instructor_m->get_list_detail(NULL, $this->each_page, $offset);
 				if ($query->num_rows() > 0) {
 					$data['result'] = $query->result();
 				}
 
-				//$query = $this->instructor_m->get_all();	
 				$query = $this->instructor_m->get_list_detail(NULL);
 				if ($query->num_rows() > 0) {
 					$params['total_record'] = $query->num_rows();
 					$data['pagination'] 	= $this->im_pagination->render_ajax($params);
 					$data['total_record'] 	= $query->num_rows();
 				}
-
 			}
 
 		}else{
@@ -92,8 +87,6 @@ Class Users extends CI_Controller{
 			}
 		}
 
-		
-
 		$data['akses'] = $akses;
 		$data['category'] = $category;
 
@@ -103,7 +96,6 @@ Class Users extends CI_Controller{
 
 	function page(){
 		$data = NULL;
-
 
 		$page 	= ($this->input->post('js_page') != 1 ? $this->input->post('js_page') : 1);
 
@@ -127,23 +119,37 @@ Class Users extends CI_Controller{
 
 		$filter = ['category' => $category, 'count' => FALSE];
 
-
 		if ($akses == 'instruktur') {
-			
-			$query = $this->instructor_m->get_all('id','DESC', $this->each_page, $offset);
-			if ($query->num_rows() > 0) {
-				$data['result'] = $query->result();
-			}
+			if ($this->session->userdata('log_uc_prodi') != NULL) {
+				$filter['uc_prodi'] = $this->session->userdata('log_uc_prodi');
 
-			$query = $this->instructor_m->get_all();			
-			if ($query->num_rows() > 0) {
-				$params['total_record'] = $query->num_rows();
-				$data['pagination'] 	= $this->im_pagination->render_ajax($params);
-				$data['total_record'] 	= $query->num_rows();
+				$query = $this->instructor_m->get_list_detail($filter, $this->each_page, $offset);
+				if ($query->num_rows() > 0) {
+					$data['result'] = $query->result();
+				}
+
+				$query = $this->instructor_m->get_list_detail($filter);
+				if ($query->num_rows() > 0) {
+					$params['total_record'] = $query->num_rows();
+					$data['pagination'] 	= $this->im_pagination->render_ajax($params);
+					$data['total_record'] 	= $query->num_rows();
+				}
+
+			}else{
+				$query = $this->instructor_m->get_list_detail(NULL, $this->each_page, $offset);
+				if ($query->num_rows() > 0) {
+					$data['result'] = $query->result();
+				}
+
+				$query = $this->instructor_m->get_list_detail(NULL);
+				if ($query->num_rows() > 0) {
+					$params['total_record'] = $query->num_rows();
+					$data['pagination'] 	= $this->im_pagination->render_ajax($params);
+					$data['total_record'] 	= $query->num_rows();
+				}
 			}
 
 		}else{
-
 			$query = $this->user_m->get_list($filter, $this->each_page, $offset);
 			if ($query->num_rows() > 0) {
 				$data['result'] = $query->result();
@@ -162,9 +168,6 @@ Class Users extends CI_Controller{
         }else{
              $this->load->view('user/instruktur', $data);
         }
-                        
-
-		// $this->load->view('user/content', $data);
 	}
 
 	function upload_ins(){

@@ -153,11 +153,8 @@
                                     $session_category = $this->session->userdata('log_category');
 
                                     if ($session_category == 1) {
-                                        
                                         echo "Administrator";
-
                                     }elseif ($session_category == 2) {
-                                        
                                         echo "Instructor";
                                     }
                                     elseif ($session_category == 3) {

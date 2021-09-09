@@ -30,8 +30,8 @@
                             <tr>
                                 <td><?=$no?></td>
                             	<td>
-                                    <span><?=$row->full_name?> </span>
-                                    <span class="small">(<?=$row->id_number?>) </span>
+                                    <div class="text-dark"><?=$row->full_name?> </div>
+                                    <div class="small mt-2"><?=$row->id_number?> </div>
                                 </td>
                             	<td class="text-primary text-center">
                                     <?=$row->prodi?>   
@@ -138,20 +138,25 @@
         //     $('.load-data').load(base_url+'subject/page', {js_page : page, js_prodi : prodi, js_diklat : diklat});
         // });
 
-        $('.page-user a.pagination-ajax').click(function(){         
+        $('.page-user a.pagination-ajax').click(function(){ 
+            var category = $('input[name=js_category]').val();    
             var page    = $(this).attr('title');
-
-            var category = $('input[name=js_category]').val();
             var akses = $('input[name=js_akses]').val();
-
-            $('.load-data').load(base_url+'users/page', {js_page : page, js_category : category, js_akses : akses});
+            
+            $('.load-data').load(base_url+'users/page', 
+                                {
+                                    js_page : page, 
+                                    js_category : category, 
+                                    js_akses : akses
+                                }
+                            );
 
             // var prodi = $('select[name=f_prodi] option:selected').val();
             // var diklat = $('select[name=f_diklat] option:selected').val();
 
-            // $('.load-data').load(base_url+'subject/page', {js_page : page, js_prodi : prodi, js_diklat : diklat});
+            //$('.load-data').load(base_url+'subject/page', {js_page : page, js_prodi : prodi, js_diklat : diklat});
 
-            return false;
+            //return false;
         });
     });
 </script>

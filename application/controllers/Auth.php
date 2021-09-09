@@ -111,7 +111,6 @@ Class Auth extends CI_Controller{
 						activity_log('Masuk Sistem', 'Login : '.$usersname);
 
 						redirect('period');
-
 					}
 
 					if ($category == 2 || $category == 4 ) {
@@ -130,7 +129,12 @@ Class Auth extends CI_Controller{
 						//print_r($set_session);
 						activity_log('Masuk Sistem', 'Login : '.$usersname);
 
-						redirect('classroom');
+						if ($category == 2) {
+							redirect('classroom');
+						}
+						elseif ($category == 4) {
+							redirect('period');
+						}
 					}
 
 					if ($category == 3) {
