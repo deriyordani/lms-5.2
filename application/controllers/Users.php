@@ -491,28 +491,57 @@ Class Users extends CI_Controller{
 
 			$uc_prodi = $this->input->post('f_uc_prodi');
 
-			$data = [
-				'uc' => unique_code(),
-				'id_number' => trim($this->input->post('f_id_number')),
-				'full_name' => $this->input->post('f_full_name'),
-				'uc_prodi' => $uc_prodi
-			];
+			if (!$this->is_exist_ins(trim($this->input->post('f_id_number')))) {
+				$data = [
+					'uc' => unique_code(),
+					'id_number' => trim($this->input->post('f_id_number')),
+					'full_name' => $this->input->post('f_full_name'),
+					'uc_prodi' => $uc_prodi
+				];
 
-			activity_log('Input Data', 'User : Instruktur '.$this->input->post('f_full_name'));
+				activity_log('Input Data', 'User : Instruktur '.$this->input->post('f_full_name'));
 
-			$this->instructor_m->insert_data($data);
+				$this->instructor_m->insert_data($data);
 
-			$this->session->set_flashdata('info', $this->config->item('flash_success'));
+				$this->session->set_flashdata('info', $this->config->item('flash_success'));
+				
+				if($uc_prodi != NULL){
+					redirect('users/lists/instruktur/2/'.$uc_prodi);
 
+				}else{
+					
+					redirect('users/lists/instruktur/2');
+				}
+			}	
+			else {
+				$this->session->set_flashdata('info', $this->config->item('flash_ins_number_exist'));
+				redirect('users/lists/instruktur/2');
+			}
 		}
-
-		if($uc_prodi != NULL){
-			redirect('users/lists/instruktur/2/'.$uc_prodi);
-
-		}else{
-			
+		else {
 			redirect('users/lists/instruktur/2');
 		}
+	}
+
+	function is_exist_ins($id_number = NULL) {
+		if ($id_number != NULL) {
+			$query = $this->instructor_m->get_filtered(array('id_number' => $id_number));
+			if ($query->num_rows() > 0) {
+				return TRUE;	
+			}
+			else {
+				return FALSE;
+			}
+		}
+		else {
+			return FALSE;
+		}
+	}
+
+	function is_exist_ins_ajax() {
+		$status = $this->is_exist_ins(trim($this->input->post('js_id_number')));
+
+		echo json_encode($status);
 	}
 
 	// function instruktur(){

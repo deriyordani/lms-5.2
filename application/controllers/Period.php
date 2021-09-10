@@ -148,7 +148,7 @@ Class Period extends CI_Controller{
 
 		$uc = $this->input->post('js_uc');
 
-		$query = $this->diklat_period_m->get_filtered(array('uc' => $uc));
+		$query = $this->diklat_period_m->get_detail($uc);
 		if ($query->num_rows() > 0) {
 			
 			$data['row'] = $query->row();

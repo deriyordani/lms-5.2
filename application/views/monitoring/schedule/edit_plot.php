@@ -45,11 +45,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-            <h2 class="text-grey">KELOLA JADWAL
-                <small class="ml-3">
-                    <a href="" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#form-add-plot"><i class="fa fa-plus-circle mr-2"></i>Save</a>
-                </small>
-            </h2>
+            <h2 class="text-grey">KELOLA JADWAL</h2>
         </div>  
     </div>
 

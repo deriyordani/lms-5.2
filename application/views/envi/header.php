@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content />
         <meta name="author" content />
-        <title>Dashboard - LMS Poltek Pel Sorong</title>
+        <title>Dashboard - LMS Poltekpel Sorong</title>
         <link href="<?=base_url('assets/css/styles.css')?>" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" rel="stylesheet" crossorigin="anonymous" />
         <link rel="icon" type="image/x-icon" href="<?=base_url('assets/img/favicon.png')?>" />

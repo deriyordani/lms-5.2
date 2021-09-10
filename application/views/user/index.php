@@ -241,9 +241,29 @@
                 </div>
 
                 <div class="modal-body">
+                    
+                    <?php if($this->session->userdata('info')):?>
+                        <?php $warning = $this->session->flashdata('info')?>
+                        <div class="alert <?=$warning['class']?> alert-icon" role="alert">
+                            <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <div class="alert-icon-aside">
+                                <i class="far <?=$warning['icon']?>"></i>
+                            </div>
+                            <div class="alert-icon-content">
+                                <h6 class="alert-heading">Pemberitahuan</h6>
+                                 <?=$warning['message']?>
+                            </div>
+                        </div>
+                    <?php endif;?>
+
                     <div class="form-group">
                         <label>NIK</label>
                         <input type="text" class="form-control" name="f_id_number" required="">
+                        <label class="error text-danger" id="idnumber-exist" style="display:none;">
+                                                  NIK, sudah ada yang menggunakan!
+                                                </label>
                     </div>
                     <div class="form-group">
                         <label>Nama Lengkap</label>
@@ -253,12 +273,22 @@
                         <label>Prodi</label>
                         <?php $list_prodi = list_prodi();?>
                         <?php if(isset($list_prodi)):?>
-                            <select name="f_uc_prodi" class="form-control form-control-lg">
-                                <option value=""> --- Pilih ---</option>
-                                <?php foreach($list_prodi as $lp):?>
-                                    <option value="<?=$lp->uc?>" <?=select_set($lp->uc, $this->session->userdata('log_uc_prodi'))?>><?=$lp->prodi?></option>
-                                <?php endforeach;?>
-                            </select>
+                            <?php if ($this->session->userdata('log_category') == 1) : ?>
+                                <select name="f_uc_prodi" class="form-control form-control-lg">
+                                    <option value=""> --- Pilih ---</option>
+                                    <?php foreach($list_prodi as $lp):?>
+                                        <option value="<?=$lp->uc?>" <?=select_set($lp->uc, $this->session->userdata('log_uc_prodi'))?>><?=$lp->prodi?></option>
+                                    <?php endforeach;?>
+                                </select>
+                            <?php else : ?>
+                                <input type="hidden" name="f_uc_prodi" value="<?=$this->session->userdata('log_uc_prodi')?>">
+                                <select name="" class="form-control form-control-lg" disabled="">
+                                    <option value=""> --- Pilih ---</option>
+                                    <?php foreach($list_prodi as $lp):?>
+                                        <option value="<?=$lp->uc?>" <?=select_set($lp->uc, $this->session->userdata('log_uc_prodi'))?>><?=$lp->prodi?></option>
+                                    <?php endforeach;?>
+                                </select>
+                            <?php endif; ?>    
                         <?php endif;?>
                     </div>
                    
@@ -306,6 +336,26 @@
 
         //     $('.load-data').load(base_url+'subject/page', {js_page : page, js_prodi : prodi, js_diklat : diklat});
         // });
+
+        $('input[name=f_id_number]').focusout(function(){
+            var id_number = $(this).val();
+
+            $.ajax({
+                    type        : 'post',
+                    dataType    : 'json',
+                    data        : { js_id_number : id_number },
+                    url         : base_url + 'users/is_exist_ins_ajax',
+                    success     : function(output) {
+                                    if (output == true) {
+                                        $('#idnumber-exist').css({'display':'block', 'visibility':'visible'});
+                                    }
+                    }
+                });
+        });
+
+        $('input[name=f_id_number]').keyup(function(){
+                    $('#idnumber-exist').css({'display':'none', 'visibility':'hidden'});
+                });
 
         $('.page-user a.pagination-ajax').click(function(){         
             var page    = $(this).attr('title');

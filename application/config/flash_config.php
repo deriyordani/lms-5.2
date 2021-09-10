@@ -19,4 +19,5 @@ $config['flash_login_akun_not_ready'] = ['class' => 'alert-info', 'message' => '
 $config['flash_tugas_terkirim'] = ['class' => 'alert-info', 'message' => 'Tugas telah terkirim, tunggu untuk diperiksa !','icon' => 'fa-check-circle'];
 $config['not_matching_pass'] = ['class' => 'alert-danger', 'message' => 'Password tidak sama, mohon untuk diperiksa kembali!','icon' => 'fa-check-circle'];
 $config['flash_class_nonaktif']  = ['class' => 'alert-warning', 'message' => 'Kelas belum aktif, silahkan hubungi Instruktur/Dosen !','icon' => 'fa-check-circle'];
+$config['flash_ins_number_exist'] = ['class' => 'alert-danger', 'message' => 'Maaf, NIK sudah ada yang menggunakan','icon' => 'fa-eraser'];
 ?>

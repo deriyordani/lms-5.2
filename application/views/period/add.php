@@ -60,7 +60,6 @@
                  {
 
                     if (output['type_course'] == 1) {
-
                         $('.long-show').css({'display' : 'block'});
                         $('.short-show').css({'display' : 'none'});
 
@@ -94,7 +93,7 @@
 
 <?=form_open('period/store')?>
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Periode Diklat Add</h5>
+    <h5 class="modal-title" id="exampleModalLabel">Add Periode Diklat</h5>
     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>
 <div class="modal-body">
@@ -121,17 +120,34 @@
 
     <div class="form-group prodi-show" style="display: none;">
         <label>Prodi</label>
-        <select name="f_prodi" class="form-control form-control-lg">
-            <?php 
-                $list_prodi = list_prodi();
-                if(isset($list_prodi)):
-            ?>
-            <option value="">---Pilih---</option>
-            <?php foreach($list_prodi as $lp):?>
-                <option value="<?=$lp->uc?>"><?=$lp->prodi?></option>
-            <?php endforeach;?>
-        <?php endif;?>
-        </select>
+        <div class="select-program">
+            <?php if ($this->session->userdata('log_category') == 4) : ?>
+                <input type="hidden" name="f_prodi" value="<?=$this->session->userdata('log_uc_prodi')?>">
+                <select class="form-control form-control-lg" disabled="">
+                    <?php 
+                        $list_prodi = list_prodi();
+                        if(isset($list_prodi)):
+                            ?>
+                            <option value="">---Pilih Prodi---</option>
+                                <?php foreach($list_prodi as $lp):?>
+                                    <option value="<?=$lp->uc?>" <?=select_set($lp->uc, $this->session->userdata('log_uc_prodi'))?>><?=$lp->prodi?></option>
+                                <?php endforeach;?>
+                    <?php endif;?>
+                </select>
+            <?php else : ?>
+                <select name="f_prodi" class="form-control form-control-lg">
+                    <?php 
+                        $list_prodi = list_prodi();
+                        if(isset($list_prodi)):
+                            ?>
+                            <option value="">---Pilih Prodi---</option>
+                                <?php foreach($list_prodi as $lp):?>
+                                    <option value="<?=$lp->uc?>"><?=$lp->prodi?></option>
+                                <?php endforeach;?>
+                    <?php endif;?>
+                </select>
+            <?php endif; ?>
+        </div>  
     </div>
 
     <div class="form-group dkp-show" style="display: none;">
@@ -149,11 +165,19 @@
         </select>
     </div>
 
-    
+    <div>
+        
+    </div>
 
     <div class="form-group long-show" style="display: none">
         <label>Tahun</label>
-        <input type="number" class="form-control" name="f_tahun">
+
+        <select class="form-control" name="f_tahun">
+            <?php $year_now = date("Y"); ?>
+            <?php for ($i=$year_now-10; $i<=$year_now+1; $i++ ) : ?>
+                <option><?=$i?></option>
+            <?php endfor; ?>    
+        </select>
     </div>
     <div class="short-show" style="display: none">
         <div class="row " >

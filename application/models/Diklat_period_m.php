@@ -6,6 +6,16 @@ Class Diklat_period_m extends MY_Model{
 		$this->table_name = 'lms_diklat_period';
 	}
 
+	function get_detail($uc = NULL) {
+		$sql = " SELECT dp.*,p.`prodi`, d.`diklat`, d.`category`, ddkp.label_dkp
+				FROM `lms_diklat_period` dp
+				LEFT JOIN `lms_prodi` p ON dp.`uc_prodi` = p.`uc`
+				LEFT JOIN `lms_diklat` d ON dp.`uc_diklat` = d.`uc`
+				LEFT JOIN `lms_diklat_dkp` ddkp ON dp.uc_diklat_dkp = ddkp.uc ";
+
+		return $this->exec_query($sql);		
+	}
+
 	function get_list($filter = NULL,$limit = NULL, $offset = 0){
 		
 		$sql = " SELECT dp.*";

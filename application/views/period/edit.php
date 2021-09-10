@@ -1,7 +1,7 @@
 <?=form_open('period/update')?>
 <input type="hidden" name="f_uc" value="<?=$row->uc?>">
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Periode Diklat Add</h5>
+    <h5 class="modal-title" id="exampleModalLabel">Edit Periode Diklat</h5>
     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>
 <div class="modal-body">
@@ -41,25 +41,27 @@
         </select>
     </div>
 
-    <div class="form-group">
-        <label>Tahun</label>
-        <input type="number" class="form-control" name="f_tahun" value="<?=$row->tahun?>">
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-             <div class="form-group">
-                <label>Periode Mulai</label>
-                <input type="date" class="form-control" name="f_periode_mulai" value="<?=$row->periode_mulai?>">
+    <?php if ($row->category == 1) : ?>
+        <div class="form-group">
+            <label>Tahun</label>
+            <input type="number" class="form-control" name="f_tahun" value="<?=$row->tahun?>">
+        </div>
+    <?php else : ?>
+        <div class="row">
+            <div class="col-md-6">
+                 <div class="form-group">
+                    <label>Periode Mulai</label>
+                    <input type="date" class="form-control" name="f_periode_mulai" value="<?=$row->periode_mulai?>">
+                </div>
+            </div>
+             <div class="col-md-6">
+                <div class="form-group">
+                    <label>Periode Selesai</label>
+                    <input type="date" class="form-control" name="f_periode_selesai" value="<?=$row->periode_selesai?>">
+                </div>
             </div>
         </div>
-         <div class="col-md-6">
-            <div class="form-group">
-                <label>Periode Selesai</label>
-                <input type="date" class="form-control" name="f_periode_selesai" value="<?=$row->periode_selesai?>">
-            </div>
-        </div>
-    </div>
-    
+    <?php endif; ?>
 </div>
 <div class="modal-footer">
     <input type="submit" name="f_save" class="btn btn-primary" value="Save">
