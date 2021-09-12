@@ -12,7 +12,7 @@ Class Users extends CI_Controller{
 		$this->load->model('instructor_temp_m');
 		$this->load->model('instructor_m');
 
-		$this->each_page 	= 20;
+		$this->each_page 	= 10;
 		$this->page_int 	= 10;
 	}
 

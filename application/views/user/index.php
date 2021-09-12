@@ -357,20 +357,20 @@
                     $('#idnumber-exist').css({'display':'none', 'visibility':'hidden'});
                 });
 
-        $('.page-user a.pagination-ajax').click(function(){         
-            var page    = $(this).attr('title');
+        // $('.page-user a.pagination-ajax').click(function(){         
+        //     var page    = $(this).attr('title');
 
-            var category = $('input[name=js_category]').val();
-            var akses = $('input[name=js_akses]').val();
+        //     var category = $('input[name=js_category]').val();
+        //     var akses = $('input[name=js_akses]').val();
 
-            $('.load-data').load(base_url+'users/page', {js_page : page, js_category : category, js_akses : akses});
+        //     $('.load-data').load(base_url+'users/page', {js_page : page, js_category : category, js_akses : akses});
 
-            // var prodi = $('select[name=f_prodi] option:selected').val();
-            // var diklat = $('select[name=f_diklat] option:selected').val();
+        //     // var prodi = $('select[name=f_prodi] option:selected').val();
+        //     // var diklat = $('select[name=f_diklat] option:selected').val();
 
-            // $('.load-data').load(base_url+'subject/page', {js_page : page, js_prodi : prodi, js_diklat : diklat});
+        //     // $('.load-data').load(base_url+'subject/page', {js_page : page, js_prodi : prodi, js_diklat : diklat});
 
-            return false;
-        });
+        //     return false;
+        // });
     });
 </script>

@@ -192,5 +192,32 @@
 
             return false;
         });
+
+        $('.page-subject a.pagination-ajax').click(function(){         
+            var page    = $(this).attr('title');
+
+           var log_category = $('input[name=f_log_category]').val();
+
+            if (log_category != 5) {
+                var diklat = $('select[name=f_diklat] option:selected').val();
+
+                if (log_category == 4) {
+                    var prodi = $('input[name=f_prodi]').val();
+                }
+                else {
+                    var prodi = $('select[name=f_prodi] option:selected').val();
+                }
+                
+            }
+            else {
+                var diklat = $('input[name=f_diklat]').val();
+            }
+            
+            var program = $('select[name=f_diklat_dkp] option:selected').val();
+
+            $('.load-data').load(base_url+'subject/page', {js_page : page, js_prodi : prodi, js_diklat : diklat, js_program : program});
+
+            return false;
+        });
     });
 </script>
