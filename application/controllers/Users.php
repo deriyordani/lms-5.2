@@ -120,6 +120,7 @@ Class Users extends CI_Controller{
 		$filter = ['category' => $category, 'count' => FALSE];
 
 		if ($akses == 'instruktur') {
+			
 			if ($this->session->userdata('log_uc_prodi') != NULL) {
 				$filter['uc_prodi'] = $this->session->userdata('log_uc_prodi');
 
@@ -162,6 +163,9 @@ Class Users extends CI_Controller{
 				$data['total_record'] 	= $query->num_rows();
 			}
 		}
+
+		$data['akses'] = $akses;
+		$data['category'] = $category;
 
 		if ($akses != 'instruktur') {
             $this->load->view('user/content', $data);
