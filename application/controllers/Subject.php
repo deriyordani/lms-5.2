@@ -51,7 +51,6 @@ Class Subject extends CI_Controller{
 				'uc_diklat_dkp' => 1,
 				'count' => false
 			];
-
 		}
 
 		$query = $this->subject_m->get_list($filter, $this->each_page, $offset);
@@ -72,8 +71,6 @@ Class Subject extends CI_Controller{
 
 			$this->im_render->main('subject/dkp/index', $data);
 		}
-
-		
 	}
 
 	function page(){

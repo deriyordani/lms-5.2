@@ -11,7 +11,9 @@ Class Diklat_period_m extends MY_Model{
 				FROM `lms_diklat_period` dp
 				LEFT JOIN `lms_prodi` p ON dp.`uc_prodi` = p.`uc`
 				LEFT JOIN `lms_diklat` d ON dp.`uc_diklat` = d.`uc`
-				LEFT JOIN `lms_diklat_dkp` ddkp ON dp.uc_diklat_dkp = ddkp.uc ";
+				LEFT JOIN `lms_diklat_dkp` ddkp ON dp.uc_diklat_dkp = ddkp.uc 
+				WHERE dp.`uc` = '".$uc."'
+				";
 
 		return $this->exec_query($sql);		
 	}
