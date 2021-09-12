@@ -124,18 +124,23 @@
         //     var prodi = $('select[name=f_prodi] option:selected').val();
         //     var diklat = $('select[name=f_diklat] option:selected').val();
 
+        //     alert(page+' | '+prodi+' | '+diklat);
+
         //     $('.load-data').load(base_url+'subject/page', {js_page : page, js_prodi : prodi, js_diklat : diklat});
         // });
 
-        // $('.page-subject a.pagination-ajax').click(function(){         
-        //     var page    = $(this).attr('title');
 
-        //     var prodi = $('select[name=f_prodi] option:selected').val();
-        //     var diklat = $('select[name=f_diklat] option:selected').val();
+        
 
-        //     $('.load-data').load(base_url+'subject/page', {js_page : page, js_prodi : prodi, js_diklat : diklat});
+        $('.page-subject a.pagination-ajax').click(function(){         
+            var page    = $(this).attr('title');
 
-        //     return false;
-        // });
+            var prodi = $('select[name=f_prodi] option:selected').val();
+            var diklat = $('select[name=f_diklat] option:selected').val();
+
+            $('.load-data').load(base_url+'subject/page', {js_page : page, js_prodi : prodi, js_diklat : diklat});
+
+            return false;
+        });
     });
 </script>

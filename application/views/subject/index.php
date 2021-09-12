@@ -112,7 +112,7 @@
                    </div>
                 
                    <div class="col-md-2">
-                        <button class="btn btn-info btn-search-period"><i class="fa fa-search"></i> &nbsp;Search</button>
+                        <button class="btn btn-info btn-search"><i class="fa fa-search"></i> &nbsp;Search</button>
                    </div>
                 </div>
                 
@@ -166,7 +166,7 @@
             }
         });
 
-        $('.btn-search-period').click(function(){         
+        $('.btn-search').click(function(){         
             var page    = 1;
 
             var log_category = $('input[name=f_log_category]').val();
@@ -185,7 +185,7 @@
             else {
                 var diklat = $('input[name=f_diklat]').val();
             }
-            
+
             var program = $('select[name=f_diklat_dkp] option:selected').val();
 
             $('.load-data').load(base_url+'subject/page', {js_page : page, js_prodi : prodi, js_diklat : diklat, js_program : program});

@@ -9,7 +9,7 @@ Class Subject extends CI_Controller{
 
 		$this->load->model('subject_m');
 
-		$this->each_page 	= 100;
+		$this->each_page 	= 10;
 		$this->page_int 	= 5;
 	}
 
@@ -96,7 +96,7 @@ Class Subject extends CI_Controller{
 		if ($category == 4) {
 			
 			$filter = [
-
+				'uc_diklat' => $this->input->post('js_diklat'),
 				'uc_prodi' => $this->session->userdata('log_uc_prodi'),
 				'count' => false
 			];
@@ -112,8 +112,6 @@ Class Subject extends CI_Controller{
 			];
 		
 		}
-
-		
 
 		$data['numbering'] 	= ($this->each_page * ($page-1)) + 1;
 
