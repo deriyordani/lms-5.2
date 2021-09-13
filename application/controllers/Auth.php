@@ -148,6 +148,7 @@ Class Auth extends CI_Controller{
 							'log_uc_person' => $uc_person,
 							'log_uc_diklat_participant' => $qstud->uc_diklat_participant,
 							'log_uc_prodi' => $uc_prodi,
+							'log_uc_diklat_class' => $qstud->uc_diklat_class
 							);
 
 						$this->session->set_userdata($set_session);
