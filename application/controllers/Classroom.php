@@ -11,7 +11,7 @@ Class Classroom extends CI_Controller{
 
 		$this->load->model('section_m');
 
-		$this->each_page 	= 10;
+		$this->each_page 	= 50;
 		$this->page_int 	= 5;
 	}
 
@@ -2153,6 +2153,26 @@ Class Classroom extends CI_Controller{
 
 		redirect('classroom/content/edit_materi/'.$uc_classroom.'/'.$uc_diklat_class.'/'.$uc_content);
 
+	}
+
+	function load_form_edit() {
+		$data['uc'] =  $this->input->post('js_uc');
+		$data['code'] = $this->input->post('js_code');
+		$data['title'] = $this->input->post('js_title');
+
+		$this->load->view('classroom/edit_classroom', $data);
+	}
+
+	function update() {
+		$data = array(
+						'classroom_code'	=> $this->input->post('f_class_code'),
+						'classroom_title'	=> $this->input->post('f_class_title')
+					);
+		$filter = array('uc' => $this->input->post('f_uc'));
+
+		$this->classroom_m->update_data($data, $filter);
+
+		redirect('classroom');
 	}
 
 }
