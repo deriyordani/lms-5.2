@@ -11,7 +11,7 @@ Class Classroom extends CI_Controller{
 
 		$this->load->model('section_m');
 
-		$this->each_page 	= 5;
+		$this->each_page 	= 50;
 		$this->page_int 	= 5;
 	}
 
