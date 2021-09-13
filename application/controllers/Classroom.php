@@ -1817,6 +1817,7 @@ Class Classroom extends CI_Controller{
 
 				$query = $this->ass_question_m->get_filtered($filter);
 				$amt_essay = $query->num_rows();
+
 				if ($amt_essay > 0) {
 					$data['amt_essay'] = $amt_essay;
 					$data['amt_not_essay'] = $amt_all - $amt_essay;
@@ -1824,6 +1825,16 @@ Class Classroom extends CI_Controller{
 					$data['q_essay'] = $query->result();
 
 					$this->im_render->main('classroom/set_bobot', $data);
+				}
+				else {
+					//	Get Classroom  & UC Diklat Class
+					$this->load->model('assessment_m');
+					$query = $this->assessment_m->get_diklat($uc_assessment);
+					if ($query->num_rows() > 0) {
+						$row = $query->row();
+						
+						redirect('classroom/task/'.$row->uc_classroom.'/'.$row->uc_diklat_class);
+					}	
 				}
 			}
 		}
@@ -1858,6 +1869,16 @@ Class Classroom extends CI_Controller{
 					$data['q_essay'] = $query->result();
 
 					$this->im_render->main('classroom/set_bobot', $data);
+				}
+				else {
+					//	Get Classroom  & UC Diklat Class
+					$this->load->model('assessment_m');
+					$query = $this->assessment_m->get_diklat($uc_assessment);
+					if ($query->num_rows() > 0) {
+						$row = $query->row();
+						
+						redirect('classroom/task/'.$row->uc_classroom.'/'.$row->uc_diklat_class);
+					}
 				}
 			}
 		}
