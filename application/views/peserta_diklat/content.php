@@ -38,20 +38,31 @@
                                         <?php if($row->is_claim == 0):?>
 
                                             <span class="badge badge-warning text-center">Not Admitted</span>
+                                            <?php $check = "disabled=''"?>
+                                            <?php $label = "Change Password"?>
                                         <?php else:?>
                                             <span class="badge badge-success text-center">Admit</span>
+                                            <?php $check = ""?>
+                                            <?php $label = "Change Password"?>
                                         <?php endif;?>
                                     </td>
                                    
-                                    <td width="18%">
+                                    <td width="38%">
 
-                                      
-                                        <button class="btn btn-info btn-sm btn-edit" uc="<?=$row->uc?>" data-toggle="modal" data-target="#exampleModal">
-                                            <i class="mr-1 fa fa-pen-square" ></i> Edit
+                                        <button <?=$check?> class="btn btn-dark btn-sm btn-change-password-peserta " uc="<?=$row->uc_student?>" data-toggle="modal" data-target="#modal-change" title="<?=$label?>">
+                                            <i class="mr-1 fa fa-key" ></i>
+                                        </button>
+
+                                        <button class="btn btn-info btn-sm btn-edit" uc="<?=$row->uc_student?>" data-toggle="modal" data-target="#exampleModal" title="Edit Peserta Diklat">
+                                            <i class="mr-1 fa fa-pen-square" ></i>
                                         </button>
 
                                         <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-<?=$row->id?>">
-                                            <i class="mr-1 fa fa-trash-alt" ></i> Delete
+                                            <i class="mr-1 fa fa-trash-alt" ></i> Delete Peserta
+                                        </button>
+
+                                         <button <?=$check?> class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-user<?=$row->id?>">
+                                            <i class="mr-1 fa fa-trash-alt" ></i> Delete User
                                         </button>
 
                                         <div class="modal fade" id="modals-delete-<?=$row->id?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -62,10 +73,31 @@
                                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <p class="text-center"><i class="fa fa-info-circle" ></i> Do you really want to delete this record ?</p>
+                                                        <p class="text-center"><i class="fa fa-info-circle" ></i> Apakah yakin untuk menghapus data peserta ?</p>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <a href="<?=base_url('peserta_diklat/delete/'.$row->uc)?>" class="btn btn-danger">
+                                                            Delete
+                                                        </a>
+
+                                                        <button class="btn btn-light" type="button" data-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal fade" id="modals-delete-user<?=$row->id?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog " role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Warning</h5>
+                                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="text-center"><i class="fa fa-info-circle" ></i> Apakah yakin untuk menghapus data user ?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <a href="<?=base_url('peserta_diklat/delete_user/'.$row->uc.'/'.$row->uc_student)?>" class="btn btn-danger">
                                                             Delete
                                                         </a>
 
@@ -101,6 +133,15 @@
     <?php endif;?>
 
 
+<div class="modal fade" id="modal-change" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content load-form-change">
+           
+        </div>
+    </div>
+</div>
+
+
 <script type="text/javascript">
     $(document).ready(function(){
         var base_url = $("#base-url").html();
@@ -119,7 +160,13 @@
 
             var uc = $(this).attr('uc');
 
-           $('.load-form').load(base_url+'peserta_diklat/edit', {js_uc : uc});
+           $('.load-form').load(base_url+'peserta_diklat/edit', {js_uc : uc,'js_category' : 'instruktur'});
+        });
+
+        $('.btn-change-password-peserta').click(function(){
+            var uc = $(this).attr('uc');
+
+           $('.load-form-change').load(base_url+'peserta_diklat/changepassword', {js_uc : uc,'js_category' : 'instruktur'});
         });
 
         $('.btn-search').click(function(){

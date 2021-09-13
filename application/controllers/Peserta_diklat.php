@@ -350,6 +350,7 @@ Class Peserta_diklat extends CI_Controller{
 	}
 
 	function edit(){
+		$data = NULL;
 		$uc = $this->input->post('js_uc');
 
 		$query = $this->student_m->get_filtered(array('uc' => $uc));
@@ -389,13 +390,21 @@ Class Peserta_diklat extends CI_Controller{
 		redirect('peserta_diklat');
 	}
 
-	// function delete($uc_person){
+	function delete($uc_person){
 
-	// 	$this->diklat_participant_m->delete_data(array('uc' => $uc_person));
+		$this->diklat_participant_m->delete_data(array('uc' => $uc_person));
 
-	// 	redirect('peserta_diklat');
+		redirect('peserta_diklat');
 
-	// }
+	}
+
+	function delete_user($uc_part_diklat,$uc_student){
+		$this->diklat_participant_m->update_data(array('is_claim' => 0), array('uc' => $uc_part_diklat));
+		$this->user_m->delete_data(array('uc_person' => $uc_student));
+
+
+		redirect('peserta_diklat');
+	}
 
 
 	function add_single(){
@@ -424,6 +433,58 @@ Class Peserta_diklat extends CI_Controller{
 			];
 
 			$this->diklat_participant_m->insert_data($data_diklat_par);
+		}
+
+		redirect('peserta_diklat');
+	}
+
+	function changepassword(){
+		$data = NULL;
+
+		$uc = $this->input->post('js_uc');
+
+		$category = $this->input->post('js_category');
+
+		
+		$query = $this->user_m->get_filtered(array('uc_person' => $uc));		
+
+		if ($query->num_rows() > 0) {
+			$data['row'] = $query->row();
+		}
+
+		$this->load->view('peserta_diklat/changepassword', $data);
+		
+	}
+
+	function update_password(){
+		if ($this->input->post('f_save')) {
+			
+			$new_pass = $this->input->post('f_password');
+			$re_pass	= $this->input->post('f_re_password');
+			$uc = $this->input->post('f_uc');
+			$uc_prodi = $this->input->post('f_uc_prodi');
+
+			if ($new_pass == $re_pass) {
+
+				$data_user = [
+					'password' => password_hash($new_pass, PASSWORD_BCRYPT),
+				];
+
+				$where = ['uc' => $uc];
+				
+				$this->user_m->update_data($data_user, $where);
+
+				activity_log('Update Data', 'User : Password');
+
+				$this->session->set_flashdata('info', $this->config->item('flash_success'));
+
+				
+			}else{
+
+				$this->session->set_flashdata('info', $this->config->item('not_matching_pass'));
+
+				
+			}
 		}
 
 		redirect('peserta_diklat');
