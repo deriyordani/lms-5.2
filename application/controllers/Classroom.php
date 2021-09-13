@@ -1882,8 +1882,6 @@ Class Classroom extends CI_Controller{
 				}
 			}
 		}
-
-		// redirect();
 	}
 
 	function update_bobot() {
