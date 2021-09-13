@@ -40,7 +40,10 @@
                     <?php endif; ?>
                 </small>
             </h2>
-        </div>  
+        </div> 
+        <div class="col-md-4 ml-auto text-right">
+            <a href="<?=base_url('monitoring/schedule/manage/'.$uc_schedule)?>"><i class="fa fa-chevron-circle-left text-warning" style="font-size: 1.5em"></i></a>
+        </div> 
     </div>
 
     <div class="row mt-4">

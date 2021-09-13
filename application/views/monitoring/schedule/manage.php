@@ -1,4 +1,4 @@
-<script type="text/javascript">
+s<script type="text/javascript">
     $(document).ready(function() {
         $('.datepicker').datepicker({
             format: "dd M yyyy",
@@ -28,7 +28,10 @@
         </div>
         <div class="col-md-3">
             <a href="" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#form-add-week">Tambah Pertemuan</a>
-        </div>    
+        </div>   
+        <div class="col-md-4 ml-auto text-right">
+            <a href="<?=base_url('monitoring/schedule')?>"><i class="fa fa-chevron-circle-left text-warning" style="font-size: 1.5em"></i></a>
+        </div> 
     </div>
     <div class="row mt-4">
         <div class="col-md-8 small">
@@ -74,7 +77,7 @@
                             <a href="<?=base_url('monitoring/schedule/plot/'.$uc."/".$res->uc."/".$row->uc_diklat."/".$row->uc_prodi)?>" class="btn btn-success btn-sm">
                                 <i class="fa fa-list mr-2"></i>Jadwal
                             </a>
-                            <a href="<?=base_url('monitoring/schedule/delete_week/'.$res->uc.'/'.$res->uc)?>" class="btn btn-warning btn-sm"><i class="fa fa-trash-alt mr-2"></i>Delete</a>
+                            <a href="<?=base_url('monitoring/schedule/delete_week/'.$uc.'/'.$res->uc)?>" class="btn btn-warning btn-sm"><i class="fa fa-trash-alt mr-2"></i>Delete</a>
                         </div>
                     </div>
                 </div>

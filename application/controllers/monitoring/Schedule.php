@@ -373,10 +373,30 @@ Class Schedule extends CI_Controller{
 
 	function delete($uc = NULL) {
 		if ($uc != NULL) {
+			//	Get All Week
+			$query = $this->schedule_week_m->get_filtered(array('uc_schedule' => $uc));
+			if ($query->num_rows() > 0) {
+				$schwk_ucs = "";
+				foreach ($query->result() as $res) {
+					echo "<br /> RES : ".$res->uc;
 
+					$schwk_ucs .= "'".$res->uc."',";
+				}
+
+				$schwk_ucs = substr_replace($schwk_ucs,'',-1);
+			}
+
+			//	Delete Plots
+			$this->schedule_plot_m->delete_in('uc_sched_week', $schwk_ucs);
+
+			//	Delete Week
+			$this->schedule_week_m->delete_data(array('uc_schedule' => $uc));
+
+			//	Delete Schedule
+			$this->schedule_m->delete_data(array('uc' => $uc));
 		}
 
-		
+		redirect('monitoring/schedule');
 	}
 
 }
