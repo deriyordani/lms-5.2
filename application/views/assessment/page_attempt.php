@@ -29,7 +29,7 @@
             <div class="row mt-3 p-2 ">
                
                 <div class="col-md-1 mt-2">
-                    <h3>x<?=$no?> of <?=$max_question?>.</h3>
+                    <h3><?=$no?> of <?=$max_question?>.</h3>
                 </div>
 
                 <div class="col-md-11">

@@ -28,7 +28,7 @@
                         <?php $no = $numbering;?>
                         <?php foreach($result as $row):?>
                             <tr>
-                                <td><?=$no?></td>
+                                <td width=""><?=$no?></td>
                             	<td>
                                     <div class="text-dark"><?=$row->full_name?> </div>
                                     <div class="small mt-2"><?=$row->id_number?> </div>

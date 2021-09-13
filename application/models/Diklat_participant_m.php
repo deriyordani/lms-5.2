@@ -12,7 +12,7 @@ Class Diklat_participant_m extends MY_Model{
 		$sql = "  SELECT dp.* ";
 
  		if (!$filter['count']) {
- 			$sql .= ", dpe.tahun, dpe.periode_mulai, dpe.periode_selesai, p.prodi, d.diklat, d.category as cat_diklat, ddkp.label_dkp, dc.class_label, s.full_name
+ 			$sql .= ", dpe.tahun, dpe.periode_mulai, dpe.periode_selesai, p.prodi, d.diklat, d.category as cat_diklat, ddkp.label_dkp, dc.class_label, s.full_name, s.uc as uc_student 
 					 ";
  		}
 
