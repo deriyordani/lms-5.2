@@ -76,7 +76,7 @@
                                                         <p class="text-center"><i class="fa fa-info-circle" ></i> Apakah yakin untuk menghapus data peserta ?</p>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <a href="<?=base_url('peserta_diklat/delete/'.$row->uc)?>" class="btn btn-danger">
+                                                        <a href="<?=base_url('peserta_diklat/delete/'.$row->uc.'/'.$row->uc_student)?>" class="btn btn-danger">
                                                             Delete
                                                         </a>
 

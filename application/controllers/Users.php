@@ -40,7 +40,7 @@ Class Users extends CI_Controller{
 
 		$data['numbering'] 	= ($this->each_page * ($page-1)) + 1;
 
-		$filter = ['category' => $category, 'count' => FALSE];
+		$filter = ['category' => $category, 'count' => FALSE, 'uc_prodi' => $prodi];
 
 		if ($akses == 'instruktur') {
 			
