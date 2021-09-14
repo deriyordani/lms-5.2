@@ -131,6 +131,7 @@ Class Subject extends CI_Controller{
 	}
 
 	function add(){
+		//echo "aa";
 		$this->load->view('subject/add');
 	}
 

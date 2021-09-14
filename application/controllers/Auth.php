@@ -98,70 +98,79 @@ Class Auth extends CI_Controller{
 				//CEK PASSWORD
 
 				if(password_verify($password,$row->password)){
-					if ($category == 1 || $category == 5) {
-						$set_session = array(
-							'log_uc'	=> $uc_user,
-							'log_username' => $usersname,
-							'log_category' => $category,
-							'log_photo' => $photo
-							);
+					if($row->is_active == 1){
 
-						$this->session->set_userdata($set_session);
+						if ($category == 1 || $category == 5) {
+							$set_session = array(
+								'log_uc'	=> $uc_user,
+								'log_username' => $usersname,
+								'log_category' => $category,
+								'log_photo' => $photo
+								);
 
-						activity_log('Masuk Sistem', 'Login : '.$usersname);
+							$this->session->set_userdata($set_session);
 
-						redirect('period');
-					}
+							activity_log('Masuk Sistem', 'Login : '.$usersname);
 
-					if ($category == 2 || $category == 4 ) {
-						//$qprodi = $this->user_m->get_login_prodi($uc_user)->row();
-
-						$set_session = array(
-							'log_uc'	=> $uc_user,
-							'log_username' => $usersname,
-							'log_category' => $category,
-							'log_photo' => $photo,
-							'log_uc_person' => $uc_person,
-							'log_uc_prodi' => $uc_prodi,
-							);
-
-						$this->session->set_userdata($set_session);
-						//print_r($set_session);
-						activity_log('Masuk Sistem', 'Login : '.$usersname);
-
-						if ($category == 2) {
-							redirect('classroom');
-						}
-						elseif ($category == 4) {
 							redirect('period');
 						}
-					}
 
-					if ($category == 3) {
-						$qstud = $this->user_m->get_login_stud($uc_user)->row();
+						if ($category == 2 || $category == 4 ) {
+							//$qprodi = $this->user_m->get_login_prodi($uc_user)->row();
 
-						$set_session = array(
-							'log_uc'	=> $uc_user,
-							'log_username' => $usersname,
-							'log_category' => $category,
-							'log_photo' => $photo,
-							'log_uc_person' => $uc_person,
-							'log_uc_diklat_participant' => $qstud->uc_diklat_participant,
-							'log_uc_prodi' => $uc_prodi,
-							'log_uc_diklat_class' => $qstud->uc_diklat_class
-							);
+							$set_session = array(
+								'log_uc'	=> $uc_user,
+								'log_username' => $usersname,
+								'log_category' => $category,
+								'log_photo' => $photo,
+								'log_uc_person' => $uc_person,
+								'log_uc_prodi' => $uc_prodi,
+								);
 
-						$this->session->set_userdata($set_session);
+							$this->session->set_userdata($set_session);
+							//print_r($set_session);
+							activity_log('Masuk Sistem', 'Login : '.$usersname);
 
-						activity_log('Masuk Sistem', 'Login : '.$usersname);
-
-						if($qstud->is_claim == 0){
-
-							redirect('auth/claim/'.$row->uc.'/'.$row->uc_person.'/'.$row->category);
-						}else{
-							redirect('student/classroom');
+							if ($category == 2) {
+								redirect('classroom');
+							}
+							elseif ($category == 4) {
+								redirect('period');
+							}
 						}
+
+						if ($category == 3) {
+							$qstud = $this->user_m->get_login_stud($uc_user)->row();
+
+							$set_session = array(
+								'log_uc'	=> $uc_user,
+								'log_username' => $usersname,
+								'log_category' => $category,
+								'log_photo' => $photo,
+								'log_uc_person' => $uc_person,
+								'log_uc_diklat_participant' => $qstud->uc_diklat_participant,
+								'log_uc_prodi' => $uc_prodi,
+								'log_uc_diklat_class' => $qstud->uc_diklat_class
+								);
+
+							$this->session->set_userdata($set_session);
+
+							activity_log('Masuk Sistem', 'Login : '.$usersname);
+
+							if($qstud->is_claim == 0){
+
+								redirect('auth/claim/'.$row->uc.'/'.$row->uc_person.'/'.$row->category);
+							}else{
+								redirect('student/classroom');
+							}
+						}
+
+					}else{
+
+						$this->session->set_flashdata('info', $this->config->item('flash_not_active'));
+						redirect('auth/login');
 					}
+					
 
 				}else{
 					//FLASH Password tidak cocok
