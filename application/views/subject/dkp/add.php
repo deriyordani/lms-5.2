@@ -32,28 +32,13 @@
             ?>
             <option value="">---Pilih---</option>
             <?php foreach($list_diklat as $ld):?>
-                <option value="<?=$ld->uc?>"><?=$ld->diklat?></option>
+                <option value="<?=$ld->uc?>" <?=select_set('DKP', $ld->uc)?>><?=$ld->diklat?></option>
             <?php endforeach;?>
         <?php endif;?>
         </select>
     </div>
 
-    <div class="form-group prodi-show" style="display: none;">
-        <label>Prodi</label>
-        <select name="f_prodi" class="form-control form-control-lg">
-            <?php 
-                $list_prodi = list_prodi();
-                if(isset($list_prodi)):
-            ?>
-            <option value="">---Pilih---</option>
-            <?php foreach($list_prodi as $lp):?>
-                <option value="<?=$lp->uc?>"><?=$lp->prodi?></option>
-            <?php endforeach;?>
-        <?php endif;?>
-        </select>
-    </div>
-
-    <div class="form-group dkp-show" style="display: none;">
+    <div class="form-group dkp-show" >
         <label>Daftar Diklat DKP</label>
         <select name="f_diklat_dkp" class="form-control form-control-lg">
             <?php 

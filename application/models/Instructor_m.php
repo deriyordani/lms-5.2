@@ -7,10 +7,11 @@ Class Instructor_m extends MY_Model{
 	}
 
 	function get_list_detail($filter = NULL, $limit = NULL, $offset = NULL) {
-		$sql = " SELECT i.*, p.`prodi` ";
+		$sql = " SELECT i.*, p.`prodi`, u.username ";
 		$sql .= " FROM `lms_instructor` i ";
 		$sql .= " LEFT JOIN `lms_prodi` p
 					ON p.`uc` = i.`uc_prodi` ";
+					$sql .= " LEFT JOIN lms_user u ON u.uc_person = i.uc ";
 
 		if (isset($filter['uc_prodi'])) {
 			$sql .= " WHERE `uc_prodi` = '".$filter['uc_prodi']."' ";
