@@ -619,7 +619,7 @@ Class Classroom extends CI_Controller{
 	}
 
 
-	function delete($uc_classroom = NULL){
+	function delete_DUMP($uc_classroom = NULL){
 		if ($uc_classroom != NULL) {
 			$this->load->model('content_m');
 
@@ -2176,6 +2176,100 @@ Class Classroom extends CI_Controller{
 		$this->classroom_m->update_data($data, $filter);
 
 		redirect('classroom');
+	}
+
+	function delete($uc = NULL) {
+		if ($uc != NULL) {
+			$this->load->model('classroom_m');
+			$this->load->model('content_m');
+			$this->load->model('content_files_m');
+			$this->load->model('comment_m');
+			$this->load->model('forum_m');
+			// $this->load->model('forum_comment_m');
+			// $this->load->model('');
+			// $this->load->model('');
+			// $this->load->model('');
+			// $this->load->model('');
+			// $this->load->model('');
+			// $this->load->model('');
+
+			//	DELETE CONTENT
+				// Collecting Content UC
+				$query = $this->content_m->get_filtered(array('uc_classroom' => $uc));
+				$content_ucs = NULL;
+				if ($query->num_rows() > 0) {
+					foreach ($query->result() as $res) {
+						$content_ucs .= "'".$res->uc."',";
+					}
+
+					$content_ucs = substr_replace($content_ucs, '', -1);
+				}
+
+				///	Delete Content File
+				if ($content_ucs != NULL) {
+					//$this->content_files_m->delete_in('uc_content', $content_ucs);
+				}
+
+				///	Delete Comment by content
+				if ($content_ucs != NULL) {
+					//$this->comment_m->delete_in('uc_content', $content_ucs);
+				}
+				
+				///	Delete Content
+				//$this->content_m->delete_in('uc', $content_ucs);
+
+
+			//	DELETE FORUM
+				//	Collecting Forum UC
+				$query = $this->forum_m->get_filtered(array('uc_classroom' => $uc));
+				$forum_ucs = NULL;
+				if ($query->num_rows() > 0) {
+					foreach ($query->result() as $res) {
+						$forum_ucs .= "'".$res->uc."',";
+					}
+
+					$forum_ucs = substr_replace($forum_ucs, '', -1);
+				}
+
+
+				///	Delete FGroup Participant
+				if ($forum_ucs != NULL) {
+					//	Collecting FGroup UC
+					$query = $this->fgroup_m->get_in('uc_forum', $forum_ucs);
+				}
+
+				///	Delete FGroup
+
+
+				///	Delete Forum Comment
+
+				///	Delete Forum
+
+			//	DELETE Chat
+
+				///	Delete Group Chat Member
+
+				///	Delete Group Chat
+
+				///	Delete Chat Message
+
+
+			//	DELETE SECTION
+
+			//	DELETE PRESENSI
+
+			//	DELETE CLASSROOM
+			if ($uc != NULL) {
+				$this->classroom_m->delete_data(array('uc' => $uc));
+			}
+
+			redirect('classroom');
+
+
+		}
+
+		//redirect();
+
 	}
 
 }

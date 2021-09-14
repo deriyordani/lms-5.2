@@ -37,10 +37,10 @@
                                     </button>
                                     -->
 
-                                    <a href="<?=base_url('classroom/participant/'.$row->uc.'/'.$row->uc_diklat_class)?>" class="ml-4 btn-edit-classroom"  data-toggle="modal" data-target="#exampleModal" cr-code="<?=$row->classroom_code?>" cr-title="<?=$row->classroom_title?>" cr-uc="<?=$row->uc?>">
+                                    <a href="#" class="ml-4 btn-edit-classroom"  data-toggle="modal" data-target="#exampleModal" cr-code="<?=$row->classroom_code?>" cr-title="<?=$row->classroom_title?>" cr-uc="<?=$row->uc?>">
                                         <i class="fa fa-pencil-alt text-warning" style="font-size: 1.5em"></i>
                                     </a>
-                                    <a href="<?=base_url('classroom/participant/'.$row->uc.'/'.$row->uc_diklat_class)?>" class="ml-4">
+                                    <a href="<?=base_url('classroom/delete/'.$row->uc)?>" class="ml-4">
                                         <i class="fa fa-trash-alt text-danger" style="font-size: 1.5em"></i>
                                     </a>
                                 </div>
