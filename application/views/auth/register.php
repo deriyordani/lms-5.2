@@ -66,7 +66,7 @@ body {
                                             </div>
                                             -->
                                             <div class="form-group">
-                                                <label class="small mb-1" >NIK / No. Peserta</label>
+                                                <label class="small mb-1" >NIP / No. Peserta</label>
                                                 <input type="text" name="f_id_number" class="form-control" required="">
                                             </div>
 

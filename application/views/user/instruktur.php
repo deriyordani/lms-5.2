@@ -51,7 +51,7 @@
                                 <td width="31%">
 
                                      <button <?=$check?> class="btn btn-dark btn-sm btn-change-password " uc="<?=$row->uc?>" data-toggle="modal" data-target="#modal-change">
-                                        <i class="mr-1 fa fa-key" ></i> <?=$label?>
+                                        <i class="mr-1 fa fa-key" ></i>
                                     </button>
 
                                     <button class="btn btn-info btn-sm btn-edit" uc="<?=$row->uc?>" data-toggle="modal" data-target="#modal-change">
@@ -59,8 +59,16 @@
                                     </button>
 
                                     <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-<?=$row->id?>">
-                                        <i class="mr-1 fa fa-trash-alt" ></i> Delete
+                                        <i class="mr-1 fa fa-trash-alt" ></i> Delete Instruktur
                                     </button>
+
+
+
+                                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-user-<?=$row->id?>">
+                                        <i class="mr-1 fa fa-trash-alt" ></i> Delete User
+                                    </button>
+
+                                   
 
                                     <div class="modal fade" id="modals-delete-<?=$row->id?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                         <div class="modal-dialog " role="document">
@@ -70,7 +78,29 @@
                                                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p class="text-center"><i class="fa fa-info-circle" ></i> Do you really want to delete this record ?</p>
+                                                    <p class="text-center"><i class="fa fa-info-circle" ></i> Apakah yakin menghapus data instruktur ?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a href="<?=base_url('users/delete_ins/'.$row->uc)?>" class="btn btn-danger">
+                                                        Delete
+                                                    </a>
+
+                                                    <button class="btn btn-light" type="button" data-dismiss="modal">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="modal fade" id="modals-delete-user-<?=$row->id?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog " role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Warning</h5>
+                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p class="text-center"><i class="fa fa-info-circle" ></i> Apakah yakin menghapus data user ?</p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <a href="<?=base_url('users/delete_ins/'.$row->uc)?>" class="btn btn-danger">
