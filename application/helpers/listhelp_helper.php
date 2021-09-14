@@ -20,6 +20,25 @@ function list_subject($filter = NULL){
 	}
 }
 
+function list_instruktur($filter = NULL){
+	$CI =& get_instance();
+	$CI->load->model('instructor_m');
+	
+	if ($filter != NULL) {		
+		$query = $CI->instructor_m->get_filtered($filter);
+	}
+	else {
+		$query = $CI->instructor_m->get_all('id','ASC');	
+	}
+	
+	if ($query->num_rows() > 0) {
+		return $query->result();
+	}
+	else {
+		return NULL;
+	}
+}
+
 function list_prodi($filter = NULL){
 	$CI =& get_instance();
 	$CI->load->model('prodi_m');

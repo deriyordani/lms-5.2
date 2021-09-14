@@ -83,7 +83,7 @@
     </div>
 </div>
 
-<div class="card card-collapsable mb-4">
+<!-- <div class="card card-collapsable mb-4">
     <a class="card-header bg-white" href="#setting" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="setting"> Setting
         <div class="card-collapsable-arrow">
             <i class="fas fa-chevron-down"></i>
@@ -92,10 +92,10 @@
     <div class="collapse " id="setting">
         <div class="list-group list-group-flush ">
             
-           <!--  <a class="list-group-item list-group-item-action" href="<?=base_url('classroom')?>">
+            <a class="list-group-item list-group-item-action" href="<?=base_url('classroom')?>">
                 <i class="fas fa-info-circle fa-fw text-dark mr-2"></i>
                Informasi Classroom
-            </a> -->
+            </a>
 
             <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#modals-delete">
                 <i class="fas fa-trash fa-fw text-dark mr-2"></i>
@@ -104,7 +104,7 @@
         
         </div>
     </div>
-</div>
+</div> -->
 
 
 

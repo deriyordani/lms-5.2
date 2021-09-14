@@ -145,7 +145,10 @@
                 <?php endforeach; ?>
                 
                 <?php else : ?> 
-                    Empty
+                    <div class="col-md-12">
+                        <div class="alert alert-red alert-solid text-center" role="alert">Data Kelompok Tidak Ada..</div>
+                    </div>
+                     
                 <?php endif; ?> 
             </div>
 
@@ -215,6 +218,9 @@
                                 <label class="custom-control-label" for="customCheck<?=$pa->id?>"><?=$pa->no_peserta?> - <?=$pa->full_name?></label>
                             </div>
                         <?php endforeach;?>
+
+                    <?php else:?>
+                        <div class="alert alert-red alert-solid text-center" role="alert">Data Peserta Tidak Ada..</div>
                     <?php endif;?>
                 </div>
             </div>

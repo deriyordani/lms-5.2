@@ -77,7 +77,7 @@
 
             $('select[name=f_subject]').load(base_url+'master/subject_by_prody', {js_uc_prodi : uc_prodi, js_uc_diklat : uc_diklat});
 
-            $('select[name=f_instruktur]').load(base_url+'master/ins_by_prody', {js_uc_prodi : uc_prodi});
+            //f_instruktur$('select[name=f_instruktur]').load(base_url+'master/ins_by_prody', {js_uc_prodi : uc_prodi});
  
         });
 
@@ -163,7 +163,15 @@
         <label>Instruktur/Dosen</label>
         
         <select name="f_instruktur" class="form-control form-control-lg" >
-             <option value=""> --- Pilih ---</option>
+             <?php 
+                $list_instruktur = list_instruktur();
+                if(isset($list_instruktur)):
+            ?>
+            <option value="">---Pilih---</option>
+            <?php foreach($list_instruktur as $lp):?>
+                <option value="<?=$lp->uc?>"><?=$lp->id_number?> - <?=$lp->full_name?></option>
+            <?php endforeach;?>
+        <?php endif;?>
         </select>
         
     </div>

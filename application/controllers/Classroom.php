@@ -1031,7 +1031,7 @@ Class Classroom extends CI_Controller{
 		// $data['interest'] = $query->result();
 
 		$this->load->model('diklat_participant_m');
-		$query = $this->diklat_participant_m->get_student_by_diklat($uc_diklat_class);
+		$query = $this->diklat_participant_m->get_student_by_diklat($uc_diklat_class,$uc_forum);
 		if ($query->num_rows() > 0) {
 			$data['participant'] = $query->result();
 		}
@@ -1039,7 +1039,10 @@ Class Classroom extends CI_Controller{
 
 		$this->load->model('fgroup_m');
 
-		$data['kelompok'] = $this->fgroup_m->get_all()->result();
+		$query= $this->fgroup_m->get_filtered(array('uc_forum' => $uc_forum));
+		if ($query->num_rows() > 0) {
+			$data['kelompok'] = $query->result();
+		}
 
 
 		$data['uc_forum'] = $uc_forum;
@@ -1145,7 +1148,7 @@ Class Classroom extends CI_Controller{
 				$participan = "";
 
 				foreach ($query->result() as $val) {
-					$participan .= "('".unique_code()."', '".$uc_group."', '".$val->uc."','".$val->uc_student."'),";
+					$participan .= "('".unique_code()."','".$uc_forum."', '".$uc_group."', '".$val->uc."','".$val->uc_student."'),";
 				}
 
 				$participan = substr($participan, 0, -1);
@@ -1153,7 +1156,7 @@ Class Classroom extends CI_Controller{
 
 				$this->load->model('fparticipant_m');
 
-				$field = "(`uc`, `uc_fgroup`, `uc_diklat_participant`, `uc_student`)";
+				$field = "(`uc`,`uc_forum`, `uc_fgroup`, `uc_diklat_participant`, `uc_student`)";
 
 				$this->fparticipant_m->insert_multi_value($field, $participan);
 			}

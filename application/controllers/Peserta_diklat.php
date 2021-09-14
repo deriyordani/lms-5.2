@@ -390,11 +390,14 @@ Class Peserta_diklat extends CI_Controller{
 		redirect('peserta_diklat');
 	}
 
-	function delete($$uc_part_diklat,$uc_student){
+	function delete($uc_part_diklat,$uc_student){
 
 		$this->diklat_participant_m->delete_data(array('uc' => $uc_person));
 		$this->student_m->delete_data(array('uc_person' => $uc_student));
+
+		$this->load->model('user_m');
 		$this->user_m->delete_data(array('uc_person' => $uc_student));
+
 		redirect('peserta_diklat');
 
 	}
