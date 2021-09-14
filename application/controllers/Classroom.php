@@ -431,8 +431,8 @@ Class Classroom extends CI_Controller{
 			$this->load->library('uploader');
 
 		    $parameter_uploads = $this->uploader->upload($_FILES['files'], array(
-		        'limit' => 10, //Maximum Limit of files. {null, Number}
-		        'maxSize' => 500, //Maximum Size of files {null, Number(in MB's)}
+		       'limit' => 10, //Maximum Limit of files. {null, Number}
+		        'maxSize' => 1024, //Maximum Size of files {null, Number(in MB's)}
 		        'extensions' => null, //Whitelist for file extension. {null, Array(ex: array('jpg', 'png'))}
 		        'required' => false, //Minimum one file is required for upload {Boolean}
 		        'uploadDir' => './uploads/materi/', //Upload directory {String}
@@ -482,10 +482,10 @@ Class Classroom extends CI_Controller{
 		    if($parameter_uploads['isComplete']){
 		        $files = $parameter_uploads['data'];
 
-		        echo "<pre>";
-		        print_r($files);
+		        // echo "<pre>";
+		        // print_r($files);
 
-		         echo "</pre>";
+		        //  echo "</pre>";
 
 				foreach ($files['metas'] as $key => $value) {
 						echo $value['name'];
@@ -547,7 +547,7 @@ Class Classroom extends CI_Controller{
 
 		    $parameter_uploads = $this->uploader->upload($_FILES['files'], array(
 		        'limit' => 10, //Maximum Limit of files. {null, Number}
-		        'maxSize' => 500, //Maximum Size of files {null, Number(in MB's)}
+		        'maxSize' => 1024, //Maximum Size of files {null, Number(in MB's)}
 		        'extensions' => null, //Whitelist for file extension. {null, Array(ex: array('jpg', 'png'))}
 		        'required' => false, //Minimum one file is required for upload {Boolean}
 		        'uploadDir' => './uploads/materi/', //Upload directory {String}

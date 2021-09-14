@@ -369,6 +369,23 @@ Class Users extends CI_Controller{
 		}
 	}
 
+	function delete_user($uc = NULL, $uc_prodi = NULL){
+
+		$this->instructor_m->update_data(array('is_claim' => 0),array('uc' => $uc));
+		$this->user_m->delete_data(array('uc_person' => $uc));
+
+		activity_log('Hapus Data', 'User : Instruktur ');
+
+		
+		if($uc_prodi != NULL){
+			redirect('users/lists/instruktur/2/'.$uc_prodi);
+
+		}else{
+			
+			redirect('users/lists/instruktur/2');
+		}
+	}
+
 	function store_user_prodi(){
 		if ($this->input->post('f_save')) {
 			

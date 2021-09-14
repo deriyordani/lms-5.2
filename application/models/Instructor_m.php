@@ -14,7 +14,7 @@ Class Instructor_m extends MY_Model{
 					$sql .= " LEFT JOIN lms_user u ON u.uc_person = i.uc ";
 
 		if (isset($filter['uc_prodi'])) {
-			$sql .= " WHERE `uc_prodi` = '".$filter['uc_prodi']."' ";
+			$sql .= " WHERE u.`uc_prodi` = '".$filter['uc_prodi']."' ";
 		}
 
 		$sql .= " ORDER BY i.`full_name` ASC ";

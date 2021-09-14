@@ -103,7 +103,7 @@
                                                     <p class="text-center"><i class="fa fa-info-circle" ></i> Apakah yakin menghapus data user ?</p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <a href="<?=base_url('users/delete_ins/'.$row->uc)?>" class="btn btn-danger">
+                                                    <a href="<?=base_url('users/delete_user/'.$row->uc)?>" class="btn btn-danger">
                                                         Delete
                                                     </a>
 
