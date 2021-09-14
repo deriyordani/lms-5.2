@@ -129,7 +129,7 @@
                                     	<?php if ($attempt_status == "enable") : ?>
 											<input type="submit" class="btn btn-success " name="f_submit" onclick="return confirm('Are you sure want to attempt this assessment?')" value="Ikuti Ujian Sekarang" />
 										<?php else : ?>
-											<input type="submit" class="btn btn-dark " disabled value="Ujian Telah Diikuti"  />
+											<input type="submit" class="btn btn-dark " disabled value="Ujian Belum Dapat Diakses"  />
 										<?php endif; ?>
 
 

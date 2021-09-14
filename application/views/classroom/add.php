@@ -169,7 +169,7 @@
             ?>
             <option value="">---Pilih---</option>
             <?php foreach($list_instruktur as $lp):?>
-                <option value="<?=$lp->uc?>"><?=$lp->id_number?> - <?=$lp->full_name?></option>
+                <option value="<?=$lp->uc?>" <?=select_set($lp->uc, $this->session->userdata('log_uc_person'))?>><?=$lp->id_number?> - <?=$lp->full_name?></option>
             <?php endforeach;?>
         <?php endif;?>
         </select>

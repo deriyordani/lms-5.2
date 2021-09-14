@@ -5,7 +5,7 @@
                 <div class="col-auto mb-3">
                     <h1 class="page-header-title">
                         <div class="page-header-icon"><i data-feather="file"></i></div>
-                        Daftar Mata Kuliah/Subject
+                        Daftar Mata Kuliah/Subject DKP
                     </h1>
                 </div>
             </div>
