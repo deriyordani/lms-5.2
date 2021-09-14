@@ -19,8 +19,8 @@
                             <td class="text-primary text-center" width="5%">No</td>
                             	<td class="text-primary text-center" width="20%">Nama Lengkap &amp; NIK</td>
 
-                            	<td class="text-primary text-center" width="25%">Program Studi</td>
-                            	<td class="text-primary text-center" width="5%">Status</td>
+                            	<td class="text-primary text-center" width="20%">Username</td>
+                            	<!-- <td class="text-primary text-center" width="5%">Status</td> -->
                             <td class="text-primary text-center">Action</td>
                         </tr>
                     </thead>
@@ -33,9 +33,9 @@
                                     <div class="text-dark"><?=$row->full_name?> </div>
                                     <div class="small mt-2"><?=$row->id_number?> </div>
                                 </td>
-                            	<td class="text-primary text-center">
-                                    <?=$row->prodi?>   
-                                </td>
+                            	<!-- <td class="text-primary text-center">
+                                    <?=$row->username?>   
+                                </td> -->
                             	<td class="text-primary text-center">
                             		<?php if($row->is_claim == 0):?>
 
@@ -43,7 +43,7 @@
                                         <?php $check = "disabled=''"?>
                                         <?php $label = "Change Password"?>
                                     <?php else:?>
-                                        <span class="badge badge-success text-center">Admit</span>
+                                        <span class="badge badge-success text-center"><?=$row->username?></span>
                                         <?php $check = ""?>
                                         <?php $label = "Change Password"?>
                                     <?php endif;?>

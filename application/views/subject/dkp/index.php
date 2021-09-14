@@ -37,7 +37,7 @@
         <div class="col-md-12">
             <div class="card card-header-actions">
             <div class="card-header">
-                Daftar Subject
+                Daftar Subject DKP
                 <button class="btn btn-primary btn-sm btn-add" data-toggle="modal" data-target="#exampleModal">Add</button>
             </div>
             <div class="card-body ">

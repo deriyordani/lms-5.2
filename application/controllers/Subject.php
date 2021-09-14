@@ -48,7 +48,7 @@ Class Subject extends CI_Controller{
 			
 			$filter = [
 
-				'uc_diklat_dkp' => 1,
+				'uc_diklat' => 'DKP',
 				'count' => false
 			];
 		}
@@ -65,11 +65,12 @@ Class Subject extends CI_Controller{
 			$data['total_record'] 	= $query->num_rows();
 		}
 
-		if ($category != 5) {
-			$this->im_render->main('subject/index', $data);
+		if ($category == 5) {
+			$this->im_render->main('subject/dkp/index', $data);
+			
 		}else{
 
-			$this->im_render->main('subject/dkp/index', $data);
+			$this->im_render->main('subject/index', $data);
 		}
 	}
 
@@ -209,6 +210,14 @@ Class Subject extends CI_Controller{
 		}
 
 		redirect('subject');
+	}
+
+	function dkp_add(){
+		$this->load->view('subject/dkp/add');
+	}
+
+	function dkp_store(){
+
 	}
 
 }
