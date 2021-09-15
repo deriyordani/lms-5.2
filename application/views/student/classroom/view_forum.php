@@ -35,15 +35,10 @@
                                     <div class="small text-muted">Posting : <?=time_format($row->create_time,'d M Y H:i')?></div>
 
                                   
-                                    <br/>
-                                     <?php if($row->file_attach != NULL):?>
-                                    <a href="<?=base_url('uploads/materi/'.$row->file_attach)?>">
-                                     <span class="badge badge-success">Download Lampiran</span>
-                                    </a>
-
-                                    <?php else:?>
-                                        <span class="badge badge-warning">Lampiran Tidak Tersedia</span>
-                                    <?php endif;?>
+                                   
+                                        
+                                    </div>
+                                     
 
                                     
                                 </div>

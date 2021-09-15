@@ -85,18 +85,28 @@
 		                                    
 		                                    
 
-		                                    <?php if($row->file_attach != NULL):?>
-		                             
+		                                     <h4>Lampiran</h4>
+		                                    <div class="row">
 
-		                                        <a class="btn btn-success" href="<?=base_url('uploads/materi/'.$row->file_attach)?>">
-		                                            <i class="fa fa-3x fa-file"></i> &nbsp; Download Lampiran
-		                                        </a>
+		                                        <?php $files = list_forum_file(array('uc_forum' => $row->uc));?>
+		                                        <?php if(isset($files)):?>
+		                                            <?php foreach($files as $fl):?>
 
-		                                    <?php else:?>
-		                                              <a class="btn btn-warning" href="#">
-		                                                <i class="fa fa-3x fa-file"></i> &nbsp; File Tidak Tersedia
-		                                            </a>
-		                                    <?php endif;?>
+		                                                <div class="col-md-3 ">
+		                                                    <div class="card bg-warning h-100">
+		                                                        <div class="card-body text-white text-center">
+		                                                            <a href="<?=base_url('uploads/materi/'.$fl->file_attach)?>" title="Lihat Lampiran">
+		                                                             <?=$fl->file_attach?>
+		                                                            </a>
+		                                                        </div>
+
+		                                                    </div>
+		                                                   
+		                                                </div>
+		                                            <?php endforeach;?>
+		                                        <?php else:?>
+		                                            <label>Tidak ada lampiran.</label>
+		                                        <?php endif;?>
 
 
 		                                  

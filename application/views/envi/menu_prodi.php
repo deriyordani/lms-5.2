@@ -29,10 +29,10 @@
    Jadwal Pelajaran
 </a>
 
-<a class="nav-link" href="<?=base_url('classroom')?>">
+<!-- <a class="nav-link" href="<?=base_url('classroom')?>">
     <div class="nav-link-icon"><i data-feather="message-circle"></i></div>
    Classroom
-</a>
+</a> -->
 
 <a class="nav-link" href="<?=base_url('monitoring/presensi/diklat')?>">
     <div class="nav-link-icon"><i data-feather="users"></i></div>

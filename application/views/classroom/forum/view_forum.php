@@ -54,12 +54,10 @@
                                                    
                                                 </div>
 
-                                               <!--  <div class="col-md-3 ml-3">
-                                                    <a class="btn btn-success" href="<?=base_url('uploads/materi/'.$row->file_attach)?>">
-                                                        <?=$fl->file_attach?>
-                                                    </a>
-                                                </div> -->
+                                              
                                             <?php endforeach;?>
+                                            <?php else:?>
+                                            <label>Tidak ada lampiran.</label>
                                         <?php endif;?>
                                         
                                     </div>

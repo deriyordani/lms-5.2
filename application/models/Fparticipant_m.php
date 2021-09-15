@@ -96,7 +96,7 @@ Class Fparticipant_m extends MY_Model{
 			$sql .= "  LIMIT ".$offset.", ".$limit." ";
 		}
 
-		//echo $sql;
+		echo $sql;
 
 		return $this->exec_query($sql);
 

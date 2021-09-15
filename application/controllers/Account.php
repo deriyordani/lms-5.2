@@ -82,27 +82,27 @@ Class Account extends CI_Controller{
 			$this->user_m->update_data($data, array('uc' => $uc_user));
 
 
-			if ($type_user == 2) {
+			// if ($type_user == 2) {
 			
 				
-				$data = [
+			// 	$data = [
 
-					'full_name' => $this->input->post('f_full_name')
+			// 		'full_name' => $this->input->post('f_full_name')
 
-				];
+			// 	];
 
-				$this->instructor_m->update_data($data, array('uc' => $uc_person));
+			// 	$this->instructor_m->update_data($data, array('uc' => $uc_person));
 
-			}elseif ($type_user == 3) {
+			// }elseif ($type_user == 3) {
 				
-				$data = [
+			// 	$data = [
 
-					'full_name' => $this->input->post('f_full_name')
+			// 		'full_name' => $this->input->post('f_full_name')
 
-				];
+			// 	];
 
-				$this->student_m->update_data($data, array('uc' => $uc_person));
-			}
+			// 	$this->student_m->update_data($data, array('uc' => $uc_person));
+			// }
 
 
 			$data = array(
