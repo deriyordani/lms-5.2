@@ -168,7 +168,7 @@
                                                 <p class="text-center"><i class="fa fa-info-circle" ></i> Do you really want to delete this record ?</p>
                                             </div>
                                             <div class="modal-footer">
-                                                <a href="<?=base_url('classroom/delete_group_forum/'.$uc_classroom.'/'.$uc_diklat_class.'/'.$uc_forum.'/'.$row->uc)?>" lass="btn btn-danger">
+                                                <a href="<?=base_url('classroom/delete_group_forum/'.$uc_classroom.'/'.$uc_diklat_class.'/'.$uc_forum.'/'.$kl->uc)?>" lass="btn btn-danger">
                                                     Delete
                                                 </a>
 
