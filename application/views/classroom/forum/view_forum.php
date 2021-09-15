@@ -34,10 +34,49 @@
                                         <div class="small text-muted">Posting : <?=time_format($row->create_time,'d M Y H:i')?></div>
 
                                     </p>
+
+                                    <h4>Lampiran</h4>
+                                    <div class="row">
+
+                                        <?php $files = list_forum_file(array('uc_forum' => $row->uc));?>
+                                        <?php if(isset($files)):?>
+                                            <?php foreach($files as $fl):?>
+
+                                                <div class="col-md-3 ">
+                                                    <div class="card bg-warning h-100">
+                                                        <div class="card-body text-white text-center">
+                                                            <a href="<?=base_url('uploads/materi/'.$fl->file_attach)?>" title="Lihat Lampiran">
+                                                             <?=$fl->file_attach?>
+                                                            </a>
+                                                        </div>
+
+                                                    </div>
+                                                   
+                                                </div>
+
+                                               <!--  <div class="col-md-3 ml-3">
+                                                    <a class="btn btn-success" href="<?=base_url('uploads/materi/'.$row->file_attach)?>">
+                                                        <?=$fl->file_attach?>
+                                                    </a>
+                                                </div> -->
+                                            <?php endforeach;?>
+                                        <?php endif;?>
+                                        
+                                    </div>
+
+                                     
+                                         <!-- <a class="btn btn-success" href="<?=base_url('uploads/materi/'.$row->file_attach)?>">
+                                            <i class="fa fa-3x fa-file"></i> &nbsp; Download Lampiran
+                                        </a>
+                                         <a class="btn btn-success" href="<?=base_url('uploads/materi/'.$row->file_attach)?>">
+                                            <i class="fa fa-3x fa-file"></i> &nbsp; Download Lampiran
+                                        </a> -->
+
+                                    <??>
                                     
                                     
 
-                                    <?php if($row->file_attach != NULL):?>
+                                   <!--  <?php if($row->file_attach != NULL):?>
                              
 
                                         <a class="btn btn-success" href="<?=base_url('uploads/materi/'.$row->file_attach)?>">
@@ -48,7 +87,7 @@
                                               <a class="btn btn-warning" href="#">
                                                 <i class="fa fa-3x fa-file"></i> &nbsp; File Tidak Tersedia
                                             </a>
-                                    <?php endif;?>
+                                    <?php endif;?> -->
 
 
                                   

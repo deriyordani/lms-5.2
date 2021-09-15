@@ -8,14 +8,16 @@
 
             <div class="card card-header-actions mb-3">
                 <div class="card-header">
-                    <?=$row->topic?>
+                    <a href="<?=base_url('classroom/view_forum/'.$uc_classroom.'/'.$uc_diklat_class.'/'.$row->uc)?>">
+                        <?=$row->topic?>
+                    </a>
+                    
                     <div class="dropdown no-caret">
                         <button class="btn btn-transparent-dark btn-icon dropdown-toggle" id="dropdownMenuButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i data-feather="more-vertical"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="<?=base_url('classroom/view_forum/'.$uc_classroom.'/'.$uc_diklat_class.'/'.$row->uc)?>">View Forum</a>
-                            <a class="dropdown-item" href="">Edit</a>
+                            <a class="dropdown-item" href="<?=base_url('classroom/edit_forum/'.$uc_classroom.'/'.$uc_diklat_class.'/'.$row->uc)?>">Edit</a>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modals-delete-<?=$row->id?>">Delete</a>
 
                             

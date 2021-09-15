@@ -1,5 +1,28 @@
 <script type="text/javascript" src="<?=base_url('assets/js/tinymce.js')?>"></script>
 
+    <link href="<?=base_url('assets/css/jquery.filer.css')?>" rel="stylesheet">
+    <link href="<?=base_url('assets/css/themes/jquery.filer-dragdropbox-theme.css')?>" rel="stylesheet">
+
+    <!-- Jvascript -->
+   <!--  <script src="http://code.jquery.com/jquery-3.1.0.min.js" crossorigin="anonymous"></script> -->
+    <script src="<?=base_url('assets/js/jquery.filer.min.js')?>" type="text/javascript"></script>
+    <script src="<?=base_url('assets/js/custom.js')?>" type="text/javascript"></script>
+<script type="text/javascript">
+        $(function() {
+            $('#add').on('click', function( e ) {
+                e.preventDefault();
+                $('<div/>').addClass( 'new-text-div' )
+                .html( $('<input type="textbox" name="f_multi_link[]"/>').addClass( 'form-control mt-3' ) )
+                .append( $('<button/>').addClass( 'remove btn btn-danger' ).text( 'Remove' ) )
+                .insertBefore( this );
+            });
+            $(document).on('click', 'button.remove', function( e ) {
+                e.preventDefault();
+                $(this).closest( 'div.new-text-div' ).remove();
+            });
+        });
+</script>
+
 <?php $this->load->view('classroom/info_class');?>
 
 <div class="container-fluid">
@@ -20,6 +43,27 @@
                     <hr class="mt-2 mb-4">
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <?php if($this->session->flashdata('info')):?>
+                        <?php $warning = $this->session->flashdata('info')?>
+                        <div class="alert <?=$warning['class']?> alert-icon" role="alert">
+                            <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <div class="alert-icon-aside">
+                                <i class="fa <?=$warning['icon']?>"></i>
+                            </div>
+                            <div class="alert-icon-content">
+                                <h6 class="alert-heading">Pemberitahuan</h6>
+                                <?=$warning['message']?>
+                            </div>
+                        </div>
+                    <?php endif;?>
+                </div>
+            </div>
+
 
 
             <div class="row mt-3">
@@ -48,9 +92,18 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label>Lampiran File</label>
+                                    <!-- <input type="file" class="form-control" name="f_lampiran"> -->
+
+                                    <input type="file" name="files[]" id="filer_input" multiple="multiple" >
+                                    
+                                    <span class="text-danger">Perhatian : Jika ingin menambahkan, silahkan pilih lampiran kembali</span>
+                                </div>
+
+                               <!--  <div class="form-group">
                                     <input type="file" class="form-control"  name="f_file_attach">
                                     <label>*)Pdf, Word, Excel, Powerpoint</label>
-                                </div>
+                                </div> -->
 
                                 <input type="submit" name="f_posting" class="btn btn-success float-right mb-3" value="Posting">
                                 

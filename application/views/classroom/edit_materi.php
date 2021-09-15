@@ -106,11 +106,11 @@
                                         <i data-feather="edit"></i>
                                     </a>
 
-                                    <button class="btn btn-light " data-toggle="modal" data-target="#modals-delete-<?=$lf->id?>">
-                                            <i data-feather="trash"></i>
-                                        </button>
+                                    <a href="#" class="btn btn-light btn-edit-lampiran" uc="<?=$lf->uc?>" data-toggle="modal" data-target="#modals-delete-lampiran-<?=$lf->id?>" title="Hapus Lampiran">
+                                        <i data-feather="trash"></i>
+                                    </a>
 
-                                        <div class="modal fade" id="modals-delete-<?=$lf->id?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="modals-delete-lampiran-<?=$lf->id?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                             <div class="modal-dialog " role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -121,7 +121,7 @@
                                                         <p class="text-center"><i class="fa fa-info-circle" ></i> Do you really want to delete this record ?</p>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <a href="<?=base_url('classroom/delete_lampiran_file/'.$lf->uc.'/'.$uc_classroom.'/'.$uc_diklat_class.'/'.$row->uc)?>" lass="btn btn-danger">
+                                                        <a href="<?=base_url('classroom/delete_lampiran_file/'.$lf->uc.'/'.$uc_classroom.'/'.$uc_diklat_class.'/'.$row->uc.'/edit_materi')?>" lass="btn btn-danger">
                                                             Delete
                                                         </a>
 
@@ -160,59 +160,7 @@
                 
                 <div class="row">
                     <?php $lampiran_link = list_content_file(array('uc_content' => $row->uc, 'type' => 'link'))?>
-                    <?php if(isset($lampiran_link)):?>
-                        <?php foreach($lampiran_link as $ll):?>
-                        <div class="col-md-4 ">
-                            <div class="card bg-warning h-100">
-                                <div class="card-body text-white text-center">
-                                     <?=$ll->file_attach?>
-                                </div>
-                                <div class="card-footer">
-                                    <a href="<?=$ll->file_attach?>" class="btn btn-light" title="Lihat Lampiran">
-                                        <i data-feather="eye"></i>
-                                    </a>
-                                    
-                                    <a href="#" class="btn btn-light btn-edit-link" uc="<?=$ll->uc?>" data-toggle="modal" data-target="#modals-edit-link" title="Edit Lampiran Link">
-                                        <i data-feather="edit"></i>
-                                    </a>
-
-                                    <button class="btn btn-light " data-toggle="modal" data-target="#modals-delete-<?=$ll->id?>">
-                                            <i data-feather="trash"></i>
-                                        </button>
-
-                                        <div class="modal fade" id="modals-delete-<?=$ll->id?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog " role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Warning</h5>
-                                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p class="text-center"><i class="fa fa-info-circle" ></i> Do you really want to delete this record ?</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <a href="<?=base_url('classroom/delete_lampiran_file/'.$ll->uc.'/'.$uc_classroom.'/'.$uc_diklat_class.'/'.$row->uc)?>" lass="btn btn-danger">
-                                                            Delete
-                                                        </a>
-
-                                                        <button class="btn btn-light" type="button" data-dismiss="modal">Cancel</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                   
-
-                                </div>
-                            </div>
-                           
-                        </div>
-                        <?php endforeach;?>
-                    <?php else:?>
-                        <div class="col-md-12">
-                            <div class="alert alert-danger alert-solid text-center" role="alert">File Tidak Tersedia</div>
-                        </div>
-                    <?php endif;?>
+                    
                 </div>
             </div>
 

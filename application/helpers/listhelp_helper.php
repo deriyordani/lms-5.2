@@ -207,6 +207,25 @@ function list_content_file($filter = NULL){
 	}
 }
 
+function list_forum_file($filter = NULL){
+	$CI =& get_instance();
+	$CI->load->model('forum_file_m');
+	
+	if ($filter != NULL) {		
+		$query = $CI->forum_file_m->get_filtered($filter,'id','ASC');
+	}
+	else {
+		$query = $CI->forum_file_m->get_all('id','ASC');	
+	}
+	
+	if ($query->num_rows() > 0) {
+		return $query->result();
+	}
+	else {
+		return NULL;
+	}
+}
+
 
 
 function read_title($string){

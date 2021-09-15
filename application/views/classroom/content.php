@@ -21,7 +21,8 @@
                                    Kelas : [<?=$row->class_label?>] <br/>Subject : <?=$row->subject_title?>
                                 </div>
                                 
-                                <div class="text-xs font-weight-bold d-inline-flex align-items-center mt-4">
+                                <div class="row ml-2">
+                                   <div class="text-xs font-weight-bold d-inline-flex align-items-center mt-4">
 
                                     <a href="<?=base_url('classroom/task/'.$row->uc.'/'.$row->uc_diklat_class)?>" class="btn btn-sm  btn-primary">
                                        <i class="mr-1" data-feather="activity"></i> Manage
@@ -62,6 +63,8 @@
                                     </div>
 
                                 </div>
+                                </div>
+                                
                             </div>
                             <!--
                             <div class="ml-2"><i class="fas fa-tag fa-2x text-gray-200"></i></div>-->

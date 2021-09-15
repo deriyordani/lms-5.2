@@ -978,30 +978,81 @@ Class Classroom extends CI_Controller{
 
 	function posting_forum(){
 		if ($this->input->post('f_posting')) {
-			
+
 			$uc_classroom = $this->input->post('f_uc_classroom');
 			$uc_diklat_class = $this->input->post('f_uc_diklat_class');
+			$uc_forum = unique_code();
 
-			$this->load->library('im_upload');
 
-			$file_att = $this->im_upload->uploading('f_file_attach', 'materi');
+			$this->load->library('uploader');
+
+			$parameter_uploads = $this->uploader->upload($_FILES['files'], array(
+		        'limit' => 10, //Maximum Limit of files. {null, Number}
+		        'maxSize' => 1024, //Maximum Size of files {null, Number(in MB's)}
+		        'extensions' => null, //Whitelist for file extension. {null, Array(ex: array('jpg', 'png'))}
+		        'required' => false, //Minimum one file is required for upload {Boolean}
+		        'uploadDir' => './uploads/materi/', //Upload directory {String}
+		        'title' => array('name'), //New file name {null, String, Array} *please read documentation in README.md
+		        'removeFiles' => true, //Enable file exclusion {Boolean(extra for jQuery.filer), String($_POST field name containing json data with file names)}
+		        'replace' => true, //Replace the file if it already exists  {Boolean}
+		        'perms' => null, //Uploaded file permisions {null, Number}
+		        'onCheck' => null, //A callback function name to be called by checking a file for errors (must return an array) | ($file) | Callback
+		        'onError' => null, //A callback function name to be called if an error occured (must return an array) | ($errors, $file) | Callback
+		        'onSuccess' => null, //A callback function name to be called if all files were successfully uploaded | ($files, $metas) | Callback
+		        'onUpload' => null, //A callback function name to be called if all files were successfully uploaded (must return an array) | ($file) | Callback
+		        'onComplete' => null, //A callback function name to be called when upload is complete | ($file) | Callback
+		        'onRemove' => null //A callback function name to be called by removing files (must return an array) | ($removed_files) | Callback
+		    ));
+
 
 			$data = [
-				'uc' => unique_code(),
+				'uc' => $uc_forum,
 				'uc_classroom' => $uc_classroom,
 				'uc_diklat_class' => $uc_diklat_class,
 				'uc_instructor' => $this->session->userdata('log_uc_person'),
 				'topic' => $this->input->post('f_topic'),
 				'topic_description' => $this->input->post('f_topic_des'),
-				'file_attach' => $file_att
+				
 			];
 
 			$this->load->model('forum_m');
 			$this->forum_m->insert_data($data);
+
+
+			$this->load->model('forum_file_m');
+
+		    if($parameter_uploads['isComplete']){
+		        $files = $parameter_uploads['data'];
+
+				foreach ($files['metas'] as $key => $value) {
+
+					$data_file = [
+						'uc' => unique_code(),
+						'uc_forum' => $uc_forum,
+						'file_attach' => $value['name'],
+						'type' => $value['extension']
+					];
+
+
+					$this->forum_file_m->insert_data($data_file);
+
+				}
+
+			}
+
 		}
 
 		redirect('classroom/forum/'.$uc_classroom.'/'.$uc_diklat_class);
 	}
+
+	// function update_forum(){
+	// 	if ($this->input->post('f_store')) {
+
+
+	// 	}
+
+	// 	redirect('clasroom');
+	// }
 
 	function view_forum($uc_classroom = NULL, $uc_diklat_class = NULL, $uc_forum = NULL, $uc_group = NULL){
 
@@ -1177,6 +1228,29 @@ Class Classroom extends CI_Controller{
 		redirect('classroom/view_forum/'.$uc_classroom.'/'.$uc_diklat_class.'/'.$uc_forum);
 	}
 
+	function delete_lampiran_forum($uc = NULL, $uc_classroom, $uc_diklat_class,$uc_forum){
+		$this->load->model('forum_file_m');
+
+		$row = $this->forum_file_m->get_filtered(array('uc' => $uc))->row();
+
+		$config['upload_path'] = './uploads/materi/';
+
+		$path = $config['upload_path'].$row->file_attach;
+
+    	if ($row->file_attach != NULL) {
+    		if (file_exists($path)){
+				unlink($path);
+			}
+    	}
+
+    	$this->forum_file_m->delete_data(array('uc' => $uc));
+
+    	$this->session->set_flashdata('info', $this->config->item('flash_delete'));
+
+    	redirect('classroom/edit_forum/'.$uc_classroom.'/'.$uc_diklat_class.'/'.$uc_forum);
+	}
+
+
 	function edit_group_forum(){
 
 		$data = NULL;
@@ -1283,8 +1357,114 @@ Class Classroom extends CI_Controller{
 		redirect('classroom/view_forum/'.$uc_classroom.'/'.$uc_diklat_class.'/'.$uc_forum);
 	}
 
+	function edit_forum($uc_classroom = NULL, $uc_diklat_class = NULL, $uc_forum = NULL){
+		$data = NULL;
+
+		$filter = [
+			'uc' => $uc_classroom,
+			'uc_diklat_class' => $uc_diklat_class,
+			'count' => FALSE
+		];
+
+		$data['info'] = $this->classroom_m->get_list($filter)->row();
+
+		$this->load->model('forum_m');
+		$data['row'] = $this->forum_m->get_filtered(array('uc' => $uc_forum))->row();
+
+
+		$data['uc_classroom'] = $uc_classroom;
+		$data['uc_diklat_class'] = $uc_diklat_class;
+		$data['uc_forum'] = $uc_forum;
+
+		$this->im_render->main_stu('classroom/forum/edit_forum', $data);
+	}
+
+	function update_forum(){
+		if($this->input->post('f_store')){
+
+			$uc_classroom = $this->input->post('f_uc_class');
+			$uc_diklat_class = $this->input->post('f_uc_diklat_class');
+
+			$uc = $this->input->post('f_uc');
+
+			$this->load->library('uploader');
+			$parameter_uploads = $this->uploader->upload($_FILES['files'], array(
+		        'limit' => 10, //Maximum Limit of files. {null, Number}
+		        'maxSize' => 1024, //Maximum Size of files {null, Number(in MB's)}
+		        'extensions' => null, //Whitelist for file extension. {null, Array(ex: array('jpg', 'png'))}
+		        'required' => false, //Minimum one file is required for upload {Boolean}
+		        'uploadDir' => './uploads/materi/', //Upload directory {String}
+		        'title' => array('name'), //New file name {null, String, Array} *please read documentation in README.md
+		        'removeFiles' => true, //Enable file exclusion {Boolean(extra for jQuery.filer), String($_POST field name containing json data with file names)}
+		        'replace' => true, //Replace the file if it already exists  {Boolean}
+		        'perms' => null, //Uploaded file permisions {null, Number}
+		        'onCheck' => null, //A callback function name to be called by checking a file for errors (must return an array) | ($file) | Callback
+		        'onError' => null, //A callback function name to be called if an error occured (must return an array) | ($errors, $file) | Callback
+		        'onSuccess' => null, //A callback function name to be called if all files were successfully uploaded | ($files, $metas) | Callback
+		        'onUpload' => null, //A callback function name to be called if all files were successfully uploaded (must return an array) | ($file) | Callback
+		        'onComplete' => null, //A callback function name to be called when upload is complete | ($file) | Callback
+		        'onRemove' => null //A callback function name to be called by removing files (must return an array) | ($removed_files) | Callback
+		    ));
+
+		    $data = [
+
+				'topic' => $this->input->post('f_topic'),
+				'topic_description' => $this->input->post('f_topic_des'),
+				
+			];
+
+			$this->load->model('forum_m');
+			$this->forum_m->update_data($data, array('uc' => $uc));
+
+
+			$this->load->model('forum_file_m');
+
+			if($parameter_uploads['isComplete']){
+		        $files = $parameter_uploads['data'];
+
+				foreach ($files['metas'] as $key => $value) {
+
+					$data_file = [
+						'uc' => unique_code(),
+						'uc_forum' => $uc,
+						'file_attach' => $value['name'],
+						'type' => $value['extension']
+					];
+
+
+					$this->forum_file_m->insert_data($data_file);
+
+				}
+
+		       
+		    }
+
+
+		}
+
+		redirect('classroom/forum/'.$uc_classroom.'/'.$uc_diklat_class);
+	}
+
 	function delete_forum($uc_classroom = NULL, $uc_diklat_class = NULL, $uc_forum = NULL, $uc_group = NULL){
-		
+		if($uc_forum != NULL){
+
+			$this->load->model('forum_m');
+			$this->load->model('fgroup_m');
+			$this->load->model('fparticipant_m');
+
+			$this->forum_m->delete_data(array('uc' => $uc_forum));
+
+			$this->fgroup_m->delete_data(array('uc' => $uc_group));
+
+			$this->fparticipant_m->delete_data(array('uc_fgroup' => $uc_group));
+
+			$this->session->set_flashdata('info', $this->config->item('flash_delete'));
+
+
+			$this->session->set_flashdata('info', $this->config->item('flash_delete'));
+		}
+
+		redirect('classroom/forum/'.$uc_classroom.'/'.$uc_diklat_class);
 	}
 
 	/*END FORUM*/
@@ -2109,7 +2289,7 @@ Class Classroom extends CI_Controller{
 		$this->im_render->main('class/manage', $data);
 	}
 
-	function delete_lampiran_file($uc = NULL, $uc_classroom, $uc_diklat_class, $uc_content){
+	function delete_lampiran_file($uc = NULL, $uc_classroom, $uc_diklat_class, $uc_content,$form){
 		$this->load->model('content_files_m');
 
 		$row = $this->content_files_m->get_filtered(array('uc' => $uc))->row();
@@ -2126,7 +2306,7 @@ Class Classroom extends CI_Controller{
 
     	$this->content_files_m->delete_data(array('uc' => $uc));
 
-    	redirect('classroom/content/edit_materi/'.$uc_classroom.'/'.$uc_diklat_class.'/'.$uc_content);
+    	redirect('classroom/content/'.$form.'/'.$uc_classroom.'/'.$uc_diklat_class.'/'.$uc_content);
 	}
 
 	function form_update_link(){
