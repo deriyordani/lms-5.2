@@ -383,9 +383,18 @@ Class Classroom extends CI_Controller{
 				}
 
 			}
+
+			if ($filename == 'edit_assessment') {
+				$this->load->model('assessment_m');
+				$query = $this->assessment_m->get_filtered(array('uc_content' => $uc_content));
+				if ($query->num_rows() > 0) {
+					$row = $query->row();
+					$data['assess'] = $row;
+
+					$data['uc_assessment'] = $row->uc;
+				}
+			}
 		}
-
-
 
 
 		$filter = [
@@ -404,7 +413,6 @@ Class Classroom extends CI_Controller{
 		$data['uc_content'] = $uc_content;
 
 		$this->im_render->main_stu('classroom/'.$filename, $data);
-
 	}
 
 	function add_materi($uc_classroom = NULL, $uc_diklat_class = NULL){
@@ -2281,6 +2289,81 @@ Class Classroom extends CI_Controller{
 
 		//redirect();
 
+	}
+
+	function update_assessment() {
+		if ($this->input->post('f_store')) {
+			$uc_classroom = $this->input->post('f_uc_class');
+			$uc_diklat_class = $this->input->post('f_uc_diklat_class');
+		    $uc_content = $this->input->post('f_uc_content');
+		    $uc_assessment = $this->input->post('f_uc_assessment');
+			$uc_section = $this->input->post('f_section');
+
+			// $qseq = $this->section_m->get_seq_content($uc_classroom, $uc_section)->row();
+
+			// $seq = ($qseq != NULL ? ($qseq->sequence+1) : 1);
+
+			$duration 	= ($this->input->post('f_limit') == 1 ? ($this->input->post('f_duration') * 60) : NULL);
+			$attemption = ($this->input->post('f_max') == 1 ? $this->input->post('f_time') : NULL);
+			$open_time 	= ($this->input->post('f_open_time') != "" ? time_format($this->input->post('f_open_time'),'Y-m-d H:i') : NULL);
+			$close_time = ($this->input->post('f_close_time') != "" ? time_format($this->input->post('f_close_time'),'Y-m-d H:i') : NULL);
+
+			// 	UPDATE CONTENT
+			$data = [
+
+				'uc' => $uc_content,
+				'uc_classroom' => $uc_classroom,
+				'uc_section' => $uc_section,
+				'content_title' => $this->input->post('f_judul'),
+				'category' => $this->input->post('f_category'),
+				'type_ass' => $this->input->post('f_type'),
+				'time_open' => $open_time,
+				'time_close' => $close_time
+			];
+
+			$this->load->model('content_m');
+
+			// echo "<pre>";
+			// print_r($data);
+			// echo "</pre>";
+
+			//echo "<br /> UC CONTENT : ".$uc_content;
+			
+			$this->content_m->update_data($data, array('uc' => $uc_content));
+
+			$uc_subject = $this->classroom_m->get_filtered(array('uc' => $uc_classroom))->row()->uc_subject;
+
+
+			// UPDATE ASSESSMENT
+			$data = array(
+							'uc_classroom'				=> $uc_classroom,
+							'uc_content'				=> $uc_content,
+							'uc_subject'				=> $uc_subject,
+							'duration'					=> $duration,
+							'passing_grade'				=> $this->input->post('f_passing_grade'),
+							'maximum_attempt'			=> $attemption,
+							'time_create'				=> current_time(),
+							'time_open'					=> $open_time,
+							'time_close'				=> $close_time,
+							'is_review'					=> $this->input->post('f_review'),
+							'uc_instructor'				=> $this->session->userdata('log_uc_person')
+					);
+
+			// echo "<pre>";
+			// print_r($data);
+			// echo "</pre>";
+
+			// echo "<br /> UC ASSESSMENT : ".$uc_assessment;
+
+			$this->load->model('assessment_m');
+			
+			$this->assessment_m->update_data($data, array('uc' => $uc_assessment));
+
+			redirect('classroom/task/'.$uc_classroom.'/'.$uc_diklat_class);
+		}
+		else {
+			redirect('classroom');
+		}
 	}
 
 }
