@@ -1,7 +1,7 @@
 <?php
 require_once APPPATH."/third_party/PHPExcel.php"; 
 $objPHPExcel = new PHPExcel();
-/*
+
 $title = array(
 			'font'    => array(
 				'bold'	=> true,
@@ -173,9 +173,8 @@ foreach ($student as $student_info) {
 	$row++;
 	$no++;
 }
-*/
 
-$filename = "Presensi.xls";  //save our workbook as this file name
+$filename = "Rekap Presensi.xls";  //save our workbook as this file name
 
 ob_end_clean();
 header( "Content-type: application/vnd.ms-excel" );
