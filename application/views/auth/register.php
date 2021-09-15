@@ -164,6 +164,7 @@ body {
                         f_nama_lengkap: "required",
                         f_username: {
                             required: true
+
                         },
 
 

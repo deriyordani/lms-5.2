@@ -36,7 +36,7 @@
 								<i class="fa <?=$icon?>">
 							</td>
 							<td width="400">
-								<a href="#" class="peek-question" uc-question="<?=$qb->uc?>"><?=read_text($qb->question_title)?></a> <br />
+								<a href="#" class="peek-question" peek-type="<?=$q_typ?>" uc-question="<?=$qb->uc?>"><?=read_text($qb->question_title)?></a> <br />
 							</td>
 						</tr>
 						<?php $i++; ?>
@@ -109,9 +109,15 @@
 
 		$('.peek-question').click(function(){			
 			var uc_question	= $(this).attr('uc-question');
+			var p_type = $(this).attr('peek-type');
 
 			$('#question-detail .modal-content').html('');
-			$('#question-detail .modal-content').load(base_url + 'question/view', { js_uc_question : uc_question });
+			if (p_type == 'bank') {
+				$('#question-detail .modal-content').load(base_url + 'question/view', { js_uc_question : uc_question });
+			}
+			else {
+				$('#question-detail .modal-content').load(base_url + 'question/view_picked', { js_uc_question : uc_question });	
+			}
 			$('#question-detail').modal('show');
 
 			return false;

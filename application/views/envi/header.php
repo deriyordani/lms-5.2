@@ -22,6 +22,7 @@
         <script type="text/javascript" src="<?=base_url('assets/third_party/jquery-ui/jquery-ui.js');?>"></script>
         <script type="text/javascript" src="<?=base_url('assets/third_party/jquery-ui/jquery-timepicker.js');?>"></script>
 
+        <script src="<?=base_url('assets/third_party/tinymce/tinymce.min.js')?>" ></script>
 
         <script>
             function goBack() {

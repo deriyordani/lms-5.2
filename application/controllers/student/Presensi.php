@@ -29,11 +29,13 @@ Class Presensi extends CI_Controller{
 		$this->load->model('diklat_class_m');
 		$this->load->model('kehadiran_m');
 
+		$data['info'] = $this->classroom_m->get_list($filter)->row();
+
 		if ($uc_diklat_class != NULL) {
 			$query = $this->diklat_class_m->get_detail($uc_diklat_class);
 			
 			if ($query->num_rows() > 0) {
-				$data['info'] = $query->row();
+				//$data['info'] = $query->row();
 				
 				$qsection 	= $this->section_m->get_in_classroom($uc_classroom);
 				if ($qsection->num_rows() > 0) {
@@ -46,7 +48,7 @@ Class Presensi extends CI_Controller{
 
 			        	
 			        	$data['no_peserta'] = $presence[0]->no_peserta;
-			        	$data['full_name'] 	= $presence[0]->full_name;
+			        	$data['nama_peserta'] 	= $presence[0]->full_name;
 
 			        	foreach($presence as $pre) {
 			        		$kehadiran[$pre->uc_section]['status'] = $pre->status;
@@ -59,14 +61,16 @@ Class Presensi extends CI_Controller{
 			}
 		}		
 
-		$data['uc_diklat_class'] = $uc_diklat_class;
 		$data['section'] 	= $section;
+		$data['uc_classroom'] = $uc_classroom;
+		$data['uc_diklat_class'] = $uc_diklat_class;
 
 		if ($output == "excel") {
         	$this->load->view('monitoring/presensi/excel', $data);
         }
         else {
-  			$this->im_render->main('monitoring/presensi/rekap', $data);
+  			//$this->im_render->main('student/presensi/rekap', $data);
+  			$this->im_render->main_stu('student/presensi/rekap', $data);
         }
 	}
 }

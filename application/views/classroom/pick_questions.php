@@ -36,6 +36,7 @@
                     <div class="col-5">
                         <h5 class="text-danger">Question Bank</h5>
                     </div>
+                    <!--
                     <div class="col-7 text-right">
                         <div class="input-group">
                             <input type="text" class="form-control form-control-sm" name="f_key_qbank" placeholder="Search">
@@ -48,7 +49,8 @@
                                 </a>
                             </div>
                         </div>
-                    </div>                  
+                    </div>    
+                    -->              
                 </div>
                 <div class="d-flex justify-content-center">
                     <div class="col-12" id="bank-list">
@@ -72,6 +74,7 @@
                     <div class="col-5">
                         <h5 class="text-danger">Picked Question</h5>
                     </div>
+                    <!--
                     <div class="col-7 text-right">
                         <div class="input-group">
                             <input type="text" class="form-control form-control-sm" name="f_key_qpick" placeholder="Search">
@@ -84,7 +87,8 @@
                                 </a>
                             </div>
                         </div>
-                    </div>                  
+                    </div> 
+                    -->                 
                 </div>
                 <div class="d-flex justify-content-center">
                     <div class="col-12" id="pick-list">

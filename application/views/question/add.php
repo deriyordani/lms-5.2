@@ -1,4 +1,3 @@
-
 <script type="text/javascript" src="<?=base_url('assets/js/tinymce.js')?>"></script>
 <script type="text/javascript">
     $(document).ready(function(){
