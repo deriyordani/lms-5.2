@@ -168,10 +168,22 @@
                                 </div>
                             </div>
 
-                                <?=form_open_multipart('student/classroom/send_assignment')?>
+
+                            <?php
+
+                                $access_status = check_time($row->time_open, $row->time_close);
+
+                                
+                            ?>
+
+                            <?php if ($access_status):?>
+
+                                 <?=form_open_multipart('student/classroom/send_assignment')?>
                                     <input type="hidden" name="f_uc_classroom" value="<?=$uc_classroom?>">
                                     <input type="hidden" name="f_uc_diklat_class" value="<?=$uc_diklat_class?>">
                                     <input type="hidden" name="f_uc_content" value="<?=$uc_content?>">
+                                    <input type="hidden" name="f_time_open" value="<?=$row->time_open?>">
+                                    <input type="hidden" name="f_time_close" value="<?=$row->time_close?>">
                                     <div class="card-body">
                                         <h5 class="card-title text-primary mb-3">
                                             <i class="mr-2" data-feather="upload-cloud"></i>
@@ -193,9 +205,42 @@
 
                                     </div>
                                     <div class="card-footer">
-                                        <input type="submit" class="btn btn-dark " value="Kirim Tugas" name="f_submit">
+                                         <input type="submit" class="btn btn-dark " value="Kirim Tugas" name="f_submit">
+
                                     </div>
                                 <?=form_close()?>
+                               
+
+                            <?php else:?>
+                                   
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary mb-3">
+                                        <i class="mr-2" data-feather="upload-cloud"></i>
+                                       Upload Tugas
+                                    </h5>
+                                    
+                                   
+                                      <input type="file" class="form-control"  name="f_file_attach" disabled="">
+                                    
+
+                                    <p class="small text-muted mt-2">
+                                        Format *) .pdf/.docx/.zip/.ppt<br/>
+                                        <label class="text-danger">Max Size File 5 MB</label>
+                                    </p>
+
+                                     <p class="text-danger mt-2">
+                                         Perhatian : Tugas masih dapat diganti (upload ulang) selama belum mendapatkan score/komentar dari Instruktur
+                                     </p>
+
+                                </div>
+                                <div class="card-footer">
+                                     <button class="btn btn-info btn-block">Waktu Pengiriman Habis !</button>
+                                </div>
+                                
+                            <?php endif;?>
+
+
+                               
                         </div>
 
                     <?php endif;?>

@@ -101,6 +101,7 @@ Class Users extends CI_Controller{
 
 		$akses = $this->input->post('js_akses');
 		$category = $this->input->post('js_category');
+		$search = $this->input->post('js_search');
 
 		//	Pagination Initialization
 		$this->load->library('im_pagination');
@@ -117,12 +118,12 @@ Class Users extends CI_Controller{
 
 		$data['numbering'] 	= ($this->each_page * ($page-1)) + 1;
 
-		$filter = ['category' => $category, 'count' => FALSE];
+		$filter = ['category' => $category, 'count' => FALSE, 'search' => $search];
 
 		if ($akses == 'instruktur') {
-			
-			if ($this->session->userdata('log_uc_prodi') != NULL) {
+
 				$filter['uc_prodi'] = $this->session->userdata('log_uc_prodi');
+				$filter['search'] = $search;
 
 				$query = $this->instructor_m->get_list_detail($filter, $this->each_page, $offset);
 				if ($query->num_rows() > 0) {
@@ -135,20 +136,39 @@ Class Users extends CI_Controller{
 					$data['pagination'] 	= $this->im_pagination->render_ajax($params);
 					$data['total_record'] 	= $query->num_rows();
 				}
+			
+			
+			// if ($this->session->userdata('log_uc_prodi') != NULL) {
+			// 	$filter['uc_prodi'] = $this->session->userdata('log_uc_prodi');
+			// 	$filter['search'] = $search;
 
-			}else{
-				$query = $this->instructor_m->get_list_detail(NULL, $this->each_page, $offset);
-				if ($query->num_rows() > 0) {
-					$data['result'] = $query->result();
-				}
+			// 	$query = $this->instructor_m->get_list_detail($filter, $this->each_page, $offset);
+			// 	if ($query->num_rows() > 0) {
+			// 		$data['result'] = $query->result();
+			// 	}
 
-				$query = $this->instructor_m->get_list_detail(NULL);
-				if ($query->num_rows() > 0) {
-					$params['total_record'] = $query->num_rows();
-					$data['pagination'] 	= $this->im_pagination->render_ajax($params);
-					$data['total_record'] 	= $query->num_rows();
-				}
-			}
+			// 	$query = $this->instructor_m->get_list_detail($filter);
+			// 	if ($query->num_rows() > 0) {
+			// 		$params['total_record'] = $query->num_rows();
+			// 		$data['pagination'] 	= $this->im_pagination->render_ajax($params);
+			// 		$data['total_record'] 	= $query->num_rows();
+			// 	}
+
+			// }else{
+
+			// 	$filter['search'] = $search;
+			// 	$query = $this->instructor_m->get_list_detail($filter, $this->each_page, $offset);
+			// 	if ($query->num_rows() > 0) {
+			// 		$data['result'] = $query->result();
+			// 	}
+
+			// 	$query = $this->instructor_m->get_list_detail($filter);
+			// 	if ($query->num_rows() > 0) {
+			// 		$params['total_record'] = $query->num_rows();
+			// 		$data['pagination'] 	= $this->im_pagination->render_ajax($params);
+			// 		$data['total_record'] 	= $query->num_rows();
+			// 	}
+			// }
 
 		}else{
 			$query = $this->user_m->get_list($filter, $this->each_page, $offset);

@@ -8,7 +8,7 @@ Class Group_members_m extends MY_Model{
 
 	public function check($uc_user, $uc_classroom)
     {
-        $check = $this->db->get_where($this->table_name, ['uc_classroom' => $uc_classroom, 'uc_user' => $uc_user]);
+        $check = $this->db->get_where($this->table_name, ['uc_classroom' => $uc_classroom]);
 
         if ($check->num_rows() > 0) {
             return 1;

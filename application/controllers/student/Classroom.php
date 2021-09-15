@@ -478,54 +478,72 @@ Class Classroom extends CI_Controller{
 		function send_assignment(){
 
 			if ($this->input->post('f_submit')) {
+
+				$time_open = $this->input->post('f_time_open');
+				$time_close = $this->input->post('f_time_close');
 				
-				$uc_classroom = $this->input->post('f_uc_classroom');
-				$uc_diklat_class = $this->input->post('f_uc_diklat_class');
-				$uc_content = $this->input->post('f_uc_content');
+				$access_status = check_time($time_open, $time_close);
 
-				$this->load->library('upload');
+				if($access_status){
+					$uc_classroom = $this->input->post('f_uc_classroom');
+					$uc_diklat_class = $this->input->post('f_uc_diklat_class');
+					$uc_content = $this->input->post('f_uc_content');
 
-				$config['upload_path'] = './uploads/assignment/';
-			    $config['allowed_types'] = 'doc|docx|xls|xlsx|ppt|pptx|pdf|zip';
-			    $config['max_size'] = '5000';
-			    $config['encrypt_name'] = TRUE;
+					$this->load->library('upload');
 
-			    $this->upload->initialize($config);
-			   
+					$config['upload_path'] = './uploads/assignment/';
+				    $config['allowed_types'] = 'doc|docx|xls|xlsx|ppt|pptx|pdf|zip';
+				    $config['max_size'] = '5000';
+				    $config['encrypt_name'] = TRUE;
 
-			    if ( ! $this->upload->do_upload('f_file_attach'))
-			    {
-			       
-			        echo  $this->upload->display_errors();
-			    }
-			    else
-			    {
-			        $upload_data =  $this->upload->data();
-			        
-			        $data = [
+				    $this->upload->initialize($config);
+				   
 
-						'uc' => unique_code(),
-						'uc_assignment' => $uc_content,
-						'uc_participant' => $this->session->userdata('log_uc_person'),
-						'file_attach' => $upload_data['file_name'],
-						'submit_time' => time_format(current_time(), 'Y-m-d H:i')
-					];
+				    if ( ! $this->upload->do_upload('f_file_attach'))
+				    {
+				       
+				        echo  $this->upload->display_errors();
+				    }
+				    else
+				    {
+				        $upload_data =  $this->upload->data();
+				        
+				        $data = [
 
-					$this->load->model('assignment_score_m');
+							'uc' => unique_code(),
+							'uc_assignment' => $uc_content,
+							'uc_participant' => $this->session->userdata('log_uc_person'),
+							'file_attach' => $upload_data['file_name'],
+							'submit_time' => time_format(current_time(), 'Y-m-d H:i')
+						];
 
-					$this->assignment_score_m->insert_data($data);
+						$this->load->model('assignment_score_m');
 
-					$this->session->set_flashdata('info', $this->config->item('flash_tugas_terkirim'));
+						$this->assignment_score_m->insert_data($data);
 
-					
+						$this->session->set_flashdata('info', $this->config->item('flash_tugas_terkirim'));
 
-			    }
+						activity_log('Kirim Jawaban Essay', 'Waktu Pengiriman : '.time_format(current_time(), 'Y-m-d H:i'));
+
+
+				    }
+
+				    redirect('student/classroom/content/view_assignment/'.$uc_classroom.'/'.$uc_diklat_class.'/'.$uc_content);
+
+
+				}else{
+
+					$this->session->set_flashdata('info', $this->config->item('flash_tugas_expired'));
+
+					redirect('student/classroom/content/view_assignment/'.$uc_classroom.'/'.$uc_diklat_class.'/'.$uc_content);
+				}
+				
 
 				
 
 			}
 
-			redirect('student/classroom/content/view_assignment/'.$uc_classroom.'/'.$uc_diklat_class.'/'.$uc_content);
+			// redirect('student/classroom/content/view_assignment/'.$uc_classroom.'/'.$uc_diklat_class.'/'.$uc_content);
 
 			
 		}

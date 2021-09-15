@@ -47,6 +47,18 @@
                     <i class="fa fa-plus"></i> &nbsp; Add Peserta Diklat
                 </button>
 
+                <div class="row">
+                    <div class="col-md-4 offset-md-6">
+                        <input type="text" name="f_search" class="form-control" placeholder="NIT/Nama">
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-success btn-search">
+                             <i class="fa fa-search"></i> &nbsp; Ok
+                        </button>
+                    </div>
+
+                </div>
+
                 <!-- <div class="row">
 
                     <div class="col-md-3">

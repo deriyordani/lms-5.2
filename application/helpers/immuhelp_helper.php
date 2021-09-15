@@ -1,7 +1,7 @@
 <?php
 //	BEGIN of TIME FORMAT
 function time_format($the_time, $format){
-date_default_timezone_set('Etc/GMT-7');
+date_default_timezone_set('Etc/GMT-9');
 	return date($format, strtotime($the_time));
 }
 //	END of TIME FORMAT
@@ -60,7 +60,7 @@ function post_name($str){
 //	END of POST NAME
 
 function current_time(){	
-	date_default_timezone_set('Etc/GMT-7');
+	date_default_timezone_set('Etc/GMT-9');
 	$datestring = "Y-m-d H:i:s";
 	
 	return date($datestring);
@@ -206,8 +206,49 @@ function getCategoryUser($value = NULL){
 	}
 
 	return $users;
-	
-	return $name;
+}
+
+function check_time($time_open = NULL, $time_close = NULL){
+	$access_status  = FALSE;
+    $current_time   = current_time();
+
+    // CHECK ACCESS TIME
+    if (($time_open != NULL) && ($time_close != NULL)) {
+        //  If Open Time != NULL && Close Time != NULL  
+        if (($current_time > $time_open) && ($current_time < $time_close)) {
+            //  If Current Time > Open Time && Current Time < Close Time
+            //$attempt_status = "";
+            $access_status = TRUE;
+        }
+    }else if (($row->time_open == NULL) && ($row->time_close != NULL)) {
+        if (($current_time > $time_open) && ($current_time < $time_close)) {
+            //  If Current Time > Open Time && Current Time < Close Time
+            //$attempt_status = "";
+            $access_status = TRUE;
+        }
+    }
+    else if (($time_open != NULL) && ($time_close == NULL)){
+        //  Else If Open Time != NULL && Close Time == NULL
+        if ($current_time > $assessment->time_open) {
+            //  If Current Time > Open Time 
+            //$attempt_status = "";
+            $access_status = TRUE;
+
+        }
+    }
+    else if (($time_open == NULL) && ($time_close != NULL)) {
+        //  Else If Open Time == NULL && Close Time != NULL
+        if ($current_time < $row->time_open) {
+            $access_status = TRUE;
+        }
+    }
+    else if (($time_open == NULL) && ($time_close == NULL)) {
+        $access_status = TRUE;  
+    }
+
+    return $access_status;
+
+
 }
 
 ?>

@@ -12,7 +12,7 @@ Class Diklat_participant_m extends MY_Model{
 		$sql = "  SELECT dp.* ";
 
  		if (!$filter['count']) {
- 			$sql .= ", dpe.tahun, dpe.periode_mulai, dpe.periode_selesai, p.prodi, d.diklat, d.category as cat_diklat, ddkp.label_dkp, dc.class_label, s.full_name, s.uc as uc_student 
+ 			$sql .= ", dpe.tahun, dpe.periode_mulai, dpe.periode_selesai, p.prodi, d.diklat, d.category as cat_diklat, ddkp.label_dkp, dc.class_label, s.full_name, s.uc as uc_student, u.username 
 					 ";
  		}
 
@@ -26,6 +26,7 @@ Class Diklat_participant_m extends MY_Model{
 						LEFT JOIN `lms_diklat` d ON dpe.uc_diklat = d.uc
 						LEFT JOIN `lms_diklat_dkp` ddkp ON dpe.uc_diklat_dkp = ddkp.uc
 						LEFT JOIN `lms_diklat_class` dc ON dp.uc_diklat_class = dc.uc
+						LEFT JOIN `lms_user` u on s.uc = u.uc_person
 	    			";
 	    }
 

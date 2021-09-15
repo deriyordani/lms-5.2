@@ -1,17 +1,33 @@
 <div class="tab-content" id="cardPillContent">
    <div class="tab-pane fade show active" id="overviewPill" role="tabpanel" aria-labelledby="overview-pill">
+        <div class="row">
+            <div class="col-md-4">
+                <a href="#" class="btn btn-primary mb-3 btn-sm" data-toggle="modal" data-target="#add-form-ins"> 
+                    <i class="fa fa-plus"></i> &nbsp; Add Instruktur
+                </a>
 
-   		   <a href="#" class="btn btn-primary mb-3 btn-sm" data-toggle="modal" data-target="#add-form-ins"> 
-                <i class="fa fa-plus"></i> &nbsp; Add Instruktur
-            </a>
+                <a href="#" class="btn btn-success mb-3 btn-sm" data-toggle="modal" data-target="#upload-ins"> 
+                    <i class="fa fa-file-excel"></i> &nbsp; Import Data
+                </a>
+            </div>
+            
+        </div>
 
-   			<a href="#" class="btn btn-success mb-3 btn-sm" data-toggle="modal" data-target="#upload-ins"> 
-   				<i class="fa fa-file-excel"></i> &nbsp; Import Data
-   			</a>
+        <div class="row">
+            <div class="col-md-4 offset-md-6">
+                <input type="text" name="f_search" class="form-control" placeholder="NIP/Nama">
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-success btn-search">
+                     <i class="fa fa-search"></i> &nbsp; Ok
+                </button>
+            </div>
+        </div>
+   		   
 
    	
         <?php if(isset($result)):?>
-        <div class="row ml-1">
+        <div class="row ml-1 mt-4">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover" width="100%" cellspacing="0">
                     <thead>
@@ -43,7 +59,7 @@
                                         <?php $check = "disabled=''"?>
                                         <?php $label = "Change Password"?>
                                     <?php else:?>
-                                        <span class="badge badge-success text-center"><?=$row->username?></span>
+                                        <?=$row->username?>
                                         <?php $check = ""?>
                                         <?php $label = "Change Password"?>
                                     <?php endif;?>
@@ -167,6 +183,25 @@
 
         //     $('.load-data').load(base_url+'subject/page', {js_page : page, js_prodi : prodi, js_diklat : diklat});
         // });
+
+
+        $('.btn-search').click(function(){
+
+            var category = $('input[name=js_category]').val();    
+            var page    = 1;
+            var akses = $('input[name=js_akses]').val();
+            var search = $('input[name=f_search]').val();
+            
+            $('.load-data').load(base_url+'users/page', 
+                                {
+                                    js_page : page,
+                                    js_search : search,
+                                    js_category : category, 
+                                    js_akses : akses
+                                }
+                            );
+
+        });
 
         $('.page-user a.pagination-ajax').click(function(){ 
             var category = $('input[name=js_category]').val();    

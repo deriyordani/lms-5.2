@@ -10,7 +10,7 @@
                                 <td class="text-primary text-center">No. &amp; Nama Peserta</td>
                                 <td class="text-primary text-center">Diklat &amp; Kelas</td>
                                 <td class="text-primary text-center">Tahun/Periode</td>
-                                <td class="text-primary text-center">Status</td>
+                                <td class="text-primary text-center">Username</td>
                                 <td class="text-primary text-center">Action</td>
                             </tr>
                         </thead>
@@ -41,7 +41,7 @@
                                             <?php $check = "disabled=''"?>
                                             <?php $label = "Change Password"?>
                                         <?php else:?>
-                                            <span class="badge badge-success text-center">Admit</span>
+                                            <?=$row->username?>
                                             <?php $check = ""?>
                                             <?php $label = "Change Password"?>
                                         <?php endif;?>

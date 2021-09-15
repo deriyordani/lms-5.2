@@ -36,7 +36,7 @@
 
 		                                    	<?php 
 		                                    		if($gr->photo != NULL){
-		                                    			$url_img = base_url('uploads/photo/'.$gr->photo);
+		                                    			$url_img = base_url('uploads/photo/'.$this->session->userdata('log_photo'));
 		                                    		}else{
 		                                    			$url_img = base_url('assets/img/illustrations/profiles/profile-1.png');
 		                                    		}

@@ -15,7 +15,8 @@
             <div class="card card-collapsable">
                 <a class="card-header" href="#collapseCardExample" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
                     <div class="avatar avatar-xl">
-                        <img class="avatar-img img-fluid" src="<?=base_url('assets/img/illustrations/profiles/profile-1.png')?>">
+                        <?php $image = ($this->session->userdata('log_photo') != NULL ? base_url('uploads/photo/'.$this->session->userdata('log_photo')): base_url('assets/img/illustrations/profiles/profile-1.png') )?>
+                        <img class="avatar-img img-fluid" src="<?=$image?>">
                     </div>
                     Umumkan Sesuatu Ke Kelas Anda !
                     <div class="card-collapsable-arrow">

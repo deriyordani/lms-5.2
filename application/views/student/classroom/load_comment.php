@@ -16,7 +16,7 @@
 
                                 if ($cm->photo != NULL) {
                                     
-                                    $link_photo = base_url().'uploads/photo/'.$cm->photo;
+                                    $link_photo = base_url('uploads/photo/'.$this->session->userdata('log_photo'));
 
                                 }else{
 

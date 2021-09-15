@@ -7,17 +7,53 @@ Class Instructor_m extends MY_Model{
 	}
 
 	function get_list_detail($filter = NULL, $limit = NULL, $offset = NULL) {
-		$sql = " SELECT i.*, p.`prodi`, u.username ";
-		$sql .= " FROM `lms_instructor` i ";
-		$sql .= " LEFT JOIN `lms_prodi` p
-					ON p.`uc` = i.`uc_prodi` ";
-					$sql .= " LEFT JOIN lms_user u ON u.uc_person = i.uc ";
 
-		if (@$filter['uc_prodi']) {
-			$sql .= " WHERE i.`uc_prodi` = '".$filter['uc_prodi']."' ";
+		$sql = "  SELECT i.* ";
+
+		if (!$filter['count']) {
+ 			$sql .= ",p.`prodi`, u.username";
+ 		}
+
+ 		$sql .= " FROM `lms_instructor` i";
+
+		if (!$filter['count']) {
+			$sql .= " 
+		    			LEFT JOIN `lms_prodi` p ON p.`uc` = i.`uc_prodi`
+		    			LEFT JOIN lms_user u ON u.uc_person = i.uc
+	    			";
+	    }
+
+	    $where = FALSE;
+
+	    if (@$filter['uc_prodi'] != NULL) {
+			if ($where) {
+				$sql .= " AND ";
+			}
+			else {
+				$sql .= " WHERE ";
+				$where = TRUE;
+			}
+
+			$sql .= " i.uc_prodi = '".$filter['uc_prodi']."' ";
 		}
 
+		if (@$filter['search'] != NULL) {
+			if ($where) {
+				$sql .= " AND ";
+			}
+			else {
+				$sql .= " WHERE ";
+				$where = TRUE;
+			}
+
+			$sql .= " i.full_name LIKE '%".$filter['search']."%' OR i.id_number LIKE '%".$filter['search']."%'";
+		}
+
+
+	
+
 		$sql .= " ORDER BY i.`full_name` ASC ";
+
 
 		if($limit != NULL){
 			$sql .= " LIMIT ".$offset.",".$limit." ";

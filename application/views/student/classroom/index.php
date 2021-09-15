@@ -38,7 +38,11 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="col-xl-4 col-xxl-12 text-center"><img class="img-fluid" src="<?=base_url('assets/img/illustrations/at-work.svg')?>" style="max-width: 26rem"></div>
+                        <div class="col-xl-4 col-xxl-12 text-center">
+                    
+
+                            <img class="img-fluid" src="<?=base_url('assets/img/illustrations/at-work.svg')?>" style="max-width: 26rem">
+                        </div>
                     </div>
                 </div>
             </div>
