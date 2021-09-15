@@ -24,7 +24,7 @@
                        Forum
                     </a>
 
-                    <a class="list-group-item list-group-item-action" href="<?=base_url('student/classroom/check_chat/'.$info->uc.'/'.$info->uc_diklat_class)?>">
+                    <a class="list-group-item list-group-item-action" href="<?=base_url('student/classroom/chatroom/'.$info->uc.'/'.$info->uc_diklat_class)?>">
                         <i class="fas fa-comments fa-fw text-dark mr-2"></i>
                        Chatting Group
                     </a>

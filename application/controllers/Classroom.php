@@ -2547,4 +2547,72 @@ Class Classroom extends CI_Controller{
 		}
 	}
 
+	function chatroom($uc_classroom = NULL, $uc_diklat_class = NULL){
+
+        /* Send in chat_id and user_id */
+        $data['uc_classroom'] = $uc_classroom;
+        $data['uc_user'] = $this->session->userdata('log_uc');
+
+        $this->session->set_userdata('last_chat_message_id_' . $uc_classroom, 0);
+
+
+		$filter = [
+			'uc' => $uc_classroom,
+			'uc_diklat_class' => $uc_diklat_class,
+			'count' => FALSE
+		];
+
+		$data['info'] = $this->classroom_m->get_list($filter)->row();
+
+		$this->load->model("chatroom_m");
+
+		$data['chatroom'] = $this->chatroom_m->get_chat($uc_classroom, $uc_diklat_class)->result();
+
+		$data['uc_class'] = $uc_classroom;
+		$data['uc_diklat_class'] = $uc_diklat_class;
+
+        $this->im_render->main_stu('classroom/chat', $data);
+
+        //$this->load->view('student/classroom/chat', $data);
+
+        //$this->template->load('template/main_template', 'chat/group/chat', $this->view_data);
+	}
+
+	function store_chat(){
+		$text = $this->input->post('js_text');
+		$uc_user = $this->session->userdata('log_uc');
+
+		$uc_classroom = $this->input->post('js_uc_classroom');
+		$uc_diklat_class = $this->input->post('js_uc_diklat_class');
+
+		$data = [
+			'uc' => unique_code(),
+			'uc_classroom' => $uc_classroom,
+			'uc_diklat_class' => $uc_diklat_class,
+			'uc_user' => $uc_user,
+			'message' => $text
+		];
+
+		$this->load->model("chatroom_m");
+		$this->chatroom_m->insert_data($data);
+
+		$data['status'] = "OK";
+
+		echo json_encode($data);
+
+	}
+
+	function get_chatroom(){
+		$data = NULL;
+
+		$uc_classroom = $this->input->post('js_uc_classroom');
+		$uc_diklat_class = $this->input->post('js_uc_diklat_class');
+		
+		$this->load->model("chatroom_m");
+
+		$data['chatroom'] = $this->chatroom_m->get_chat($uc_classroom, $uc_diklat_class)->result();
+
+		$this->load->view('classroom/get_chatroom', $data);
+	}
+
 }

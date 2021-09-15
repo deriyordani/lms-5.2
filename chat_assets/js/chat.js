@@ -1,6 +1,6 @@
 $(document).ready(function() { 
 
-    setInterval(get_chats_messages, 2500);
+    setInterval(get_chats_messages, 500);
 
     function get_chats_messages(){
         $.post(base_url + "student/classroom/ajax_get_chats_messages", { chat_id: chat_id }, function(data) {
