@@ -28,10 +28,9 @@
 
 <div class="container">
     <div class="row">
-
         
         <div class=" col-md-8 mx-auto ">
-            <?=form_open_multipart('question/update_mc',array('autocomplete' => 'off'))?>
+            <?=form_open_multipart('question/update_essay',array('autocomplete' => 'off'))?>
             <input type="hidden" name="f_uc" value="<?=$row->uc?>">
             <input type="hidden" name="f_uc_subject" value="<?=$row->uc_subject?>">
             <input type="hidden" name="f_att_file_old" value="<?=$row->att_file?>">
@@ -62,57 +61,9 @@
                     <label>*)jpg, png</label>
                     <input type="file" class="form-control" name="f_lampiran" accept="image/*">
                 </div>    
-            <?php endif; ?>    
-
-            <br />
-            <hr/>
-            
-            <div class="display-mc">
-                Jawaban
-                <?php for ($i=1; $i <= 5  ; $i++):?>
-                <div class="form-group">
-                    <label><b>Option <?=$i?></b></label>
-                    <textarea id="editor" class="form-control " style="height: 230px;" name="f_option_<?=$i?>"><?=@$option[$i-1]->option_text?></textarea>
-                </div>
-
-                <?php if (@$option[$i-1]->att_file != NULL) : ?>
-                    <div class="form-group">
-                         <img class="img-responsive" src="<?=base_url('uploads/question/'.$option[$i-1]->att_file)?>" width="500">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Replace Image With</label>
-                        <input type="file" class="form-control" name="f_lampiran" accept="image/*">
-                    </div>
-                <?php else : ?>
-                    <div class="form-group">
-                        <label>*)jpg, png</label>
-                        <input type="file" class="form-control" name="f_lampiran" accept="image/*">
-                    </div>    
-                <?php endif; ?> 
-
-                
-                <!--
-                <div class="form-group">
-                    <label>*)jpg, png</label>
-                    <input type="file" class="form-control" name="f_lampiran_op_<?=$i?>" accept="image/*">
-                </div>
-                -->
-
-                <div class="form-group mb-3">
-                    <div class="form-group">
-                        <input type="radio" name="f_key" value="<?=$i?>" <?=(@$option[$i-1]->is_correct == 1 ? "checked=\"checked\"" : "")?>> Jawaban Benar
-                    </div>
-                </div>
-
-                <br />
-                <hr/>
-            <?php endfor;?>
-            </div>
-            
+            <?php endif; ?>
 
             <input type="submit" name="f_store" class="btn btn-primary" value="Save" />
-            
 
             <?=form_close()?>
         </div>

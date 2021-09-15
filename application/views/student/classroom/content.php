@@ -3,7 +3,7 @@
 
         <?php foreach($result as $row):?>
 
-            <div class="col-xl-4 col-md-6 mb-3 mt-3">
+            <div class="col-xl-6 col-md-12 mb-3 mt-3">
                 
                 <div class="card border-top-0 border-bottom-0 border-right-0 border-left-lg border-warning h-100">
                     <div class="card-body">
@@ -19,7 +19,6 @@
 
                                     <a href="<?=base_url('student/classroom/task/'.$row->uc.'/'.$row->uc_diklat_class)?>" class="btn btn-sm  mt-2 btn-primary">
                                        <i class="mr-1" data-feather="activity"></i> Masuk
-                                       
                                     </a>
                                     
                                    

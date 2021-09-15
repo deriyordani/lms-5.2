@@ -309,7 +309,10 @@ Class Question extends CI_Controller{
 				$this->im_render->main_stu('question/edit_mc', $data);
 			}
 			elseif ($row->question_type == 2) {
-				$this->im_render->main('question/edit_tf', $data);
+				$this->im_render->main_stu('question/edit_tf', $data);
+			}
+			elseif ($row->question_type == 3) {
+				$this->im_render->main_stu('question/edit_essay', $data);
 			}
 		}
 
@@ -366,15 +369,6 @@ Class Question extends CI_Controller{
 
 			$where = ['uc' => $uc_question];
 
-			// echo "<pre>";
-			// print_r($data);
-			// echo "</pre>";
-
-			// echo "<pre>";
-			// print_r($where);
-			// echo "</pre>";
-
-
 			$this->question_m->update_data($data,$where);
 
 			$this->question_option_m->delete_data(array('uc_question' => $uc_question));
@@ -390,87 +384,49 @@ Class Question extends CI_Controller{
 
 	function update_tf(){
 		if ($this->input->post('f_store')) {
-		
+			$texts = htmlspecialchars(addslashes($this->input->post('f_deskripsi')));
+			$title = htmlspecialchars(addslashes(mb_convert_encoding($this->input->post('f_judul'),"HTML-ENTITIES","UTF-8")));
 
-			$answer = $this->input->post('f_tf'); 
-
+			$uc_question = $this->input->post('f_uc');
 			$file_att = $this->input->post('f_att_file_old');
 
-			$this->load->library('upload');
-			
-			$config['upload_path'] = './uploads/question/';
-		    $config['allowed_types'] = 'jpg|jpeg|png';
-		    $config['max_size'] = '5000';
-		    $config['encrypt_name'] = TRUE;
 
-		    $this->upload->initialize($config);
+		    if ($_FILES['f_lampiran']['name'] != NULL) {
+				$this->load->library('upload');
+				
+				$config['upload_path'] = './uploads/question/';
+			    $config['allowed_types'] = 'jpg|jpeg|png';
+			    $config['max_size'] = '5000';
+			    $config['encrypt_name'] = TRUE;
 
+			    $this->upload->initialize($config);
 
-		    if (isset($_POST['f_att_file_old'])) {
-
-		    	if ($_FILES['f_lampiran']['name'] != NULL) {
-			    	$path = $config['upload_path'].$file_att;
+		    	if ($this->input->post('f_att_file_old') != "") {
+		    		//echo "<br /> DELETE OLD ONE";
+		    		$path = $config['upload_path'].$file_att;
 
 			    	if ($file_att != NULL) {
 			    		if (file_exists($path)){
 							unlink($path);
 						}
 			    	}
-			    	
+		    	}
 
-
-					if ( ! $this->upload->do_upload('f_lampiran'))
-				    {
-				       
-				        echo  $this->upload->display_errors();
-				    }
-				    else
-				    {
-				        $upload_data =  $this->upload->data();
-				        $file_att = $upload_data['file_name'];
-				    }
-
-
-			    }
-
-		    }else{
-
-		    	if ( ! $this->upload->do_upload('f_lampiran'))
-			    {
-			       
+		    	//echo "<br /> UPLOAD";
+		    	if ( ! $this->upload->do_upload('f_lampiran')){
 			        echo  $this->upload->display_errors();
 			    }
-			    else
-			    {
+			    else{
 			        $upload_data =  $this->upload->data();
 			        $file_att = $upload_data['file_name'];
 			    }
-		    }
-
-			// $att_file = $this->input->post('f_att_file_old');
-
-			// if ($_FILES['f_lampiran']['name'] != NULL) {
-				
-			// 	$att_file = $this->im_upload->replacing('f_att_file_old','f_lampiran','question');
-
-			// }else{
-
-			// 	$att_file = $this->im_upload->uploading('f_lampiran','question');
-			// }
-
-
-			$texts = htmlspecialchars(addslashes($this->input->post('f_deskripsi')));
-			$title = htmlspecialchars(addslashes(mb_convert_encoding($this->input->post('f_judul'),"HTML-ENTITIES","UTF-8")));
-			
-			$uc_question = $this->input->post('f_uc');
+		    }			
 
 			$data = [
-				
 				'question_title' => $title,
 				'question_text' => $texts,
-				'question_type' => $this->input->post('f_type'),
-				'truefalse_answer' => $answer,
 				'att_file' => $file_att,
+				'truefalse_answer' => $this->input->post('f_tf'),
 				'author' => $this->session->userdata('log_uc_person')
 			];
 
@@ -479,18 +435,67 @@ Class Question extends CI_Controller{
 			$this->question_m->update_data($data,$where);
 
 			$this->session->set_flashdata('info', $this->config->item('flash_update'));
-
-
-			$uc_classroom = $this->input->post('f_uc_class');
-			$uc_diklat_class = $this->input->post('f_uc_diklat_class');
-			$uc_subject = $this->input->post('f_uc_subject');
-
 		}
 
-		redirect('question/list/'.$uc_classroom.'/'.$uc_diklat_class.'/'.$uc_subject);
+		redirect('question');
 	}
 
+	function update_essay(){
+		if ($this->input->post('f_store')) {
+			$texts = htmlspecialchars(addslashes($this->input->post('f_deskripsi')));
+			$title = htmlspecialchars(addslashes(mb_convert_encoding($this->input->post('f_judul'),"HTML-ENTITIES","UTF-8")));
 
+			$uc_question = $this->input->post('f_uc');
+			$file_att = $this->input->post('f_att_file_old');
+
+
+		    if ($_FILES['f_lampiran']['name'] != NULL) {
+				$this->load->library('upload');
+				
+				$config['upload_path'] = './uploads/question/';
+			    $config['allowed_types'] = 'jpg|jpeg|png';
+			    $config['max_size'] = '5000';
+			    $config['encrypt_name'] = TRUE;
+
+			    $this->upload->initialize($config);
+
+		    	if ($this->input->post('f_att_file_old') != "") {
+		    		//echo "<br /> DELETE OLD ONE";
+		    		$path = $config['upload_path'].$file_att;
+
+			    	if ($file_att != NULL) {
+			    		if (file_exists($path)){
+							unlink($path);
+						}
+			    	}
+		    	}
+
+		    	//echo "<br /> UPLOAD";
+		    	if ( ! $this->upload->do_upload('f_lampiran')){
+			        echo  $this->upload->display_errors();
+			    }
+			    else{
+			        $upload_data =  $this->upload->data();
+			        $file_att = $upload_data['file_name'];
+			    }
+		    }			
+
+			$data = [
+				'question_title' => $title,
+				'question_text' => $texts,
+				'att_file' => $file_att,	
+				'author' => $this->session->userdata('log_uc_person')
+			];
+
+			$where = ['uc' => $uc_question];
+
+			$this->question_m->update_data($data,$where);
+
+			$this->session->set_flashdata('info', $this->config->item('flash_update'));
+		}
+
+		redirect('question');
+	}
 
 	function view(){
 		$data = NULL;
