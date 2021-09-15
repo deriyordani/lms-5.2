@@ -88,6 +88,9 @@
 
             $('select[name=f_uc_diklat_periode]').load(base_url+'master/load_tahun_periode_by_dkp', {js_uc_dkp : uc_diklat_dkp, js_uc_diklat : uc_diklat});
 
+
+            $('select[name=f_subject]').load(base_url+'master/subject_by_dkp', {js_uc_diklat : uc_diklat_dkp});
+
         });
 
         $('select[name=f_uc_diklat_periode]').change(function(){
@@ -124,7 +127,7 @@
     <div class="form-group prodi-show" style="display: none;">
         <label>Prodi</label>
 
-        <select name="f_prodi" class="form-control form-control-lg" required="">
+        <select name="f_prodi" class="form-control form-control-lg" >
             <?php 
                 $list_prodi = list_prodi();
                 if(isset($list_prodi)):

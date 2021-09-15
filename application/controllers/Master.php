@@ -111,6 +111,21 @@ Class Master extends CI_Controller{
 		$this->load->view('classroom/subject_by_prody', $data);
 	}
 
+	function subject_by_dkp(){
+		$data = NULL;
+		$this->load->model('subject_m');
+
+		$uc_diklat = $this->input->post('js_uc_diklat');
+		$uc_prodi = $this->input->post('js_uc_prodi');
+
+		$query = $this->subject_m->get_filtered(array('uc_diklat_dkp' => $uc_diklat));
+		if ($query->num_rows() > 0) {
+			$data['result'] = $query->result();
+		}
+
+		$this->load->view('classroom/subject_by_prody', $data);
+	}
+
 	function insert_to_page(){
 
 		$this->load->model('tpack_page_m');
