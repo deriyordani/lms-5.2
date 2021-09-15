@@ -40,9 +40,36 @@
                                     <a href="#" class="ml-4 btn-edit-classroom"  data-toggle="modal" data-target="#exampleModal" cr-code="<?=$row->classroom_code?>" cr-title="<?=$row->classroom_title?>" cr-uc="<?=$row->uc?>">
                                         <i class="fa fa-pencil-alt text-warning" style="font-size: 1.5em"></i>
                                     </a>
-                                    <a href="<?=base_url('classroom/delete/'.$row->uc)?>" class="ml-4">
+
+                                    <a href="#" class="ml-4" data-toggle="modal" data-target="#modals-delete-<?=$row->id?>">
                                         <i class="fa fa-trash-alt text-danger" style="font-size: 1.5em"></i>
                                     </a>
+
+                                    <!-- <button class="btn btn-danger btn-sm" >
+                                        <i class="mr-1 fa fa-trash-alt" ></i> Delete
+                                    </button> -->
+
+                                    <div class="modal fade" id="modals-delete-<?=$row->id?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog " role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Warning</h5>
+                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p class="text-center"><i class="fa fa-info-circle" ></i> Do you really want to delete this record ?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a href="<?=base_url('classroom/delete/'.$row->uc)?>">
+                                                        <button class="btn btn-danger" type="button">Delete Classroom</button>
+                                                    </a>
+
+                                                    <button class="btn btn-light" type="button" data-dismiss="modal">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                             <!--

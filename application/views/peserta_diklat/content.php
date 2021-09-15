@@ -61,8 +61,8 @@
                                             <i class="mr-1 fa fa-trash-alt" ></i> Delete Peserta
                                         </button>
 
-                                         <button <?=$check?> class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-user<?=$row->id?>">
-                                            <i class="mr-1 fa fa-trash-alt" ></i> Delete User
+                                         <button <?=$check?> class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modals-delete-user<?=$row->id?>">
+                                            <i class="mr-1 fa fa-trash-alt" ></i> Delete Unreg
                                         </button>
 
                                         <div class="modal fade" id="modals-delete-<?=$row->id?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -169,23 +169,6 @@
            $('.load-form-change').load(base_url+'peserta_diklat/changepassword', {js_uc : uc,'js_category' : 'instruktur'});
         });
 
-        $('.btn-search').click(function(){
-            var page = 1;
-            var prodi = $('select[name=f_prodi] option:selected').val();
-            var diklat = $('select[name=f_diklat] option:selected').val();
-
-            $('.load-data').load(base_url+'period/page', {js_page : page, js_prodi : prodi, js_diklat : diklat});
-        });
-
-        $('.page-peserta-diklat a.pagination-ajax').click(function(){         
-            var page    = $(this).attr('title');
-
-            var prodi = $('select[name=f_prodi] option:selected').val();
-            var diklat = $('select[name=f_diklat] option:selected').val();
-
-            $('.load-data').load(base_url+'peserta_diklat/page', {js_page : page, js_prodi : prodi, js_diklat : diklat});
-
-            return false;
-        });
+        
     });
 </script>

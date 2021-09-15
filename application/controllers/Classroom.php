@@ -1024,9 +1024,9 @@ Class Classroom extends CI_Controller{
 			$data['comment'] = $query_com->result();
 		}
 
-		// $this->load->model('Fparticipant_m');
+		// // $this->load->model('Fparticipant_m');
 
-		// $filter = array('uc_fgroup' => $uc_forum);
+		// // $filter = array('uc_fgroup' => $uc_forum);
 		// $query = $this->Fparticipant_m->get_checked_list($filter, 'uc_fgroup', 'lms_diklat_participant');
 		// $data['interest'] = $query->result();
 
@@ -1225,28 +1225,34 @@ Class Classroom extends CI_Controller{
 
 
 			$this->load->model('diklat_participant_m');
+			$this->load->model('fparticipant_m');
 
 			//delete dulu
 
-			$this->diklat_participant_m->delete_data(array('uc_fgroup' => $uc_group));
+			$this->fparticipant_m->delete_data(array('uc_fgroup' => $uc_group));
 
 			$query  = $this->diklat_participant_m->get_participant_by_forum($uc_dikalat_participant);
 			if ($query->num_rows() > 0) {
 
 				$participan = "";
 
-				foreach ($query->result() as $val) {
-					$participan .= "('".unique_code()."', '".$uc_group."', '".$val->uc."','".$val->uc_student."'),";
+				$result = $query->result();
+
+				if(isset($result)) {
+					foreach ($result as $val) {
+						$participan .= "('".unique_code()."','".$uc_forum."', '".$uc_group."', '".$val->uc."','".$val->uc_student."'),";
+					}
+
+					$participan = substr($participan, 0, -1);
+
+
+					$this->load->model('fparticipant_m');
+
+					$field = "(`uc`,`uc_forum` ,`uc_fgroup`, `uc_diklat_participant`, `uc_student`)";
+
+					$this->fparticipant_m->insert_multi_value($field, $participan);
 				}
-
-				$participan = substr($participan, 0, -1);
-
-
-				$this->load->model('fparticipant_m');
-
-				$field = "(`uc`, `uc_fgroup`, `uc_diklat_participant`, `uc_student`)";
-
-				$this->fparticipant_m->insert_multi_value($field, $participan);
+				
 			}
 		}
 
@@ -1267,6 +1273,10 @@ Class Classroom extends CI_Controller{
 		}
 
 		redirect('classroom/view_forum/'.$uc_classroom.'/'.$uc_diklat_class.'/'.$uc_forum);
+	}
+
+	function delete_forum($uc_classroom = NULL, $uc_diklat_class = NULL, $uc_forum = NULL, $uc_group = NULL){
+		
 	}
 
 	/*END FORUM*/
@@ -1494,6 +1504,7 @@ Class Classroom extends CI_Controller{
 	            exit();
         	}
 		}
+	/*END CHAT*/
 	/*END CHAT*/
 
 	/*ASSESSMENT*/

@@ -19,7 +19,14 @@
                                     <td><?=$no?></td>
                                     <td><?=$row->no_peserta?></td>
                                     <td><?=$row->full_name?></td>
-                                    <td> <?=time_format($row->last_login, 'd M Y H:i')?></td>
+                                    <td>
+                                        <?php if($row->last_login != NULL):?>
+                                        <?=time_format($row->last_login, 'd M Y H:i:s')?>
+                                        <?php else:?>
+
+                                            <span class="badge badge-warning text-center">Belum Terdaftar</span>
+                                        <?php endif;?>
+                                    </td>
                                    
                                 </tr>
                                 <?php $no++;?>

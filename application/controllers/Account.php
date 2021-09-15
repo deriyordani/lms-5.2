@@ -105,6 +105,15 @@ Class Account extends CI_Controller{
 			}
 
 
+			$data = array(
+						
+						'log_username'		=> $this->input->post('f_username'),
+						'log_photo' 		=> $photo_old
+						);
+
+					$this->session->set_userdata($data);
+
+
 
 
 			$this->session->set_flashdata('info', $this->config->item('flash_update'));

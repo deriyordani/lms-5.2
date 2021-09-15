@@ -46,6 +46,19 @@ Class Diklat_participant_m extends MY_Model{
 		}
 
 
+		if (@$filter['search'] != NULL) {
+			if ($where) {
+				$sql .= " AND ";
+			}
+			else {
+				$sql .= " WHERE ";
+				$where = TRUE;
+			}
+
+			$sql .= " s.full_name LIKE '%".$filter['search']."%' OR s.no_peserta LIKE '%".$filter['search']."%'";
+		}
+
+
 		if ($limit != NULL) {
 			$sql .= "  LIMIT ".$offset.", ".$limit." ";
 		}

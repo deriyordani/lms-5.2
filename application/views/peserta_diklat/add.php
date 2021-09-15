@@ -92,7 +92,7 @@
 
     <div class="form-group">
         <label>Periode Diklat</label>
-        <select name="f_diklat" class="form-control form-control-lg">
+        <select name="f_diklat" class="form-control form-control-lg" required="">
             <?php 
                 $list_diklat = list_diklat();
                 if(isset($list_diklat)):
@@ -138,15 +138,15 @@
 
     <div class="form-group">
         <label>Tahun/Periode</label>
-        <select name="f_uc_diklat_periode" class="form-control form-control-lg">
-             <option> --- Pilih ---</option>
+        <select name="f_uc_diklat_periode" class="form-control form-control-lg" required="">
+             <option value=""> --- Pilih ---</option>
         </select>
     </div>
 
     <div class="form-group">
         <label>Kelas</label>
-        <select name="f_kelas" class="form-control form-control-lg">
-            <option> --- Pilih ---</option>
+        <select name="f_kelas" class="form-control form-control-lg" required="">
+            <option value=""> --- Pilih ---</option>
         </select>
     </div>
 
@@ -154,7 +154,7 @@
 
     <div class="form-group">
         <label>Upload File</label>
-        <input type="file" name="f_file" class="form-control">
+        <input type="file" name="f_file" class="form-control" required="">
     </div>
     <div class="form-group">
         <label>Template File Excel</label>

@@ -78,10 +78,9 @@
                                         <i class="mr-1 fa fa-trash-alt" ></i> Delete Instruktur
                                     </button>
 
-
-
-                                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modals-delete-user-<?=$row->id?>">
-                                        <i class="mr-1 fa fa-trash-alt" ></i> Delete User
+                                    
+                                    <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modals-delete-user-<?=$row->id?>">
+                                        <i class="mr-1 fa fa-trash-alt" ></i> Delete Unreg
                                     </button>
 
                                    

@@ -59,6 +59,7 @@ Class Peserta_diklat extends CI_Controller{
 		$data = NULL;
 
 		$page 	= ($this->input->post('js_page') != 1 ? $this->input->post('js_page') : 1);
+		$search = $this->input->post('js_search');
 		//	Pagination Initialization
 		$this->load->library('im_pagination');
 		///	Define Offset
@@ -76,7 +77,7 @@ Class Peserta_diklat extends CI_Controller{
 
 		$data['numbering'] 	= ($this->each_page * ($page-1)) + 1;
 
-		$filter = ['uc_prodi' => $this->session->userdata('log_uc_prodi'), 'count' => FALSE];
+		$filter = ['uc_prodi' => $this->session->userdata('log_uc_prodi'), 'count' => FALSE, 'search' => $search];
 
 		$query = $this->diklat_participant_m->get_list($filter, $this->each_page, $offset);
 		if ($query->num_rows() > 0) {

@@ -129,3 +129,55 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var base_url = $("#base-url").html();
+
+         $('.btn-add-single').click(function(){
+
+           $('.load-form').load(base_url+'peserta_diklat/add_single');
+        });
+
+        $('.btn-add').click(function(){
+
+           $('.load-form').load(base_url+'peserta_diklat/add');
+        });
+
+        $('.btn-edit').click(function(){
+
+            var uc = $(this).attr('uc');
+
+           $('.load-form').load(base_url+'peserta_diklat/edit', {js_uc : uc,'js_category' : 'instruktur'});
+        });
+
+        $('.btn-change-password-peserta').click(function(){
+            var uc = $(this).attr('uc');
+
+           $('.load-form-change').load(base_url+'peserta_diklat/changepassword', {js_uc : uc,'js_category' : 'instruktur'});
+        });
+
+        $('.btn-search').click(function(){         
+            var page    = 1;
+
+            var prodi = $('select[name=f_prodi] option:selected').val();
+            var diklat = $('select[name=f_diklat] option:selected').val();
+            var search = $('input[name=f_search]').val();
+
+            $('.load-data').load(base_url+'peserta_diklat/page', {js_page : page, js_prodi : prodi, js_diklat : diklat, js_search : search});
+
+            return false;
+        });
+
+        $('.page-peserta-diklat a.pagination-ajax').click(function(){         
+            var page    = $(this).attr('title');
+
+            var prodi = $('select[name=f_prodi] option:selected').val();
+            var diklat = $('select[name=f_diklat] option:selected').val();
+
+            $('.load-data').load(base_url+'peserta_diklat/page', {js_page : page, js_prodi : prodi, js_diklat : diklat});
+
+            return false;
+        });
+    });
+</script>

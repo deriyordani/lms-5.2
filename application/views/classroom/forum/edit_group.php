@@ -5,7 +5,7 @@
 <input type="hidden" name="f_uc_diklat_class" value="<?=$uc_diklat_class?>">
 
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Buat Kelompok</h5>
+    <h5 class="modal-title" id="exampleModalLabel">Update Kelompok</h5>
     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 </div>
 <div class="modal-body">
