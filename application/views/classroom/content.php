@@ -31,12 +31,6 @@
                                         <i class="mr-1" data-feather="users"></i> Participant
                                     </a>
                                     
-                                    <!--
-                                    <button class="btn btn-primary btn-sm  mt-2 btn-add" data-toggle="modal" data-target="#exampleModal">
-                                        <i class="mr-1" data-feather="file-plus"></i>  Add Class
-                                    </button>
-                                    -->
-
                                     <a href="#" class="ml-4 btn-edit-classroom"  data-toggle="modal" data-target="#exampleModal" cr-code="<?=$row->classroom_code?>" cr-title="<?=$row->classroom_title?>" cr-uc="<?=$row->uc?>">
                                         <i class="fa fa-pencil-alt text-warning" style="font-size: 1.5em"></i>
                                     </a>
@@ -45,9 +39,6 @@
                                         <i class="fa fa-trash-alt text-danger" style="font-size: 1.5em"></i>
                                     </a>
 
-                                    <!-- <button class="btn btn-danger btn-sm" >
-                                        <i class="mr-1 fa fa-trash-alt" ></i> Delete
-                                    </button> -->
 
                                     <div class="modal fade" id="modals-delete-<?=$row->id?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                         <div class="modal-dialog " role="document">

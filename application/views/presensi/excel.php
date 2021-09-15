@@ -1,7 +1,7 @@
 <?php
 require_once APPPATH."/third_party/PHPExcel.php"; 
 $objPHPExcel = new PHPExcel();
-
+/*
 $title = array(
 			'font'    => array(
 				'bold'	=> true,
@@ -68,6 +68,7 @@ $isi_right= array(
 		);
 
 //$objPHPExcel->getActiveSheet()->mergeCells('A1:R1');
+
 $objPHPExcel->getActiveSheet()->getStyle('A1:R3')->applyFromArray($title);
 
 $objPHPExcel->getActiveSheet()->setCellValue('A1', 'REKAP KEHADIRAN');
@@ -110,7 +111,7 @@ $objPHPExcel->getActiveSheet()->getStyle($col++.'5')->applyFromArray($style);
 
 $row = 6;
 $no = 1;
-foreach ($student as $stu) {
+foreach ($student as $student_info) {
 	$presence_hadir = 0;
 	$presence_ijin = 0;
 	$presence_sakit = 0;
@@ -119,12 +120,13 @@ foreach ($student as $stu) {
 	$objPHPExcel->getActiveSheet()->setCellValue('A'.$row, $no);
 	$objPHPExcel->getActiveSheet()->getStyle('A'.$row)->applyFromArray($isi_right);
 
-	$objPHPExcel->getActiveSheet()->setCellValue('B'.$row, $stu['no_peserta']);
+	$objPHPExcel->getActiveSheet()->setCellValue('B'.$row, $student_info->no_peserta);
 	$objPHPExcel->getActiveSheet()->getStyle('B'.$row)->applyFromArray($isi_left);
 
-	$objPHPExcel->getActiveSheet()->setCellValue('C'.$row, $stu['full_name']);
+	$objPHPExcel->getActiveSheet()->setCellValue('C'.$row, $student_info->full_name);
 	$objPHPExcel->getActiveSheet()->getStyle('C'.$row)->applyFromArray($isi_left);
 
+	
 	$col = "D";
 	foreach ($section as $sec) {
 		$sign = "-";
@@ -170,10 +172,8 @@ foreach ($student as $stu) {
 
 	$row++;
 	$no++;
-
 }
-
-
+*/
 
 $filename = "Presensi.xls";  //save our workbook as this file name
 

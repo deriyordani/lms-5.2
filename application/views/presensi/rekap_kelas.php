@@ -21,11 +21,13 @@
                 </div>
             </div>
             <div class="row">
+                <!--
                 <div class="col-12">
                     <a href="<?=base_url('presensi/rekap_kelas/'.$uc_classroom.'/'.$uc_diklat_class.'/excel')?>" class="btn btn-sm btn-success">
                         <i class="fa fa-file-import"></i> &nbsp; Export Report
                     </a>
                 </div>
+            -->
             </div>
             <div class="row mt-4 mb-4">
                 <div class="col-md-12">

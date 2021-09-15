@@ -7,8 +7,6 @@ Class Classroom_m extends MY_Model{
 	}
 
 	function get_list($filter = NULL,$limit = NULL, $offset = 0){
-
-
 		$sql = "  SELECT cl.* ";
 
  		if (!$filter['count']) {
