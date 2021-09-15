@@ -57,7 +57,6 @@ Class Presensi extends CI_Controller{
 			        	$data['kehadiran'] = $kehadiran;
 			        }
 				}
-				
 			}
 		}		
 

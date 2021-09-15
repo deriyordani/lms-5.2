@@ -68,8 +68,6 @@ Class Classroom_m extends MY_Model{
 			$sql .= " cl.uc_diklat_class = '".$filter['uc_diklat_class']."' ";
 		}
 
-
-
 		if (@$filter['uc_instructor'] != NULL) {
 			if ($where) {
 				$sql .= " AND ";
@@ -81,7 +79,6 @@ Class Classroom_m extends MY_Model{
 
 			$sql .= " cl.uc_instructor = '".$filter['uc_instructor']."' ";
 		}
-
 
 		if (@$filter['uc_prodi'] != NULL) {
 			if ($where) {
