@@ -2384,6 +2384,7 @@ Class Classroom extends CI_Controller{
 			$this->load->model('content_files_m');
 			$this->load->model('comment_m');
 			$this->load->model('forum_m');
+			$this->load->model('fgroup_m');
 			// $this->load->model('forum_comment_m');
 			// $this->load->model('');
 			// $this->load->model('');
