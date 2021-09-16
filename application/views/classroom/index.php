@@ -12,7 +12,7 @@
                 </div>
                  <div class="col-12 col-xl-auto mb-3">
                     <button class="btn btn-primary btn-sm  mt-2 btn-add" data-toggle="modal" data-target="#exampleModal">
-                        <i class="mr-1" data-feather="file-plus"></i>  Add Class
+                        <i class="mr-1" data-feather="file-plus"></i>  Add Classroom
                     </button>
                 </div>
             </div>
