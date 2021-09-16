@@ -9,9 +9,23 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center">
                             <div class="flex-grow-1">
-                                 <div ><h2 class="medium h-2 font-weight-bold text-success mb-1">[<?=$row->classroom_code?>] - <?=$row->classroom_title?></h2></div>
-                                <div class="medium font-weight-bold text-dark mb-1"><?=$row->full_name?></div>
-                                <div class="text-xs font-weight-bold text-muted d-inline-flex align-items-center">
+                                <div>
+                                    <h2 class="medium h-2 font-weight-bold text-success mb-1">
+                                        <span>[<?=$row->classroom_code?>]</span> <br />
+                                        <span><?=$row->classroom_title?></span>
+                                    </h2>
+                                </div>
+                                
+                                <div class="text-xs font-weight-bold text-dark align-items-center">
+                                    <?=$row->diklat?> - <?=$row->prodi?>
+                                     
+                                </div>
+                                <div class="text-xs font-weight-bold text-muted align-items-center">
+                                    <?=$row->label_periode?>
+                                </div>    
+
+                                <div class="medium font-weight-bold text-dark mb-1 mt-3"><?=$row->full_name?></div>
+                                <div class="text-sm font-weight-bold text-primary d-inline-flex align-items-center">
                                    Kelas : [<?=$row->class_label?>] <br/>Subject : <?=$row->subject_title?>
                                 </div>
                                 <BR/>
