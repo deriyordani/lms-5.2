@@ -144,7 +144,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" name="f_upload" class="btn btn-primary" value="Proses">
+                    <input type="submit" name="f_upload" class="btn btn-primary" value="Upload">
                 </div>
            <?=form_close()?>
         </div>
@@ -294,7 +294,7 @@
                    
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" name="f_store" class="btn btn-primary" value="Proses">
+                    <input type="submit" name="f_store" class="btn btn-primary" value="Save">
                 </div>
            <?=form_close()?>
         </div>

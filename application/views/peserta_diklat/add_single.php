@@ -161,7 +161,7 @@
     </div>
 </div>
 <div class="modal-footer">
-    <input type="submit" name="f_save" class="btn btn-primary" value="Upload">
+    <input type="submit" name="f_save" class="btn btn-primary" value="Save">
 </div>
 
 <?=form_close();?>
