@@ -101,7 +101,7 @@
 
                 <div class="form-group mb-3">
                     <div class="form-group">
-                        <input type="radio" name="f_key" value="<?=$i?>" <?=(@$option[$i-1]->is_correct == 1 ? "checked=\"checked\"" : "")?>> Jawaban Benar
+                        <input type="radio" name="f_key" value="<?=$i?>" <?=(@$option[$i-1]->is_correct == 1 ? "checked=\"checked\"" : "")?> required=""> Jawaban Benar
                     </div>
                 </div>
 

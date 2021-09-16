@@ -71,12 +71,12 @@
                 Jawaban
                 <div class="form-group">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="f_tf" id="inlineRadio1" value="1" <?=radio_set(1, $row->truefalse_answer)?>>
+                      <input class="form-check-input" type="radio" name="f_tf" id="inlineRadio1" value="1" <?=radio_set(1, $row->truefalse_answer)?> required>
                       <label class="form-check-label" for="inlineRadio1">True</label>
                     </div>
 
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="f_tf" id="inlineRadio2" value="0" <?=radio_set(0, $row->truefalse_answer)?>>
+                      <input class="form-check-input" type="radio" name="f_tf" id="inlineRadio2" value="0" <?=radio_set(0, $row->truefalse_answer)?> required>
                       <label class="form-check-label" for="inlineRadio2">False</label>
                     </div>
                 </div>
