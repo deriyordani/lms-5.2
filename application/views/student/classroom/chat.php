@@ -56,7 +56,7 @@
        
         <div class="col-md-3">
 
-             <?php $this->load->view('classroom/menu_activity');?>
+             <?php $this->load->view('student/classroom/menu_activity');?>
            
        </div>
 
