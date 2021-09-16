@@ -128,30 +128,28 @@ foreach ($student as $student_info) {
 
 	
 	$col = "D";
-	foreach ($section as $sec) {
+	foreach ($section as $sect_row) {
 		$sign = "-";
 		$presence_alpa++;
-		$uc_dikpar  = $stu['uc_diklat_participant'];
-		$uc_section = $sec->uc;
 
-		if (@$kehadiran[$uc_dikpar][$uc_section]['status']) {
-            $status = $kehadiran[$uc_dikpar][$uc_section]['status'];
-            if($status == 1){
-                $sign = "✓";
-                $presence_hadir++;
-                $presence_alpa--;
-            } elseif($status == 2){
-                $sign = "S";
-                $presence_sakit++;
-                $presence_alpa--;
-            } elseif($status == 3){
-                $sign = "I";
-                $presence_ijin++;
-                $presence_alpa--;
+		foreach($kehadiran as $presence){
+
+	        if ($presence->uc_section == $sect_row->uc && $presence->uc_diklat_participant == $student_info->uc){
+                if($presence->status == 1){
+                    $sign = "✓";
+                    $presence_hadir++;
+                    $presence_alpa--;
+                } elseif($presence->status == 2){
+                    $sign = "S";
+                    $presence_sakit++;
+                    $presence_alpa--;
+                } elseif($presence->status == 3){
+                    $sign = "I";
+                    $presence_ijin++;
+                    $presence_alpa--;
+                }
+                break;
             }
-        }
-        else {
-            $sign = "-";
         }
 
         $objPHPExcel->getActiveSheet()->setCellValue($col.$row, $sign);
@@ -160,7 +158,6 @@ foreach ($student as $student_info) {
 		$col++;
 	}
 
-	//echo "<br /> COL".$col;
 	$objPHPExcel->getActiveSheet()->getStyle($col.$row)->applyFromArray($isi_center);
 	$objPHPExcel->getActiveSheet()->setCellValue($col++.$row, $presence_hadir);
 	$objPHPExcel->getActiveSheet()->getStyle($col.$row)->applyFromArray($isi_center);
