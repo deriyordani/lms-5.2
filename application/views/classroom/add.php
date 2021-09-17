@@ -109,7 +109,7 @@
 </div>
 <div class="modal-body">
         <div class="form-group">
-        <label>Periode Diklat</label>
+        <label>Jenis Diklat</label>
         <select name="f_diklat" class="form-control form-control-lg" required="">
             <?php 
                 $list_diklat = list_diklat();

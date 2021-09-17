@@ -1080,7 +1080,8 @@ Class Classroom extends CI_Controller{
 			'uc_classroom' => $uc_classroom,
 			'uc_diklat_class' => $uc_diklat_class,
 			'uc_user' => $uc_user,
-			'message' => $text
+			'message' => $text,
+			'current_time' => time_format(current_time(),'Y-m-d H:i')
 		];
 
 		$this->load->model("chatroom_m");
