@@ -89,7 +89,6 @@ Class Kehadiran_m extends MY_Model{
 
 		//$sql = "SELECT uc_section, uc_diklat_participant, status FROM lms_kehadiran WHERE uc_classroom = '".$classroom."' AND `uc_diklat_participant` IS NOT NULL";
 
-
 		return $this->exec_query($sql);
 	}
 

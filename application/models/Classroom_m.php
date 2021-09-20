@@ -103,4 +103,13 @@ Class Classroom_m extends MY_Model{
 
 
 	}
+
+	function get_detail($uc) {
+		$sql = "SELECT c.*, i.`full_name`, i.`id_number` 
+				FROM `lms_classroom` c 
+				LEFT JOIN `lms_instructor` i ON i.`uc` = c.`uc_instructor` 
+				WHERE c.`uc` = '".$uc."' ";
+
+		return $this->exec_query($sql);	
+	}
 }

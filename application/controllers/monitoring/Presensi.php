@@ -186,36 +186,43 @@ Class Presensi extends CI_Controller{
 		$this->load->model('diklat_class_m');
 		$this->load->model('kehadiran_m');
 
-		if ($uc_diklat_class != NULL) {
-			$query = $this->diklat_class_m->get_detail($uc_diklat_class);
-			
+		if ($uc_classroom != NULL) {
+			$query = $this->classroom_m->get_detail($uc_classroom);
 			if ($query->num_rows() > 0) {
-				$data['info'] = $query->row();
-				
-				$qsection 	= $this->section_m->get_in_classroom($uc_classroom);
-				if ($qsection->num_rows() > 0) {
-					$section = $qsection->result();
-			        $query = $this->kehadiran_m->presence_instructor($uc_classroom);
-			        if ($query->num_rows() > 0) {
-			        	$presence = $query->result();
+				$data['classroom'] = $query->row();
 
-			        	$data['id_number'] = $presence[0]->id_number;
-			        	$data['full_name'] = $presence[0]->full_name;
+				if ($uc_diklat_class != NULL) {
+					$query = $this->diklat_class_m->get_detail($uc_diklat_class);
+					
+					if ($query->num_rows() > 0) {
+						$data['info'] = $query->row();
+						
+						$qsection 	= $this->section_m->get_in_classroom($uc_classroom);
+						if ($qsection->num_rows() > 0) {
+							$section = $qsection->result();
+					        $query = $this->kehadiran_m->presence_instructor($uc_classroom);
+					        
+					        if ($query->num_rows() > 0) {
+					        	$presence = $query->result();
 
-			        	foreach($presence as $pre) {
-			        		$kehadiran[$pre->uc_section]['status'] = $pre->status;
-			        	}
+					        	$data['id_number'] = $presence[0]->id_number;
+					        	$data['full_name'] = $presence[0]->full_name;
 
-			        	$data['kehadiran'] = $kehadiran;
-			        }
+					        	foreach($presence as $pre) {
+					        		$kehadiran[$pre->uc_section]['status'] = $pre->status;
+					        	}
 
-				}
-				
+					        	$data['kehadiran'] = $kehadiran;
+					        }
+
+					        $data['section'] 	= $section;
+						}
+					}
+				}		
 			}
-		}		
+		}
 
 		$data['uc_diklat_class'] = $uc_diklat_class;
-		$data['section'] 	= $section;
 
 		if ($output == "excel") {
         	$this->load->view('monitoring/presensi/excel', $data);

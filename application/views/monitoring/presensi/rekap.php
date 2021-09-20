@@ -41,33 +41,45 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="card">
+            <div class="row">
+                <div class="col-md-3 ml-auto text-right">
+                    <a href="<?=base_url('monitoring/presensi/subject/'.$info->uc_diklat.'/'.$info->uc_prodi.'/'.$uc_diklat_class)?>" class="text-warning" style="font-size: 20pt">
+                        <i class="fa fa-chevron-circle-left"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="card mt-2">
                 <div class="card-header">
                     <div class="row">
                         <div class="col col-md-8">
-                            <h2 class="text-primary">[<?=$info->id_number?>] <?=$info->full_name?> </h2>
+                            <h2 class="text-primary">
+                                [<?=$classroom->id_number?>] - 
+                                <?=($classroom->full_name != NULL ? $classroom->full_name : "No Name")?> 
+                            </h2>
                         </div>
+                        <!--
                         <div class="col-md-3 ml-auto text-right">
                             <a href="<?=base_url('monitoring/presensi/subject/'.$info->uc_diklat.'/'.$info->uc_prodi.'/'.$uc_diklat_class)?>" class="text-warning" style="font-size: 20pt">
                                 <i class="fa fa-chevron-circle-left"></i>
                             </a>
                         </div>
+                        -->
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body small">
                     <div class="row mb-3 mt-2">
                         <div class="col-md-7">
-                            <h5>Diklat</h5>
+                            <h6>Diklat</h6>
                             <span><?=$info->diklat?></span>
                         </div>
                         <div class="col-md-4">
-                            <h5>Program Studi</h5>
+                            <h6>Program Studi</h6>
                             <span><?=$info->prodi?></span>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-7">
-                            <h5>Periode</h5>
+                            <h6>Periode</h6>
                             <span>
                                 <?php 
                                     if ($info->category == 1) {
@@ -81,13 +93,13 @@
                             </span>
                         </div>
                         <div class="col-md-4">
-                            <h5>Kelas</h5>
+                            <h6>Kelas</h6>
                             <span><?=$info->class_label?></span>
                         </div>
                     </div>
                     
                     <div class="table-responsive">
-                                <table class="table table-bordered table-hover" cellspacing="0">
+                                <table class="table table-bordered table-hover small" cellspacing="0">
                                     <thead class="bg-dark text-white">
                                         <tr>
                                             <?php foreach($section as $sect_row) : ?>

@@ -82,7 +82,7 @@ Class Subject_m extends MY_Model{
 	}
 
 	function get_subject_classroom($filter) {
-		$sql = " SELECT s.*, c.`uc`AS `uc_classroom`, c.`uc_diklat_class`, c.`classroom_title`, i.`full_name` 
+		$sql = " SELECT s.*, c.`uc`AS `uc_classroom`, c.`uc_diklat_class`, c.`classroom_title`, c.`uc_instructor`, i.`full_name` 
 					FROM `lms_subject` s 
 					LEFT JOIN `lms_classroom` c
 					ON c.`uc_subject` = s.`uc`
@@ -92,7 +92,6 @@ Class Subject_m extends MY_Model{
 					WHERE s.`uc_diklat` = '".$filter['uc_diklat']."'
 					AND s.`uc_prodi` = '".$filter['uc_prodi']."' ";
 
-		//echo $sql;
 		return $this->exec_query($sql);			
 	}
 }

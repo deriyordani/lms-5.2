@@ -38,8 +38,6 @@ Class Diklat_class_m extends MY_Model{
 					LEFT JOIN `lms_instructor` i
 					ON i.`uc` = c.`uc_instructor` ";
 		$sql .= " LEFT JOIN `lms_prodi` p ON p.`uc` = dp.`uc_prodi` ";
-
-
 		$sql .= " WHERE dc.`uc` = '".$uc."' ";
 
 		return $this->exec_query($sql);
