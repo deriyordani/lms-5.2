@@ -17,11 +17,25 @@
                                 </div>
                                 
                                 <div class="text-xs font-weight-bold text-dark align-items-center">
-                                    <?=$row->diklat?> - <?=$row->prodi?>
-                                     
+                                    <?=$row->diklat?> - 
+                                    <?php 
+                                        if ($row->uc_diklat == "DKP") {
+                                            echo $row->label_dkp;
+                                        }
+                                        else {
+                                            echo $row->prodi;
+                                        }
+                                    ?>
                                 </div>
                                 <div class="text-xs font-weight-bold text-muted align-items-center">
                                     <?=$row->label_periode?>
+
+                                    <?php if ($row->cat_diklat == 1) : ?>
+                                        
+                                    <?php else : ?>
+
+                                    <?php endif; ?>
+
                                 </div>    
 
                                 <div class="medium font-weight-bold text-dark mb-1 mt-3"><?=$row->full_name?></div>

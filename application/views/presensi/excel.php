@@ -73,43 +73,56 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:R3')->applyFromArray($title);
 
 $objPHPExcel->getActiveSheet()->setCellValue('A1', 'REKAP KEHADIRAN');
 $sub_title = "[".$info->classroom_code."] - ".$info->classroom_title;
-$objPHPExcel->getActiveSheet()->setCellValue('A2',$sub_title);
+$objPHPExcel->getActiveSheet()->setCellValue('A3',$sub_title);
+
+$info_diklat = $info->diklat;
+
+if($info->cat_diklat == 1) {
+    $info_diklat .= " (".$info->tahun.")";
+}
+else {
+    $info_diklat .= " (".time_format($info->periode_mulai, 'd M Y').' - '.time_format($info->periode_selesai, 'd M Y').")";
+}
+
+$objPHPExcel->getActiveSheet()->setCellValue('A4',$info_diklat);
+
 $instructor = $info->full_name;
-$objPHPExcel->getActiveSheet()->setCellValue('A3',$instructor);
+$objPHPExcel->getActiveSheet()->setCellValue('A5',$instructor);
 
-$objPHPExcel->getActiveSheet()->setCellValue('A5','No.');
-$objPHPExcel->getActiveSheet()->getStyle('A5')->applyFromArray($style);
+$row_header = 7;
+
+$objPHPExcel->getActiveSheet()->setCellValue('A'.$row_header,'No.');
+$objPHPExcel->getActiveSheet()->getStyle('A'.$row_header)->applyFromArray($style);
 $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(10);
-$objPHPExcel->getActiveSheet()->setCellValue('B5','Nomor Peserta');
-$objPHPExcel->getActiveSheet()->getStyle('B5')->applyFromArray($style);
+$objPHPExcel->getActiveSheet()->setCellValue('B'.$row_header,'Nomor Peserta');
+$objPHPExcel->getActiveSheet()->getStyle('B'.$row_header)->applyFromArray($style);
 $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(25);
-$objPHPExcel->getActiveSheet()->setCellValue('C5','Nama Siswa');
-$objPHPExcel->getActiveSheet()->getStyle('C5')->applyFromArray($style);
+$objPHPExcel->getActiveSheet()->setCellValue('C'.$row_header,'Nama Siswa');
+$objPHPExcel->getActiveSheet()->getStyle('C'.$row_header)->applyFromArray($style);
 $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(25);
-
 
 $col = "D";
 foreach($section as $sec){
-	$objPHPExcel->getActiveSheet()->getStyle($col.'5')->applyFromArray($style);
-	$objPHPExcel->getActiveSheet()->setCellValue($col.'5',$sec->sequence);
+	$objPHPExcel->getActiveSheet()->getStyle($col.$row_header)->applyFromArray($style);
+	$objPHPExcel->getActiveSheet()->setCellValue($col.$row_header,$sec->sequence);
 
 	//$last_content = $col;
     
     $col++;
 }
 
-$objPHPExcel->getActiveSheet()->getStyle($col.'5')->applyFromArray($style);
-$objPHPExcel->getActiveSheet()->setCellValue($col.'5','Hadir');
-$objPHPExcel->getActiveSheet()->getStyle($col++.'5')->applyFromArray($style);
-$objPHPExcel->getActiveSheet()->setCellValue($col.'5','Ijin');
-$objPHPExcel->getActiveSheet()->getStyle($col++.'5')->applyFromArray($style);
-$objPHPExcel->getActiveSheet()->setCellValue($col.'5','Sakit');
-$objPHPExcel->getActiveSheet()->getStyle($col++.'5')->applyFromArray($style);
-$objPHPExcel->getActiveSheet()->setCellValue($col.'5','Alpa');
-$objPHPExcel->getActiveSheet()->getStyle($col++.'5')->applyFromArray($style);
+$objPHPExcel->getActiveSheet()->getStyle($col.$row_header)->applyFromArray($style);
+$objPHPExcel->getActiveSheet()->setCellValue($col.$row_header,'Hadir');
+$objPHPExcel->getActiveSheet()->getStyle($col++.$row_header)->applyFromArray($style);
+$objPHPExcel->getActiveSheet()->setCellValue($col.$row_header,'Ijin');
+$objPHPExcel->getActiveSheet()->getStyle($col++.$row_header)->applyFromArray($style);
+$objPHPExcel->getActiveSheet()->setCellValue($col.$row_header,'Sakit');
+$objPHPExcel->getActiveSheet()->getStyle($col++.$row_header)->applyFromArray($style);
+$objPHPExcel->getActiveSheet()->setCellValue($col.$row_header,'Alpa');
+$objPHPExcel->getActiveSheet()->getStyle($col++.$row_header)->applyFromArray($style);
 
 
-$row = 6;
+$row = 8;
 $no = 1;
 foreach ($student as $student_info) {
 	$presence_hadir = 0;

@@ -17,9 +17,17 @@
                                 </div>
                                 
                                 <div class="text-xs font-weight-bold text-dark align-items-center">
-                                    <?=$row->diklat?> - <?=$row->prodi?>
-                                     
+                                    <?=$row->diklat?> - 
+                                    <?php 
+                                        if ($row->uc_diklat == "DKP") {
+                                            echo $row->label_dkp;
+                                        }
+                                        else {
+                                            echo $row->prodi;
+                                        }
+                                    ?>
                                 </div>
+                                
                                 <div class="text-xs font-weight-bold text-muted align-items-center">
                                     <?=$row->label_periode?>
                                 </div>    

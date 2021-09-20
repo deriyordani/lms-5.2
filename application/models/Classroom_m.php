@@ -11,7 +11,7 @@ Class Classroom_m extends MY_Model{
 
  		if (!$filter['count']) {
  			$sql .= ", dc.class_label, s.subject_code, s.subject_title, dpe.label_periode, dpe.tahun, dpe.periode_mulai, dpe.periode_selesai,
-					d.diklat, d.category as cat_diklat, p.prodi, dpk.label_dkp, i.full_name
+					d.uc AS uc_diklat, d.diklat, d.category as cat_diklat, p.prodi, dpk.label_dkp, i.full_name
 					 ";
  		}
 
