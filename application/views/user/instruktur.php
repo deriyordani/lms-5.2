@@ -11,20 +11,17 @@
                 </a>
             </div>
             
-        </div>
-
-        <div class="row">
-            <div class="col-md-4 offset-md-6">
-                <input type="text" name="f_search" class="form-control" placeholder="NIP/Nama">
+            <div class="col-md-6 ml-auto">
+                <div class="input-group mb-3">
+                  <input type="text" name="f_search" class="form-control" placeholder="NIP / Nama">
+                  <div class="input-group-append">
+                    <button class="btn btn-success btn-search">
+                         <i class="fa fa-search"></i>
+                    </button>
+                  </div>
+                </div>
             </div>
-            <div class="col-md-2">
-                <button class="btn btn-success btn-search">
-                     <i class="fa fa-search"></i> &nbsp; Ok
-                </button>
-            </div>
         </div>
-   		   
-
    	
         <?php if(isset($result)):?>
         <div class="row ml-1 mt-4">
@@ -80,10 +77,8 @@
 
                                     
                                     <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modals-delete-user-<?=$row->id?>">
-                                        <i class="mr-1 fa fa-trash-alt" ></i> Delete Unreg
+                                        <i class="mr-1 fa fa-trash-alt" ></i> Unreg User
                                     </button>
-
-                                   
 
                                     <div class="modal fade" id="modals-delete-<?=$row->id?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                         <div class="modal-dialog " role="document">

@@ -38,26 +38,33 @@
             <div class="card card-header-actions">
             <div class="card-header">
                 Daftar Peserta Diklat
-                <button class="btn btn-success btn-sm btn-add" data-toggle="modal" data-target="#exampleModal">
-                    <i class="fa fa-file-excel"></i> &nbsp; Import Data
-                </button>
             </div>
             <div class="card-body ">
-                <button class="btn btn-primary btn-sm btn-add-single" data-toggle="modal" data-target="#exampleModal">
-                    <i class="fa fa-plus"></i> &nbsp; Add Peserta Diklat
-                </button>
 
                 <div class="row">
-                    <div class="col-md-4 offset-md-6">
-                        <input type="text" name="f_search" class="form-control" placeholder="NIT/Nama">
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-success btn-search">
-                             <i class="fa fa-search"></i> &nbsp; Ok
+                    <div class="col-md-4">
+                        <button class="btn btn-primary btn-sm btn-add-single" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fa fa-plus"></i> &nbsp; Add Peserta Diklat
+                        </button>
+
+                        <button class="btn btn-success btn-sm btn-add" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fa fa-file-excel"></i> &nbsp; Import Data
                         </button>
                     </div>
-
+                    
+                    <div class="col-md-6 ml-auto">
+                        <div class="input-group mb-3">
+                          <input type="text" name="f_search" class="form-control" placeholder="No. Peserta / Nama">
+                          <div class="input-group-append">
+                            <button class="btn btn-success btn-search">
+                                 <i class="fa fa-search"></i>
+                            </button>
+                          </div>
+                        </div>
+                    </div>
                 </div>
+
+
 
                 <!-- <div class="row">
 

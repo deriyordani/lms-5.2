@@ -113,10 +113,6 @@
 
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>File</label>
-                        <input type="file" class="form-control" name="f_file">
-                    </div>
-                    <div class="form-group">
                         <label>Prodi</label>
                         <?php $list_prodi = list_prodi();?>
                         <?php if(isset($list_prodi)):?>
@@ -129,9 +125,13 @@
                         <?php endif;?>
                     </div>
                     <div class="form-group">
-                        <label>Template File Excel</label>
-                        <br/>
-                        <a href="<?=base_url('assets/file/temp_instruktur.xls')?>">Download</a>
+                        <label>Upload File (.xls)</label>
+                        <input type="file" class="form-control" name="f_file">
+                    </div>
+                    <div class="form-group">
+                        <a href="<?=base_url('assets/file/temp_instruktur.xls')?>" class="btn btn-warning">
+                            <i class="fa fa-file-download"></i> &nbsp; Download Template File Excel (.xls)
+                        </a>
                     </div>
                     <hr/>
                     <div class="form-group">

@@ -62,7 +62,7 @@
                                         </button>
 
                                          <button <?=$check?> class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modals-delete-user<?=$row->id?>">
-                                            <i class="mr-1 fa fa-trash-alt" ></i> Delete Unreg
+                                            <i class="mr-1 fa fa-trash-alt" ></i> Unreg User
                                         </button>
 
                                         <div class="modal fade" id="modals-delete-<?=$row->id?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">

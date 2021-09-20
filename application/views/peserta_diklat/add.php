@@ -153,13 +153,13 @@
 
 
     <div class="form-group">
-        <label>Upload File</label>
+        <label>Upload File (.xls)</label>
         <input type="file" name="f_file" class="form-control" required="">
     </div>
     <div class="form-group">
-        <label>Template File Excel</label>
-        <br/>
-        <a href="<?=base_url('assets/file/temp_peserta_diklat.xls')?>">Download</a>
+        <a href="<?=base_url('assets/file/temp_peserta_diklat.xls')?>" class="btn btn-warning">
+            <i class="fa fa-file-download"></i> &nbsp; Download Template File Excel (.xls)
+        </a>
     </div>
    
     
