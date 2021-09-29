@@ -97,6 +97,8 @@ Class Auth extends CI_Controller{
 
 				//CEK PASSWORD
 
+
+
 				if(password_verify($password,$row->password)){
 					if($row->is_active == 1){
 
@@ -337,123 +339,132 @@ Class Auth extends CI_Controller{
 			$password 	= trim($this->input->post('f_password'));
 
 			//	CHECK USERNAME AVAILABILITY
-			if ($this->username_validation($username)) {
+			if(!preg_match("/^[a-zA-Z0-9]*$/", $username)){
 
-				$uc_person = NULL;
-				$uc_user = unique_code();
-				$row_user = NULL;
+				$this->session->set_flashdata('info', $this->config->item('flash_register_username_spasi'));
+
+				
+			}else{
+				
+				if ($this->username_validation($username)) {
+
+					$uc_person = NULL;
+					$uc_user = unique_code();
+					$row_user = NULL;
 
 
-				//	CHECK PERSON AVAILABILITY
-				if ($type_person == 2) {
-					//	IF INSCTRUCTOR
-					$id_number = $this->input->post('f_id_number');
+					//	CHECK PERSON AVAILABILITY
+					if ($type_person == 2) {
+						//	IF INSCTRUCTOR
+						$id_number = $this->input->post('f_id_number');
 
-					$query = $this->instructor_m->get_available($id_number);
+						$query = $this->instructor_m->get_available($id_number);
+						
+						if ($query->num_rows() > 0) {
+							$row = $query->row();
+							$uc_person 	= $row->uc;
+							$full_name 	= $row->full_name;
+							$is_claim	= $row->is_claim;
+							$row_user	= $row->uc_user;
+
+							if ($row_user != NULL) {
+								//echo "CLAIMED";
+								$this->session->set_flashdata('info', $this->config->item('flash_register_claimed'));
+							}
+		 				}
+		 				else {
+		 					//echo "NA";
+		 					$this->session->set_flashdata('info', $this->config->item('flash_register_no_avail'));
+		 				}
+					}
 					
-					if ($query->num_rows() > 0) {
-						$row = $query->row();
-						$uc_person 	= $row->uc;
-						$full_name 	= $row->full_name;
-						$is_claim	= $row->is_claim;
-						$row_user	= $row->uc_user;
+					if ($type_person == 3) {
+						//	IF STUDENT
+						$no_peserta = $this->input->post('f_id_number');
 
-						if ($row_user != NULL) {
-							//echo "CLAIMED";
-							$this->session->set_flashdata('info', $this->config->item('flash_register_claimed'));
-						}
-	 				}
-	 				else {
-	 					//echo "NA";
-	 					$this->session->set_flashdata('info', $this->config->item('flash_register_no_avail'));
-	 				}
+						$query = $this->student_m->get_available($no_peserta);
+
+						if ($query->num_rows() > 0) {
+							$row = $query->row();
+							$uc_person 	= $row->uc;
+							$full_name 	= $row->full_name;
+							$is_claim 	= $row->is_claim;
+							$row_user	= $row->uc_user;
+
+							if ($row_user != NULL) {
+								//echo "CLAIMED";
+								$this->session->set_flashdata('info', $this->config->item('flash_register_claimed'));
+							}
+		 				}
+		 				else {
+		 					//echo "NA";
+		 					$this->session->set_flashdata('info', $this->config->item('flash_register_no_avail'));
+		 				}
+					}
+					
+					//SEND MAIL
+					if (($uc_person != NULL) && ($row_user == NULL)){				
+						//	If Person Available & Hasn't Claim Yet
+						$this->load->library('email');
+
+						$this->email->from('lmspoltekpelsorong2021@gmail.com', 'Administrator : LMS');
+
+				        // Email penerima
+				        $this->email->to($email);
+				        $this->email->subject('Aktivasi Akun : LMS Poltekpel Sorong');
+
+				        $data_email = [
+				        	'full_name' => $full_name,
+				        	'email' => $email,
+				        	'uc' => $uc_user,
+				        	'username' => $username,
+				        	'password' => $password
+				        ];
+
+						//SEND MAIL ACTIVATION
+						$msg = $this->load->view('auth/temp_email', $data_email, TRUE);
+
+				        // Isi email
+				        $this->email->message($msg);
+
+				        //	UPDATE CLAIM STATUS
+				        if ($this->email->send()) {
+				        	//	If Mail Successfully Sent
+				        	$this->session->set_flashdata('info', $this->config->item('flash_register'));
+							
+							$update_data = array('is_claim' => 1);
+
+				        	if ($type_person == 2) {
+								//	IF INSCTRUCTOR
+								$filter = array('id_number' => $id_number);
+								$this->instructor_m->update_data($update_data, $filter);
+							}
+							
+				        }
+				        else {
+				        	//	If Fail to Send
+				        	echo  show_error($this->email->print_debugger());
+
+				        	$this->session->set_flashdata('info', $this->config->item('flash_register_gagal'));
+				        }
+
+				        //	INSERT USER
+				        $data_user  = [
+							'uc' => $uc_user,
+							'uc_person' => $uc_person,
+							'username' => $username,
+							'password' => password_hash($password, PASSWORD_BCRYPT),
+							'email' => $email,
+							'category' => $this->input->post('f_type_user')
+						];
+
+						$this->user_m->insert_data($data_user);
+					}
+				}
+				else {
+					$this->session->set_flashdata('info', $this->config->item('flash_register_username_exist'));
 				}
 				
-				if ($type_person == 3) {
-					//	IF STUDENT
-					$no_peserta = $this->input->post('f_id_number');
-
-					$query = $this->student_m->get_available($no_peserta);
-
-					if ($query->num_rows() > 0) {
-						$row = $query->row();
-						$uc_person 	= $row->uc;
-						$full_name 	= $row->full_name;
-						$is_claim 	= $row->is_claim;
-						$row_user	= $row->uc_user;
-
-						if ($row_user != NULL) {
-							//echo "CLAIMED";
-							$this->session->set_flashdata('info', $this->config->item('flash_register_claimed'));
-						}
-	 				}
-	 				else {
-	 					//echo "NA";
-	 					$this->session->set_flashdata('info', $this->config->item('flash_register_no_avail'));
-	 				}
-				}
-				
-				//SEND MAIL
-				if (($uc_person != NULL) && ($row_user == NULL)){				
-					//	If Person Available & Hasn't Claim Yet
-					$this->load->library('email');
-
-					$this->email->from('lmspoltekpelsorong2021@gmail.com', 'Administrator : LMS');
-
-			        // Email penerima
-			        $this->email->to($email);
-			        $this->email->subject('Aktivasi Akun : LMS Poltekpel Sorong');
-
-			        $data_email = [
-			        	'full_name' => $full_name,
-			        	'email' => $email,
-			        	'uc' => $uc_user,
-			        	'username' => $username,
-			        	'password' => $password
-			        ];
-
-					//SEND MAIL ACTIVATION
-					$msg = $this->load->view('auth/temp_email', $data_email, TRUE);
-
-			        // Isi email
-			        $this->email->message($msg);
-
-			        //	UPDATE CLAIM STATUS
-			        if ($this->email->send()) {
-			        	//	If Mail Successfully Sent
-			        	$this->session->set_flashdata('info', $this->config->item('flash_register'));
-						
-						$update_data = array('is_claim' => 1);
-
-			        	if ($type_person == 2) {
-							//	IF INSCTRUCTOR
-							$filter = array('id_number' => $id_number);
-							$this->instructor_m->update_data($update_data, $filter);
-						}
-						
-			        }
-			        else {
-			        	//	If Fail to Send
-			        	echo  show_error($this->email->print_debugger());
-
-			        	$this->session->set_flashdata('info', $this->config->item('flash_register_gagal'));
-			        }
-
-			        //	INSERT USER
-			        $data_user  = [
-						'uc' => $uc_user,
-						'uc_person' => $uc_person,
-						'username' => $username,
-						'password' => password_hash($password, PASSWORD_BCRYPT),
-						'email' => $email,
-						'category' => $this->input->post('f_type_user')
-					];
-
-					$this->user_m->insert_data($data_user);
-				}
-			}
-			else {
-				$this->session->set_flashdata('info', $this->config->item('flash_register_username_exist'));
 			}
 		}
 
