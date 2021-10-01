@@ -40,8 +40,8 @@
                 Daftar Subject
                 <button class="btn btn-primary btn-sm btn-add" data-toggle="modal" data-target="#exampleModal">Add</button>
             </div>
-            <div class="card-body ">
-  <div class="row">
+            <div class="card-body">
+                <div class="row">
                     <input type="hidden" name="f_log_category" value="<?=$this->session->userdata('log_category')?>" />
                     <?php if ($this->session->userdata('log_category') != 5) : ?>
                         <div class="col-md-3">

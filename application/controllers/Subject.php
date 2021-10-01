@@ -9,7 +9,7 @@ Class Subject extends CI_Controller{
 
 		$this->load->model('subject_m');
 
-		$this->each_page 	= 10;
+		$this->each_page 	= 1;
 		$this->page_int 	= 5;
 	}
 
@@ -36,7 +36,6 @@ Class Subject extends CI_Controller{
 
 		$filter = NULL;
 		if ($category == 4) {
-			
 			$filter = [
 
 				'uc_prodi' => $this->session->userdata('log_uc_prodi'),
@@ -45,7 +44,6 @@ Class Subject extends CI_Controller{
 		}
 
 		if ($category == 5) {
-			
 			$filter = [
 
 				'uc_diklat' => 'DKP',
@@ -58,6 +56,7 @@ Class Subject extends CI_Controller{
 			$data['result'] = $query->result();
 		}
 
+		$filter['count'] = TRUE;
 		$query = $this->subject_m->get_list($filter);			
 		if ($query->num_rows() > 0) {
 			$params['total_record'] = $query->num_rows();
@@ -103,32 +102,39 @@ Class Subject extends CI_Controller{
 			];
 
 		}else{
-
 			$filter = [
-
-				'uc_prodi' => $this->input->post('js_prodi'),
-				'uc_diklat' => $this->input->post('js_diklat'),
+				'uc_diklat_dkp' => $this->input->post('js_program'),
 				'count' => FALSE
-
 			];
-		
 		}
+
+		echo "<pre>";
+		print_r($filter);
+		echo "</pre>";
 
 		$data['numbering'] 	= ($this->each_page * ($page-1)) + 1;
 
 		$query = $this->subject_m->get_list($filter, $this->each_page, $offset);
+		echo "<br /> NUM CONT : ".$query->num_rows();
 		if ($query->num_rows() > 0) {
 			$data['result'] = $query->result();
 		}
 
-		$query = $this->subject_m->get_list($filter);			
+		print_r($data['result']);
+
+		
+
+
+		$filter['count'] = TRUE;
+		$query = $this->subject_m->get_list($filter);
+		echo "<br /> NUM PAGE : ".$query->num_rows();
 		if ($query->num_rows() > 0) {
 			$params['total_record'] = $query->num_rows();
 			$data['pagination'] 	= $this->im_pagination->render_ajax($params);
 			$data['total_record'] 	= $query->num_rows();
 		}
 
-		$this->load->view('subject/content', $data);
+		//$this->load->view('subject/content', $data);
 	}
 
 	function add(){

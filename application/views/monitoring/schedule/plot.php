@@ -236,6 +236,8 @@
 
             //alert(uc_instructor+' - '+jam_mulai+' - '+jam_selesai+' - '+uc_week);
 
+            $('select.uc-instructor-'+i).removeClass('is-invalid');
+
             $.ajax(
                 {
                     type        : 'post',
@@ -245,7 +247,35 @@
                     success     : function(output) {
                         //window.location.replace(base_url + "period/manage/" + uc_period+'/'+uc_peg_ukp);
                         if (output == true) {
+                            $('select.uc-instructor-'+i).addClass('is-invalid');
                             alert("Instruktur "+instructor_name+", telah dijadwalkan untuk waktu yang sama di jadwal lain!");
+                        }
+                    }
+                });
+        });
+
+        $('.uc-instructor').focusout(function(e){
+            var i = $(this).attr('data-i');
+            var uc_instructor = $('.uc-instructor-'+i).val();
+            var instructor_name = $('.uc-instructor-'+i+' option:selected').text();
+            var jam_mulai = $('.jam-mulai-'+i+'').val();
+            var jam_selesai = $('.jam-selesai-'+i+'').val();
+            var uc_week     = $('input[name=f_uc_sched_week]').val();
+
+            //alert(uc_instructor+' - '+jam_mulai+' - '+jam_selesai+' - '+uc_week);
+
+            $.ajax(
+                {
+                    type        : 'post',
+                    dataType    : 'json',
+                    data        : { js_uc_instructor : uc_instructor, js_uc_week : uc_week, js_jam_mulai : jam_mulai, js_jam_selesai : jam_selesai},
+                    url         : base_url + 'monitoring/schedule/is_intersecting',
+                    success     : function(output) {
+                        //window.location.replace(base_url + "period/manage/" + uc_period+'/'+uc_peg_ukp);
+                        if (output == true) {
+                            $(this).addClass('is-invalid');
+                            //$(this).addC
+                            //alert("Instruktur "+instructor_name+", telah dijadwalkan untuk waktu yang sama di jadwal lain!");
                         }
                     }
                 });

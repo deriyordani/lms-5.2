@@ -38,12 +38,31 @@
             <div class="card card-header-actions">
             <div class="card-header">
                 Daftar Subject DKP
-                <button class="btn btn-primary btn-sm btn-add" data-toggle="modal" data-target="#exampleModal">Add</button>
+                <button class="btn btn-primary btn-sm btn-add" data-toggle="modal" data-target="#exampleModal">Add Program</button>
             </div>
             <div class="card-body ">
+                <div class="row">
+                    <div class="col-md-5">
 
-               
-                
+                        <select name="f_diklat_dkp" class="form-control form-control-lg select-diklat">
+                            <?php 
+                                $list_prodi = list_dkp();
+                                if(isset($list_prodi)):
+                                    ?>
+                                    <option value="">---Pilih Program---</option>
+                                        <?php foreach($list_prodi as $lp):?>
+                                            <option value="<?=$lp->uc?>"><?=$lp->label_dkp?></option>
+                                        <?php endforeach;?>
+                            <?php endif;?>
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-2">
+                            <button class="btn btn-info btn-search-period"><i class="fa fa-search"></i> &nbsp;Search</button>
+                   </div>
+                </div>
+
                 <div class="row load-data mt-4">
                     
                         <?php 
@@ -78,3 +97,45 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var base_url = $("#base-url").html();
+
+        $('.btn-search').click(function(){         
+            var page    = 1;
+
+            var log_category = $('input[name=f_log_category]').val();
+
+            if (log_category != 5) {
+                var diklat = $('select[name=f_diklat] option:selected').val();
+
+                if (log_category == 4) {
+                    var prodi = $('input[name=f_prodi]').val();
+                }
+                else {
+                    var prodi = $('select[name=f_prodi] option:selected').val();
+                }
+                
+            }
+            else {
+                var diklat = $('input[name=f_diklat]').val();
+            }
+
+            var program = $('select[name=f_diklat_dkp] option:selected').val();
+
+            $('.load-data').load(base_url+'subject/page', {js_page : page, js_prodi : prodi, js_diklat : diklat, js_program : program});
+
+            return false;
+        });
+
+        $('.page-subject a.pagination-ajax').click(function(){         
+            var page    = $(this).attr('title');
+            var program = $('select[name=f_diklat_dkp] option:selected').val();
+
+            $('.load-data').load(base_url+'subject/page', {js_page : page, js_program : program});
+
+            return false;
+        });
+    });
+</script>

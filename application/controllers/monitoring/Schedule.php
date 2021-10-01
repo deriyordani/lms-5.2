@@ -384,16 +384,19 @@ Class Schedule extends CI_Controller{
 				}
 
 				$schwk_ucs = substr_replace($schwk_ucs,'',-1);
+
+				//	Delete Plots
+				$this->schedule_plot_m->delete_in('uc_sched_week', $schwk_ucs);
+
 			}
-
-			//	Delete Plots
-			$this->schedule_plot_m->delete_in('uc_sched_week', $schwk_ucs);
-
+			
 			//	Delete Week
 			$this->schedule_week_m->delete_data(array('uc_schedule' => $uc));
 
 			//	Delete Schedule
 			$this->schedule_m->delete_data(array('uc' => $uc));
+
+			
 		}
 
 		redirect('monitoring/schedule');
