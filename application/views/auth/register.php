@@ -15,6 +15,8 @@
 body {
    background: url('../assets/img/Background-LMS.jpg') no-repeat #dadada;
 }
+
+
     
 </style>
     </head>
@@ -154,6 +156,10 @@ body {
 
                 });
 
+                jQuery.validator.addMethod("noSpace", function(value, element) { 
+                  return value.indexOf(" ") < 0 && value != ""; 
+                }, '<span class="text-danger">Username tidak boleh ada Spasi</span>');
+
 
                 $("form[name='registration']").validate({
                     // Specify validation rules
@@ -163,7 +169,8 @@ body {
                       // on the right side
                         f_nama_lengkap: "required",
                         f_username: {
-                            required: true
+                            required: true,
+                            noSpace: true
 
                         },
 
@@ -229,6 +236,14 @@ body {
 
                 $('input[name=f_username]').keyup(function(){
                     $('#username-exist').css('visibility','hidden');
+
+                    // var reg_name_lastname = /^[a-zA-Z\s]*$/;
+
+                    // //Validation to the user_name input field
+                    // if(!reg_name_lastname.test($('input[name=f_username]').val())){ //
+                    //     alert("Correct your First Name: only letters and spaces.");
+                    //     valid = false;
+                    // }
                 });
             });
         </script>

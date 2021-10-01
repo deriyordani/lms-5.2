@@ -5,6 +5,7 @@ $config['flash_update'] = ['class' => 'alert-info', 'message' => 'Data telah ber
 $config['flash_delete'] = ['class' => 'alert-info', 'message' => 'Data berhasil dihapus !','icon' => 'fa-eraser'];
 $config['flash_register'] = ['class' => 'alert-info', 'message' => 'Registrasi BERHASIL, silahkan lakukan aktivasi!','icon' => 'fa-check-circle'];
 $config['flash_register_gagal'] = ['class' => 'alert-info', 'message' => 'Maaf server kami mengalami ganguan','icon' => 'fa-eraser'];
+$config['flash_register_username_spasi'] = ['class' => 'alert-warning', 'message' => 'Maaf Username tidak boleh ada SPASI dan Karakter','icon' => 'fa-eraser'];
 $config['flash_register_no_avail'] = ['class' => 'alert-danger', 'message' => 'Maaf, data pengguna TIDAK TERDAFTAR','icon' => 'fa-eraser'];
 $config['flash_register_claimed'] = ['class' => 'alert-danger', 'message' => 'Maaf, pengguna SUDAH DIDAFTARKAN','icon' => 'fa-eraser'];
 $config['flash_register_username_exist'] = ['class' => 'alert-danger', 'message' => 'Username, sudah ada yang menggunakan, silakan pilih yang lain!','icon' => 'fa-exclamation'];
