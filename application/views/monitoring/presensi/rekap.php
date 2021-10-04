@@ -57,6 +57,11 @@
                                 <?=($classroom->full_name != NULL ? $classroom->full_name : "No Name")?> 
                             </h2>
                         </div>
+                        <div class="col-4 text-right">
+                            <a href="<?=base_url('')?>" class="btn btn-sm btn-success">
+                                <i class="fa fa-file-import"></i> &nbsp; Export Report
+                            </a>
+                        </div>
                         <!--
                         <div class="col-md-3 ml-auto text-right">
                             <a href="<?=base_url('monitoring/presensi/subject/'.$info->uc_diklat.'/'.$info->uc_prodi.'/'.$uc_diklat_class)?>" class="text-warning" style="font-size: 20pt">
