@@ -58,7 +58,7 @@
                             </h2>
                         </div>
                         <div class="col-4 text-right">
-                            <a href="<?=base_url('')?>" class="btn btn-sm btn-success">
+                            <a href="<?=base_url('monitoring/presensi/rekap/'.$uc_classroom.'/'.$uc_diklat_class.'/excel')?>" class="btn btn-sm btn-success">
                                 <i class="fa fa-file-import"></i> &nbsp; Export Report
                             </a>
                         </div>

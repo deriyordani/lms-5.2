@@ -222,7 +222,8 @@ Class Presensi extends CI_Controller{
 			}
 		}
 
-		$data['uc_diklat_class'] = $uc_diklat_class;
+		$data['uc_classroom']		= $uc_classroom;
+		$data['uc_diklat_class'] 	= $uc_diklat_class;
 
 		if ($output == "excel") {
         	$this->load->view('monitoring/presensi/excel', $data);
